@@ -10,8 +10,7 @@
 function updateQuantity(cart_item_id,cart_item_product_id) {
 
 		var quantity = document.getElementById(cart_item_id).value;
-		//var id = $('#cart_item_id').attr('id');
-    // alert("Input field lost focus."+ quantity);
+		
     $.ajax({
               type: 'PUT',
               url: '/cart_items/'+cart_item_id,
@@ -23,12 +22,6 @@ function updateQuantity(cart_item_id,cart_item_product_id) {
               
           });
 }
-// $(document).ready(function(){
-	
-// 	$("#cart_item_id").change(function(){
-//         alert("Input field lost focus."+ quantity);
-//     });
-// });
 
 $(document).ready(function(){
 	$(function () {
