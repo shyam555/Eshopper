@@ -2,25 +2,24 @@
 
  $('#sl2').slider();
 
-	var RGBChange = function() {
-	  $('#RGB').css('background', 'rgb('+r.getValue()+','+g.getValue()+','+b.getValue()+')')
-	};	
+// var RGBChange = function(){
+//   $('#RGB').css('background', 'rgb('+r.getValue()+','+g.getValue()+','+b.getValue()+')')
+// };
 		
 /*scroll to top*/
-function updateQuantity(cart_item_id,cart_item_product_id) {
+function updateQuantity(cart_item_id,cart_item_product_id){
 
-		var quantity = document.getElementById(cart_item_id).value;
-		
-    $.ajax({
-              type: 'PUT',
-              url: '/cart_items/'+cart_item_id,
-              data: {"quantity" :quantity},
-              dataType : 'script',
-              success: function() {
-                $('#cart_item_id').html('hi')
-               } 
-              
-          });
+  var quantity = document.getElementById(cart_item_id).value;
+
+  $.ajax({
+    url: '/cart_items/'+cart_item_id,
+    type: 'PUT',
+    data: {"quantity" :quantity},
+    dataType : 'script',
+    // success: function(){
+    //   $('#cart_item_id').html('hi')
+    // }
+  });
 }
 
 $(document).ready(function(){
