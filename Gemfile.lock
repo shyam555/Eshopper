@@ -295,6 +295,7 @@ GEM
       cocaine (~> 0.5.5)
       mime-types
       mimemagic (= 0.3.0)
+    pg (0.19.0)
     pry (0.10.4)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -435,6 +436,7 @@ DEPENDENCIES
   omniauth-google-oauth2
   omniauth-twitter
   paperclip (~> 4.3, >= 4.3.6)
+  pg
   pry
   quiet_assets
   rails (= 4.2.7)
