@@ -1,0 +1,75 @@
+<header id="header"><!--header-->
+  <div class="header_top"><!--header_top-->
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="contactinfo">
+            <ul class="nav nav-pills">
+              <li><a href="#"><i class="fa fa-phone"></i> +2 95 01 88 821</a></li>
+              <li><a href="#"><i class="fa fa-envelope"></i> info@domain.com</a></li>
+              <%if current_user.present? %>
+                <% if current_user.admin == true %>
+                  <li><%= link_to "Admin Section", rails_admin_path %></li>
+                <%end%>
+              <%end%>
+            </ul>
+          </div>
+        </div>
+        <% unless current_user.present? %>
+          <div class="col-sm-6">
+            <div class="social-icons pull-right">
+              <ul class="nav navbar-nav">
+                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+              </ul>
+            </div>
+          </div>
+        <%end%>
+      </div>
+    </div>
+  </div><!--/header_top-->
+  
+  <div class="header-middle"><!--header-middle-->
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="logo pull-left">
+            <%=link_to image_tag("home/logo.png", border: 0), root_path%>
+          </div>
+        </div>
+        <div class="col-sm-8">
+          <div class="shop-menu pull-right">
+            <ul class="nav navbar-nav">
+              <% if current_user.present? %>
+                <li><a href="#"><i class="fa fa-user"></i> Account</a></li>
+                <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
+                <li><a href="#"><i class="fa fa-crosshairs"></i> Checkout</a></li>
+                  <%if current_user.cart_items.present? %>
+
+                    <li><%= link_to cart_items_path do%><i class="fa fa-shopping-cart" aria-hidden="true" id="cart"%> Cart (<%= current_user.cart_items.count%>)</i> <% end %></li>
+                  <%end%>
+
+                <li><%= link_to  destroy_user_session_path,method: :delete do%><i class="fa fa-sign-out" %> Logout</i><%end%></li>
+
+              <%else%>
+                <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
+                <% if current_page?(user_session_path) %>
+
+                   <li><%= link_to new_user_registration_path do%><i class="fa fa-lock" aria-hidden="true"> Signup</i><%end%></li>
+
+                <% else %>
+
+                  <li><%= link_to user_session_path do%><i class="fa fa-lock" aria-hidden="true"></i> Login<%end%></li>
+                <%end%>
+
+              <%end%>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><!--/header-middle-->
+</header><!--/header-->

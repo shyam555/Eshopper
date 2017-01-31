@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @brand_category.name %>
+</p>
+
+<p>
+  <strong>Short description:</strong>
+  <%= @brand_category.short_description %>
+</p>
+
+<p>
+  <strong>Long description:</strong>
+  <%= @brand_category.long_description %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @brand_category.status %>
+</p>
+
+<p>
+  <strong>Category:</strong>
+  <%= @brand_category.category %>
+</p>
+
+<p>
+  <strong>Brand:</strong>
+  <%= @brand_category.brand %>
+</p>
+
+<%= link_to 'Edit', edit_brand_category_path(@brand_category) %> |
+<%= link_to 'Back', brand_categories_path %>

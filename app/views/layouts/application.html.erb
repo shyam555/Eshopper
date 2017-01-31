@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Eshopper</title>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+    <%#= include_gon(:init => true) %>
+  </head>
+  <body>
+    <%= render '/commonrender/header' %>
+    <div id="flash">
+      <p>
+        <!-- <div class="flash_bar_align"><div class="flash_text_align" ><%= bootstrap_flash %></div></div> -->
+        <%= bootstrap_flash %>
+      </p>
+    </div>
+    <%= yield %>
+    <%= render '/commonrender/footer' %>
+  </body>
+</html>

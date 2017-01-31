@@ -1,0 +1,7 @@
+$('.delete_item').bind('ajax:success', function() {
+   $(this).closest('tr').fadeOut();
+});
+
+$('#cart').html(' ('+<%= current_user.cart_items.count%>+')')
+// debugger
+// $("#flash").html();
