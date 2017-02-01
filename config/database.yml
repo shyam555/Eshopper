@@ -24,4 +24,4 @@ test:
 
 production:
   <<: *default
-  database: eshopper_development
+  database: eshopper_production
