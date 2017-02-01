@@ -13,6 +13,6 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require social-share-button
-// require_tree .
 //= require cart_item
 //= price_range
+//= require_tree .
