@@ -15,4 +15,4 @@
 //= require social-share-button
 //= require cart_item
 //= price_range
-//= require_tree .
+// require_tree .
