@@ -1,0 +1,9 @@
+<div>
+<% address_type ||= 'billing_address' %>
+<%= f.text_field :name, placeholder: "First Name", name: "address[#{address_type}][name]" %>
+<%= f.text_field :email, placeholder: "Email", name: "address[#{address_type}][email]" %>
+<%= f.text_field :address_one, placeholder: "Address1", name: "address[#{address_type}][address_one]" %>
+<%= f.text_field :address_two, placeholder: "Address2", name: "address[#{address_type}][address_two]" %>
+<%= f.text_field :zip_code, placeholder: "Zip / Postal Code", name: "address[#{address_type}][zip_code]" %>
+<%= f.text_field :mobile_number, placeholder: "Mobile Phone", name: "address[#{address_type}][mobile_number]" %>
+</div>

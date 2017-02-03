@@ -15,7 +15,7 @@ class ProductsController < ApplicationController
     @products = Product.all
     @product = Product.find(params[:id])
     @cart_item = CartItem.new
-    @category = Category.find(21)
+    @category = Category.first
   end
 
   # GET /products/new

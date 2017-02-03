@@ -1,0 +1,171 @@
+<section id="cart_items">
+  <div class="container">
+    <div class="breadcrumbs">
+      <ol class="breadcrumb">
+        <li><a href="#">Home</a></li>
+        <li class="active">Check out</li>
+      </ol>
+    </div><!--/breadcrums-->
+
+    <div class="step-one">
+      <h2 class="heading">Step1</h2>
+    </div>
+    <div class="checkout-options">
+      <h3>New User</h3>
+      <p>Checkout options</p>
+      <ul class="nav">
+        <li>
+          <label><input type="checkbox"> Register Account</label>
+        </li>
+        <li>
+          <label><input type="checkbox"> Guest Checkout</label>
+        </li>
+        <li>
+          <a href=""><i class="fa fa-times"></i>Cancel</a>
+        </li>
+      </ul>
+    </div><!--/checkout-options-->
+
+    <div class="register-req">
+      <p>Please use Register And Checkout to easily get access to your order history, or use Checkout as Guest</p>
+    </div><!--/register-req-->
+
+    <div class="shopper-informations">
+      <div class="row">
+        <%=form_for @addresses, :html => { :id=>'submit-form'} do |f|%>
+          <div class="col-sm-6 clearfix">
+            <div class="bill-to">
+              <p>Bill To</p>
+              <div class="form-one">
+                <%#= render 'address_form', f: f %>
+                  <% address_type ||= 'billing_address' %>
+                  <%= f.text_field :name, placeholder: "First Name", name: "address[#{address_type}][name]" %>
+                  <%= f.text_field :email, placeholder: "Email", name: "address[#{address_type}][email]" %>
+                  <%= f.text_field :address_one, placeholder: "Address1", name: "address[#{address_type}][address_one]" %>
+                  <%= f.text_field :address_two, placeholder: "Address2", name: "address[#{address_type}][address_two]" %>
+                  <%= f.text_field :zip_code, placeholder: "Zip / Postal Code", name: "address[#{address_type}][zip_code]" %>
+                  <%= f.text_field :mobile_number, placeholder: "Mobile Phone", name: "address[#{address_type}][mobile_number]" %>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="bill-to">
+              <p>Ship To</p>
+              <div class="form-one">
+                <%#= render 'address_form', f: f, address_type: 'shipping_address' %>
+                <% address_type = 'shipping_address' %>
+                  <%= f.text_field :name, placeholder: "First Name", name: "address[#{address_type}][name]" %>
+                  <%= f.text_field :email, placeholder: "Email", name: "address[#{address_type}][email]" %>
+                  <%= f.text_field :address_one, placeholder: "Address1", name: "address[#{address_type}][address_one]" %>
+                  <%= f.text_field :address_two, placeholder: "Address2", name: "address[#{address_type}][address_two]" %>
+                  <%= f.text_field :zip_code, placeholder: "Zip / Postal Code", name: "address[#{address_type}][zip_code]" %>
+                  <%= f.text_field :mobile_number, placeholder: "Mobile Phone", name: "address[#{address_type}][mobile_number]" %>
+
+              </div>
+              </div>  
+            </div>
+          </div>
+        <%end%>          
+      </div>
+    </div>
+    <div class="review-payment">
+      <h2>Review & Payment</h2>
+    </div>
+
+    <div class="table-responsive cart_info">
+      <table class="table table-condensed">
+        <thead>
+          <tr class="cart_menu">
+            <td class="image">Item</td>
+            <td class="description"></td>
+            <td class="price">Price</td>
+            <td class="quantity">Quantity</td>
+            <td class="total">Total</td>
+            <td></td>
+          </tr>
+        </thead>
+        <tbody>
+          <% current_user.cart_items.each do |cart_item| %>
+            <tr>
+              <td class="cart_product">
+                <%= image_tag(cart_item.product.pictures.first.image.url,class: 'cart-image', style: "width:100px;height:100px") %>
+              </td>
+
+              <td class="cart_description">
+                <h4 class="product_desc_align"><%= cart_item.product.name %></h4>
+              </td>
+
+              <td class="cart_price">
+                <p>&#8377; <%= cart_item.product.price %></p>
+              </td>
+
+              <td class="cart_quantity">
+                <div class="cart_quantity_button">
+                  <!-- <a class="cart_quantity_up" href=""> + </a> -->
+                  <%= link_to "+", cart_item_path(id: cart_item,qty: "plus"), method: :put ,class: "cart_quantity_up", :remote => true %>
+
+                  <%= number_field_tag :quantity, nil, min: 1, max: 20, onfocusout:"updateQuantity(#{cart_item.id},#{cart_item.product.id})", id: "#{cart_item.id}" ,class: "cart_quantity_input" , :remote => true, :value => cart_item.quantity %>
+
+                  <%#binding.pry%>
+                  <!-- <input id="cart_item_count_<%= cart_item.id %>" class="cart_quantity_input" type="number" min="1" max="10" name="quantity" value="<%= cart_item.quantity %>" autocomplete="off" size="2"> -->
+                 
+
+                  <%= link_to "-", cart_item_path(cart_item,qty: "minus"), method: :put ,class: "cart_quantity_down", :remote => true %>
+                </div>
+              </td>
+              <td class="cart_total" >
+                <% @total = cart_item.product.price * cart_item.quantity %>
+                <p id="sub_total_<%= cart_item.id %>" class="cart_total_price">&#8377; <%= @total %></p>
+              </td>
+
+              <td class="cart_delete">
+                <%= link_to cart_item_path(cart_item), method: :delete, data: { confirm: 'you want to delete item from cart?' }, :remote => true, :class => 'delete_item' do %><i class="fa fa-times"></i><% end %>
+              </td>
+            </tr>
+          <% end %>
+          <tr>
+            <td colspan="4">&nbsp;</td>
+            <td colspan="2">
+              <table class="table table-condensed total-result">
+                <tr>
+                  <td>Cart Sub Total</td>
+                  <td><div id="cart_sub_total">&#8377; <%=@sub_total%></div></td>
+                </tr>
+                <tr>
+                  <td>Exo Tax</td>
+                  <td><div id="tax">&#8377; <%= @tax %></div></td>
+                </tr>
+                <tr class="shipping-cost">
+                  <td>Shipping Cost</td>
+                  <td><div id="shipping_cost">&#8377; <%= @shipping_cost %></div></td>                   
+                </tr>
+                <tr>
+                  <td>Total</td>
+                  <td><span id="sub_sub_total_">&#8377; <%= @final_total %></td>
+                </tr>
+
+              </table>
+              <%= submit_tag "Submit", class: "btn btn-primary", onClick: "$('#submit-form').submit()"%>
+            </td>
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="payment-options">
+        <span>
+          <label><input type="checkbox"> Direct Bank Transfer</label>
+        </span>
+        <span>
+          <label><input type="checkbox"> Check Payment</label>
+        </span>
+        <span>
+          <label><input type="checkbox"> Paypal</label>
+        </span>
+      </div>
+  </div>
+
+</section> <!--/#cart_items-->
+
+
+
