@@ -135,7 +135,9 @@
           <% current_user.cart_items.each do |cart_item| %>
             <tr>
               <td class="cart_product">
-                <%= image_tag(cart_item.product.pictures.first.image.url,class: 'cart-image', style: "width:100px;height:100px") %>
+                <% if cart_item.product.pictures.first.present? %>
+                  <%= image_tag(cart_item.product.pictures.first.image.url,class: 'cart-image', style: "width:100px;height:100px") %>
+                <%end%>
               </td>
 
               <td class="cart_description">

@@ -9,7 +9,9 @@
           <div class="product-details"><!--product-details-->
             <div class="col-sm-5">
               <div class="view-product">
-                <%= image_tag @product.pictures.find_by(imageable_id: @product.id).image %>
+                <% if @product.pictures.find_by(imageable_id: @product.id).present? %>
+                  <%= image_tag @product.pictures.find_by(imageable_id: @product.id).image %>
+                <%end%>
                 <h3>ZOOM</h3>
               </div>
               <div id="similar-product" class="carousel slide" data-ride="carousel">
