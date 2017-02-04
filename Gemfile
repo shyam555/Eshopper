@@ -28,7 +28,7 @@ gem 'rails_admin', '~> 1.0'
 gem 'rails_12factor', group: :production
 # Use sqlite3 as the database for Active Record
 gem 'pg'
-gem 'thin'
+#gem 'thin'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
