@@ -47,12 +47,14 @@
                 <li><a href="#"><i class="fa fa-user"></i> Account</a></li>
                 <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
                 <!-- <li><a href="#"><i class="fa fa-crosshairs"></i> Checkout</a></li> -->
-                  <li><%= link_to checkouts_path do%><i class="fa fa-crosschairs" aria-hidden="true" %> Checkout </i> <% end %></li>
+                  <%if current_user.cart_items.present? %>
+
+                    <li><%= link_to checkouts_path do%><i class="fa fa-crosschairs" aria-hidden="true" %> Checkout </i> <% end %></li>
+                  <%end%>
 
                   <%if current_user.cart_items.present? %>
 
                     <li><%= link_to cart_items_path do%><i class="fa fa-shopping-cart" aria-hidden="true" id="cart"%> Cart (<%= current_user.cart_items.count%>)</i> <% end %></li>
-
                   <%end%>
 
                 <li><%= link_to  destroy_user_session_path,method: :delete do%><i class="fa fa-sign-out" %> Logout</i><%end%></li>
