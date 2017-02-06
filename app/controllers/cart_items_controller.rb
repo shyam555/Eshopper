@@ -12,7 +12,7 @@ class CartItemsController < ApplicationController
     @cart_items.each do |item|
       @sub_total += (item.product.price.to_i * item.quantity.to_i) 
     end
-    @tax = 0.10 * @sub_total
+    @tax = 0.04 * @sub_total
     @shipping_cost = 40
     @final_total = @tax + @sub_total + @shipping_cost
       #binding.pry 
@@ -103,12 +103,12 @@ class CartItemsController < ApplicationController
     respond_to do |format|
       if @cart_item.save
         @cart_items = current_user.cart_items.all
-        @sub_total1 = 0.to_i
+        @sub_total1 = 0
         @cart_items.each do |item|
           @sub_total1 += (item.product.price.to_i * item.quantity.to_i) 
         end
-        @tax = 0.10 * @sub_total1
-        @shipping_cost = 40.to_i
+        @tax = 0.04 * @sub_total1
+        @shipping_cost = 40
         @final_total = @tax + @shipping_cost + @sub_total1
 
         format.html { redirect_to :back, notice: 'Cart item was successfully updated.' }
@@ -125,6 +125,18 @@ class CartItemsController < ApplicationController
   # DELETE /cart_items/1
   # DELETE /cart_items/1.json
   def destroy
+    @cart_items = current_user.cart_items.all
+    #@cart_items = current_user.cart_items.all
+    @sub_total = 0
+    @cart_items.each do |item|
+      @sub_total += (item.product.price.to_i * item.quantity.to_i) 
+    end
+    @tax = 0.04 * @sub_total
+    @shipping_cost = 40
+    @final_total = @tax + @sub_total + @shipping_cost
+    
+
+    
     @cart_item = CartItem.find(params[:id])
     @cart_item.destroy
     respond_to do |format|
