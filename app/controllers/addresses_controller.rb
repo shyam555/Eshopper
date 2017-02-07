@@ -25,11 +25,11 @@ class AddressesController < ApplicationController
   # POST /addresses.json
   def create
     #binding.pry
-    @address_bill = current_user.addresses.new(address_params[:billing_address])
-    @address_ship = current_user.addresses.new(address_params[:shipping_address])
+    @address_bill = current_user.addresses.new(address_params)
+    #@address_ship = current_user.addresses.new(address_params[:shipping_address])
 
     respond_to do |format|
-      if @address_bill.save && @address_ship.save
+      if @address_bill.save
         format.html { redirect_to :back, notice: 'Address was successfully created.' }
         format.json { render :show, status: :created, location: @address }
       else
@@ -58,8 +58,9 @@ class AddressesController < ApplicationController
   def destroy
     @address.destroy
     respond_to do |format|
-      format.html { redirect_to addresses_url, notice: 'Address was successfully destroyed.' }
+      format.html { redirect_to :back, notice: 'Address was successfully destroyed.' }
       format.json { head :no_content }
+      format.js { render :layout => false}
     end
   end
 
@@ -72,7 +73,7 @@ class AddressesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def address_params
 
-      params.require(:address).permit(billing_address: [:user_id, :name, :email, :address_one, :address_two, :zip_code, :country, :state, :mobile_number, :address_type],shipping_address: [:user_id, :name, :email, :address_one, :address_two, :zip_code, :country, :state, :mobile_number, :address_type])
+      params.require(:address).permit(:user_id, :name, :email, :address_one, :address_two, :zip_code, :country, :state, :mobile_number, :address_type)
       #binding.pry
     end
 end

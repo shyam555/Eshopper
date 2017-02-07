@@ -1,11 +1,12 @@
 Rails.application.routes.draw do
   resources :addresses
-  resources :checkouts
+  resources :checkouts  
+  get :payment_review, to: 'checkouts#payment_review'
   resources :cart_items
   resources :product_categories
   resources :products
   resources :brand_categories
-  
+  resources :charges
   resources :products
   resources :categories do
     resources :brands

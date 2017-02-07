@@ -5,58 +5,9 @@
         <li><a href="#">Home</a></li>
         <li class="active">Check out</li>
       </ol>
-    </div><!--/breadcrums-->
-
-    <div class="step-one">
-      <h2 class="heading">Step1</h2>
     </div>
-    <!-- <div class="checkout-options">
-      <h3>New User</h3>
-      <p>Checkout options</p>
-      <ul class="nav">
-        <li>
-          <label><input type="checkbox"> Register Account</label>
-        </li>
-        <li>
-          <label><input type="checkbox"> Guest Checkout</label>
-        </li>
-        <li>
-          <a href=""><i class="fa fa-times"></i>Cancel</a>
-        </li>
-      </ul>
-    </div> --><!--/checkout-options-->
-
-    <!-- <div class="register-req">
-      <p>Please use Register And Checkout to easily get access to your order history, or use Checkout as Guest</p>
-    </div> --><!--/register-req-->
-
     <div class="shopper-informations">
-      <div class="row">
-        <% if current_user.addresses.present? %>
-          <div class="container">
-            <div class="panel panel-info">
-              <!-- <div class="panel-heading">
-                <h5 class="name">Address</h5>
-                <div style="float:right; font-size: 80%; position: relative; top:-10px"></div>
-              </div> -->
-              <div class="panel-body">
-                <% current_user.addresses.each do |address| %>
-                    <div class="col-lg-4 well", style: "margin-left: 15px" >
-                        <span>Name: <%= address.name%></span><br>
-                        <span>Email: <%= address.email%></span><br>
-                        <span>Address: <%= address.address_one%> <%=+address.address_two%></span><br>
-                        <span>PIN: <%= address.zip_code%></span><br>  
-                        <span id = 'delete_address_<%=address.id%>'><%= link_to "delete", address_path(address), method: :delete, data: { confirm: 'you want to delete?'}%></span>
-                        <%#= link_to "update", edit_address_path(address)  %><br><br>
-                        <%= link_to "Deliver on this addresss",  payment_review_path(address_id: address.id),class: "btn btn-default check_out"%>
-                    </div>  
-                <% end %>
-              </div>
-            </div>
-          </div>
-        <%end%>
-        <br><%= render 'address_model_form' %>         
-      </div>
+
     </div>
     <div class="review-payment">
       <h2>Review & Payment</h2>
@@ -137,7 +88,8 @@
                 </tr>
 
               </table>
-              <%#= submit_tag "continue", class: "btn btn-primary", onClick: "$('#submit-form').submit()"%>
+              <%#= submit_tag "continue to payment", class: "btn btn-primary"%>
+              <%= link_to "continue to payment", new_charge_path %>
             </td>
 
           </tr>
