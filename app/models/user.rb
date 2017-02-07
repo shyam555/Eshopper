@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   #validates :status, presence: true
   #after_create :send_email
+  has_many :orders
   has_many :addresses
   devise :omniauthable, :omniauth_providers => [:facebook,:google_oauth2,:twitter]
   has_many :cart_items

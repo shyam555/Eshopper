@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  payment_gateway_id: MyString
+  transection_id: MyString
+  order_satus: MyString
+  grand_total: 9.99
+  shipping_charges: 9.99
+  user_id: 
+  address_id: 
+
+two:
+  payment_gateway_id: MyString
+  transection_id: MyString
+  order_satus: MyString
+  grand_total: 9.99
+  shipping_charges: 9.99
+  user_id: 
+  address_id: 

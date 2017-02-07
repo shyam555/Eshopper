@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170202103106) do
+ActiveRecord::Schema.define(version: 20170207155946) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -83,6 +83,35 @@ ActiveRecord::Schema.define(version: 20170202103106) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "orderitems", force: :cascade do |t|
+    t.integer  "quantity"
+    t.decimal  "amount"
+    t.integer  "order_id"
+    t.integer  "product_id"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "orderitems", ["order_id"], name: "index_orderitems_on_order_id", using: :btree
+  add_index "orderitems", ["product_id"], name: "index_orderitems_on_product_id", using: :btree
+  add_index "orderitems", ["user_id"], name: "index_orderitems_on_user_id", using: :btree
+
+  create_table "orders", force: :cascade do |t|
+    t.string   "payment_gateway_id"
+    t.string   "transection_id"
+    t.string   "order_status"
+    t.decimal  "grand_total"
+    t.decimal  "shipping_charges"
+    t.integer  "user_id"
+    t.integer  "address_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
+  add_index "orders", ["address_id"], name: "index_orders_on_address_id", using: :btree
+  add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
+
   create_table "pictures", force: :cascade do |t|
     t.string   "name"
     t.integer  "imageable_id"
@@ -146,6 +175,11 @@ ActiveRecord::Schema.define(version: 20170202103106) do
   add_foreign_key "brand_categories", "categories"
   add_foreign_key "cart_items", "products"
   add_foreign_key "cart_items", "users"
+  add_foreign_key "orderitems", "orders"
+  add_foreign_key "orderitems", "products"
+  add_foreign_key "orderitems", "users"
+  add_foreign_key "orders", "addresses"
+  add_foreign_key "orders", "users"
   add_foreign_key "product_categories", "categories"
   add_foreign_key "product_categories", "products"
   add_foreign_key "products", "brands"

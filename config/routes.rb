@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :orders
   resources :addresses
   resources :checkouts  
   get :payment_review, to: 'checkouts#payment_review'
