@@ -44,7 +44,7 @@
                     <div class="col-lg-4 well", style: "margin-left: 15px" >
                         <span>Name: <%= address.name%></span><br>
                         <span>Email: <%= address.email%></span><br>
-                        <span>Address: <%= address.address_one%> <%=+address.address_two%></span><br>
+                        <span>Address: <%= address.address_one%> <%=address.address_two%></span><br>
                         <span>PIN: <%= address.zip_code%></span><br>  
                         <span id = 'delete_address_<%=address.id%>'><%= link_to "delete", address_path(address), method: :delete, data: { confirm: 'you want to delete?'}%></span>
                         <%#= link_to "update", edit_address_path(address)  %><br><br>
