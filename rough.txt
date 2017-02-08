@@ -451,3 +451,11 @@ quantity = params["quantity"].to_i
       </div><!--/recommended_items-->
 =======================================
 weibo douban tqq renren qq kaixin001 baidu google_bookmark delicious huaban tumblr plurk pinterest email linkedin
+
+=========================================
+$('#div_id').html("<%= j (render :partial => 'cart_items/index') %>");
+
+//$('#index_checkout').html("<%= j (render 'checkouts/index') %>");
+
+//$('#total_cost_shipping').html("<%= j (render 'cart_items/total_cost') %>");
+//$('#cart_sub_total').html(<%=@sub_total%>);

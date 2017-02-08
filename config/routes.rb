@@ -7,7 +7,11 @@ Rails.application.routes.draw do
   resources :product_categories
   resources :products
   resources :brand_categories
-  resources :charges
+  resources :charges do
+    collection do
+    get 'payment'
+    end
+  end
   resources :products
   resources :categories do
     resources :brands
