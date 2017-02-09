@@ -4,11 +4,12 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1>Welcome to <%= link_to('https://shyam-eshopper.herokuapp.com/') do  %>
+    <h2>Welcome to <%= link_to('https://shyam-eshopper.herokuapp.com/') do  %>
       Eshopper<%end%>,<%=@user.firstname%>
-    </h1>
+    </h2>
     <p>
-      You have successfully signed up to eshopper.com,
+      You have successfully signed up to <%= link_to('https://shyam-eshopper.herokuapp.com/') do  %>
+      eshopper.com<%end%>
       your username is: <%= @user.email %>.<br>
     </p>
     <p>
