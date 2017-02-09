@@ -38,7 +38,7 @@ class OrdersController < ApplicationController
       @order.save
       #binding.pry
     else  
-      @order = Order.new(:user_id => current_user.id, :address_id => params[:address_id], :order_status => 'pending', :grand_total => @final_total)
+      @order = Order.new(:user_id => current_user.id, :address_id => params[:address_id], :order_status => 'pending', :grand_total => @final_total, :shipping_charges => @shipping_cost, :tax => @tax)
       @order.save
     end
 

@@ -53,8 +53,8 @@ class ChargesController < ApplicationController
 
      @cart_items = current_user.cart_items
      @cart_items.each do |cart_item|
-      @order_item = Orderitem.new(order_id: @order.id,product_id: cart_item.product_id,quantity: cart_item.quantity,
-        user_id: current_user.id,amount: @final_total)
+      @order_item = Orderitem.new(order_id: @order.id, product_id: cart_item.product_id, quantity: cart_item.quantity,
+        user_id: current_user.id, amount: @final_total, tax: @tax, shipping_charges: @shipping_cost)
       #binding.pry
       @order_item.save
      end
