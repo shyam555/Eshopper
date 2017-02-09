@@ -11,6 +11,7 @@
       <div class="step-one">
         <h2 class="heading">Step1</h2>
       </div>
+      <%= button_tag "Add new address", class: "btn btn-primary", "data-toggle" => "modal","data-target" => "#myModal"%>
       <div class="shopper-informations">
         <div class="row">
           <% if current_user.addresses.present? %>
@@ -20,14 +21,18 @@
                     <div class="panel-body">
                       <% current_user.addresses.where(status: 'active').each do |address| %>
                           <div class="col-lg-4 well", style: "margin-left: 15px" >
-                              <span>Name: <%= address.name%></span><br>
+                              <span><h4>Name: <%= address.name%></h4></span><br>
                               <span>Email: <%= address.email%></span><br>
                               <span>Address: <%= address.address_one%> <%=address.address_two%></span><br>
-                              <span>PIN: <%= address.zip_code%></span><br>  
+                              <span>PIN: <%= address.zip_code%></span><br><br>  
                               <span id = 'delete_address_<%=address.id%>'>
-                              <%= link_to "Delete", address_path(address, status: 'delete'), method: :put, data: { confirm: 'you want to delete?'}%>
+                              <%= link_to "Delete Address", address_path(address, status: 'delete'), method: :put, data: { confirm: 'you want to delete?'}%>
                                 <%#= link_to "delete", address_path(address), method: :delete, data: { confirm: 'you want to delete?'}%></span>
-                              <%#= link_to "update", edit_address_path(address)  %><br><br>
+                              <%#= link_to "update", edit_address_path(address)  %>
+
+                              <%#= link_to "Update", edit_address_path(address), remote: true, "data-toggle" => "modal","data-target" => "#myModal1"%>
+                              <br><br>
+
                               <%= link_to "Deliver on this addresss",  payment_review_path(address_id: address.id),class: "btn btn-default check_out"%>
                           </div>  
                       <% end %>
@@ -36,7 +41,14 @@
                 <%end%>
             </div>
           <%end%>
-          <br><%= render 'checkouts/address_model_form' %>         
+            <div class="modal fade" id="myModal" role="dialog">
+              <br><%= render 'checkouts/address_model_form' %> 
+            </div>
+            <div class="modal fade" id="myModal1" role="dialog">
+             
+            </div>
+
+          
         </div>
       </div>
       <div class="review-payment">

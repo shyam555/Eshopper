@@ -19,6 +19,8 @@ class AddressesController < ApplicationController
 
   # GET /addresses/1/edit
   def edit
+    @addresses = Address.find(params[:id])
+    #binding.pry
   end
 
   # POST /addresses
@@ -43,7 +45,7 @@ class AddressesController < ApplicationController
   # PATCH/PUT /addresses/1.json
   def update
     @address= Address.find(params[:id])
-    if params[:status] = "delete"
+    if params[:status] == "delete"
       @address.update(status: 'inactive')
       @address.save
       redirect_to checkouts_path
