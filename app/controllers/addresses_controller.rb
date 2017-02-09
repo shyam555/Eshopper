@@ -42,13 +42,20 @@ class AddressesController < ApplicationController
   # PATCH/PUT /addresses/1
   # PATCH/PUT /addresses/1.json
   def update
-    respond_to do |format|
-      if @address.update(address_params)
-        format.html { redirect_to @address, notice: 'Address was successfully updated.' }
-        format.json { render :show, status: :ok, location: @address }
-      else
-        format.html { render :edit }
-        format.json { render json: @address.errors, status: :unprocessable_entity }
+    @address= Address.find(params[:id])
+    if params[:status] = "delete"
+      @address.update(status: 'inactive')
+      @address.save
+      redirect_to checkouts_path
+    else
+      respond_to do |format|
+        if @address.update(address_params)
+          format.html { redirect_to @address, notice: 'Address was successfully updated.' }
+          format.json { render :show, status: :ok, location: @address }
+        else
+          format.html { render :edit }
+          format.json { render json: @address.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -73,7 +80,7 @@ class AddressesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def address_params
 
-      params.require(:address).permit(:user_id, :name, :email, :address_one, :address_two, :zip_code, :country, :state, :mobile_number, :address_type)
+      params.require(:address).permit(:user_id, :name, :email, :address_one, :address_two, :zip_code, :country, :state, :mobile_number, :address_type, :status)
       #binding.pry
     end
 end

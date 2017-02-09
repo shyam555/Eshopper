@@ -58,3 +58,7 @@
 .table > tbody > tr > .thick-line {
     border-top: 2px solid;
 }
+.model_dialog_one{
+    width: 430px;
+    margin: 30px auto;
+}

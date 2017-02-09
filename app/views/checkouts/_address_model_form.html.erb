@@ -5,7 +5,7 @@
 
   <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
+    <div class="modal-dialog model_dialog_one">
     
       <!-- Modal content-->
       <div class="modal-content">
@@ -50,6 +50,7 @@
                         <%= f.text_field :address_two, placeholder: "Address2"%>
                         <%= f.text_field :zip_code, placeholder: "Zip / Postal Code"%>
                         <%= f.text_field :mobile_number, placeholder: "Mobile Phone"%>
+                        <%= f.hidden_field :status, :value => 'active'%>
                     </div>
                   </div>
                 </div>

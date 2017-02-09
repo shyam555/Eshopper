@@ -15,25 +15,25 @@
         <div class="row">
           <% if current_user.addresses.present? %>
             <div class="container">
-              <div class="panel panel-info">
-                <!-- <div class="panel-heading">
-                  <h5 class="name">Address</h5>
-                  <div style="float:right; font-size: 80%; position: relative; top:-10px"></div>
-                </div> -->
-                <div class="panel-body">
-                  <% current_user.addresses.each do |address| %>
-                      <div class="col-lg-4 well", style: "margin-left: 15px" >
-                          <span>Name: <%= address.name%></span><br>
-                          <span>Email: <%= address.email%></span><br>
-                          <span>Address: <%= address.address_one%> <%=address.address_two%></span><br>
-                          <span>PIN: <%= address.zip_code%></span><br>  
-                          <span id = 'delete_address_<%=address.id%>'><%= link_to "delete", address_path(address), method: :delete, data: { confirm: 'you want to delete?'}%></span>
-                          <%#= link_to "update", edit_address_path(address)  %><br><br>
-                          <%= link_to "Deliver on this addresss",  payment_review_path(address_id: address.id),class: "btn btn-default check_out"%>
-                      </div>  
-                  <% end %>
-                </div>
-              </div>
+                <%if current_user.addresses.where(status: 'active').present? %>
+                  <div class="panel panel-info">
+                    <div class="panel-body">
+                      <% current_user.addresses.where(status: 'active').each do |address| %>
+                          <div class="col-lg-4 well", style: "margin-left: 15px" >
+                              <span>Name: <%= address.name%></span><br>
+                              <span>Email: <%= address.email%></span><br>
+                              <span>Address: <%= address.address_one%> <%=address.address_two%></span><br>
+                              <span>PIN: <%= address.zip_code%></span><br>  
+                              <span id = 'delete_address_<%=address.id%>'>
+                              <%= link_to "Delete", address_path(address, status: 'delete'), method: :put, data: { confirm: 'you want to delete?'}%>
+                                <%#= link_to "delete", address_path(address), method: :delete, data: { confirm: 'you want to delete?'}%></span>
+                              <%#= link_to "update", edit_address_path(address)  %><br><br>
+                              <%= link_to "Deliver on this addresss",  payment_review_path(address_id: address.id),class: "btn btn-default check_out"%>
+                          </div>  
+                      <% end %>
+                    </div>
+                  </div>
+                <%end%>
             </div>
           <%end%>
           <br><%= render 'checkouts/address_model_form' %>         
