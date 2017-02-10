@@ -77,6 +77,14 @@ class ChargesController < ApplicationController
     @addresses = Address.find(@order.address_id)
     @orderitems = @order.orderitems
     #binding.pry
+    @subtotal = 0 
+    @orderitems.each do |item|                   
+     @subtotal += item.product.price * item.quantity            
+    end
+    @shipping_charges = 40.0
+    @tax = 0.04 * @subtotal
+    @final_total = @subtotal + @shipping_charges + @tax
+    #binding.pry
   end
 
   private

@@ -7,6 +7,6 @@ class OrderMailer < ApplicationMailer
     #@order = order
     @orderitems = orderitems
     @url  = 'http://example.com/login'
-    mail(to:@address.email , subject: 'Order successfully placed')
+    mail(to:@address.email , subject: 'Order successfully placed.')
   end
 end

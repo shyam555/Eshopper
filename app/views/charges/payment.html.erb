@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-xs-12">
         <div class="invoice-title">
-          <h3 class="center">Payment received successfully.</h3><h3 class="pull-right">Order #<%= params[:order_id]%></h3>
+          <h3 class="center">Payment received successfully Rs.<%= @final_total%></h3><h3 class="pull-right">Order #<%= params[:order_id]%></h3>
         </div>
         <hr>
         <div class="row">
@@ -10,7 +10,7 @@
             <address>
             <strong>Billed To:</strong><br>
               <%= @addresses.name%><br>
-              <%= @addresses.address_one%>, <%= @addresses.address_two%><br>
+              <%= @addresses.address_one%> <%= @addresses.address_two%><br>
               <%= @addresses.email%><br>
               <%= @addresses.mobile_number%><br>
             </address>
