@@ -62,3 +62,7 @@
     width: 430px;
     margin: 30px auto;
 }
+.wrapper {
+    text-align: center;
+    padding-top: 50px;
+}
