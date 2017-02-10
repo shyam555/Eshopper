@@ -49,7 +49,7 @@
                 <!-- <li><a href="#"><i class="fa fa-crosshairs"></i> Checkout</a></li> -->
                   <%if current_user.cart_items.present? %>
 
-                    <li><%= link_to checkouts_path do%><i  class="glyphicon glyphicon-search" aria-hidden="true" id="cart" %> Checkout </i> <% end %></li>
+                    <li><%= link_to checkouts_path do%><i  class="glyphicon glyphicon-search" aria-hidden="true" %> Checkout </i> <% end %></li>
                   <%end%>
 
                   <%if current_user.cart_items.present? %>
