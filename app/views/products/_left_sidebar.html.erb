@@ -39,8 +39,10 @@
     <div class="brands-name">
       <ul class="nav nav-pills nav-stacked">
         <% @brands.each do |brand|%>
-        <% if brand.products.present? %>
-          <li><a href="#"> <span class="pull-right">(<%= brand.products.size %>)</span><%=brand.name%></a></li>
+        <%if brand.products.present? %>
+            <li><%= link_to brands_path(id: brand.id) do%>
+               <span class="pull-right">(<%= brand.products.count %>)</span><%= brand.name %>
+               <%end%></li>
           <%end%>
         <%end%>
       </ul>
