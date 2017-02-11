@@ -4,7 +4,16 @@ class BrandsController < ApplicationController
   # GET /brands
   # GET /brands.json
   def index
+    @categories = Category.all
     @brands = Brand.all
+    @categories = Category.all
+    @products = Product.all
+    @product = Product.find(params[:id])
+    @cart_item = CartItem.new
+    @category = Category.first
+
+    @brand = Brand.find(params[:id])
+    #binding.pry
   end
 
   # GET /brands/1

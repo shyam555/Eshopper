@@ -1,0 +1,22 @@
+<div class="category-tab">
+  <% if @brand.products.present? %>
+    <% @brand.products.each do |product|%>
+      <div class="col-sm-3">
+        <div class="product-image-wrapper">
+          <div class="single-products">
+            <div class="productinfo text-center">
+              <%= link_to product_path(product)do%>
+                <%if product.pictures.find_by(imageable_id: product.id).present? %>
+                  <%= image_tag product.pictures.find_by(imageable_id: product.id).image %>
+                <%end%>
+                <h2>&#8377; <%=product.price%></h2>
+                <p><%= truncate(product.name, length: 22, omission: '...') %></p>
+              <%end%>
+              <%= link_to "Add to Cart",cart_items_path(product_id: product.id),method: :post, class: "fa fa-shopping-cart btn btn-default add-to-cart"%>
+            </div> 
+          </div>
+        </div>
+      </div>
+    <%end%>
+  <%end%>
+</div>

@@ -25,13 +25,12 @@
                               <span>Email: <%= address.email%></span><br>
                               <span>Mobile number: <%= address.mobile_number%></span><br>
                               <span>Address: <%= address.address_one%> <%=address.address_two%></span><br>
-                              <span>PIN: <%= address.zip_code%></span><br><br>  
-                              <span id = 'delete_address_<%=address.id%>'>
-                              <%= link_to "Delete Address", address_path(address, status: 'delete'), method: :put, data: { confirm: 'you want to delete?'}%>
-                                <%#= link_to "delete", address_path(address), method: :delete, data: { confirm: 'you want to delete?'}%></span>
-                              <%#= link_to "update", edit_address_path(address)  %>
-
-                              <%#= link_to "Update", edit_address_path(address), remote: true, "data-toggle" => "modal","data-target" => "#myModal1"%>
+                              <span>PIN: <%= address.zip_code%></span><br><br> 
+                              <i class="fa fa-trash-o"></i> 
+                              <%= link_to "Delete", address_path(address, status: 'delete'), method: :put, data: { confirm: 'you want to delete?'}%>
+                              &nbsp;&nbsp;&nbsp;&nbsp;
+                              <i class="fa fa-pencil-square-o"></i></span>
+                              <%= link_to "Edit", edit_address_path(address), remote: true %>
                               <br><br>
 
                               <%= link_to "Deliver on this addresss",  payment_review_path(address_id: address.id),class: "btn btn-default check_out"%>
@@ -45,9 +44,7 @@
             <div class="modal fade" id="myModal" role="dialog">
               <br><%= render 'checkouts/address_model_form' %> 
             </div>
-            <div class="modal fade" id="myModal1" role="dialog">
-             
-            </div>
+            
 
           
         </div>
@@ -147,6 +144,8 @@
   </section>
 
 <%end%>
-
-
-
+<div>
+  <div class="modal fade" id="edit-modal" role="dialog">
+                    
+  </div>
+</div>
