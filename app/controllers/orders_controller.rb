@@ -81,6 +81,10 @@ class OrdersController < ApplicationController
     @order.order_status = 'cancel'
     #binding.pry
     @order.save
+    @address = Address.find(@order.address_id)
+    #binding.pry
+    CancelMailer.cancel_order(@order,@address).deliver
+
   end
 
   private
