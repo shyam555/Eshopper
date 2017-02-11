@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :orders
+  resources :orders do
+    collection do
+    get 'cancel_order'
+    end
+  end
   resources :addresses
   resources :checkouts  
   get :payment_review, to: 'checkouts#payment_review'
@@ -16,6 +20,7 @@ Rails.application.routes.draw do
   resources :categories do
     resources :brands
   end
+  resources :brands
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   #devise_for :users
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }

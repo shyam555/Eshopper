@@ -76,6 +76,12 @@ class OrdersController < ApplicationController
       format.json { head :no_content }
     end
   end
+  def cancel_order
+    @order= Order.find(params['order_id'])
+    @order.order_status = 'cancel'
+    #binding.pry
+    @order.save
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -91,7 +97,7 @@ class OrdersController < ApplicationController
       @tax = 0.04 * @sub_total
       @shipping_cost = 40
       @final_total = @tax + @sub_total + @shipping_cost
-     end
+    end
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
       params.require(:order).permit(:payment_gateway_id, :transection_id, :order_satus, :grand_total, :shipping_charges, :user_id, :address_id)
