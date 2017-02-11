@@ -52,12 +52,13 @@
                     <%= f.hidden_field :status, :value => 'active'%>
                 </div>
               </div>
+                <%= f.submit "Submit", class: "btn btn-primary"%>        
             </div>
-          <%end%>          
+          <%end%>  
         </div>
     </div>
     <div class="modal-footer">
-      <%= submit_tag "Submit", class: "btn btn-sucess", onClick: "$('#submit-form').submit()"%>
+      
       <%= submit_tag 'Cancel', :type => :reset, :class => "btn btn-danger", "data-dismiss" => "modal", "aria-hidden" => "true" %>
     </div>
   </div>     

@@ -19,7 +19,7 @@ class AddressesController < ApplicationController
 
   # GET /addresses/1/edit
   def edit
-    @addresses = Address.find(params[:id])
+    @address = Address.find(params[:id])
     #binding.pry
   end
 
@@ -52,7 +52,7 @@ class AddressesController < ApplicationController
     else
       respond_to do |format|
         if @address.update(address_params)
-          format.html { redirect_to @address, notice: 'Address was successfully updated.' }
+          format.html { redirect_to :back , notice: 'Address was successfully updated.' }
           format.json { render :show, status: :ok, location: @address }
         else
           format.html { render :edit }
