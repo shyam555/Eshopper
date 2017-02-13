@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :wishlists
+  resources :transactions
   resources :orders do
     collection do
     get 'cancel_order'

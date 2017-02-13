@@ -54,7 +54,7 @@ class ChargesController < ApplicationController
      @cart_items = current_user.cart_items
      @cart_items.each do |cart_item|
       @order_item = Orderitem.new(order_id: @order.id, product_id: cart_item.product_id, quantity: cart_item.quantity,
-        user_id: current_user.id, amount: @final_total)
+      user_id: current_user.id, amount: @final_total)
       #binding.pry
       @order_item.save
      end
@@ -62,6 +62,8 @@ class ChargesController < ApplicationController
      #@order = Order.find(params[:order_id])
      #@addresses = Address.find(@order.address_id)
      @orderitems = @order.orderitems
+     @transaction = Transaction.new(user_id: current_user.id,order_id: @order.id,token: params[:stripeToken])
+     @transaction.save
      OrderMailer.order_email(@addresses,@orderitems).deliver
     end
 
