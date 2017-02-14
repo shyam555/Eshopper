@@ -35,7 +35,7 @@ class ChargesController < ApplicationController
      @addresses = Address.find(@order.address_id)
      
      @orderitems = @order.orderitems
-     @transaction = Transaction.new(user_id: current_user.id,order_id: @order.id,token: params[:stripeToken],charge_id: charge[:id])
+     @transaction = Transaction.new(user_id: current_user.id,order_id: @order.id,token: params[:stripeToken], charge_id: charge[:id])
      @transaction.save
      OrderMailer.order_email(@addresses,@orderitems).deliver
     end
@@ -54,7 +54,7 @@ class ChargesController < ApplicationController
     #binding.pry
     @subtotal = 0 
     @orderitems.each do |item|                   
-    @subtotal += item.product.price * item.quantity            
+      @subtotal += item.product.price * item.quantity            
     end
     @shipping_charges = 40.0
     @tax = 0.04 * @subtotal
