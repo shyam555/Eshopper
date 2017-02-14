@@ -44,7 +44,8 @@
           <div class="shop-menu pull-right">
             <ul class="nav navbar-nav">
               <% if current_user.present? %>
-                <li><a href="#"><i class="fa fa-user"></i> Account</a></li>
+                <!-- <li><a href="#"><i class="fa fa-user"></i> Account</a></li> -->
+                <li><%= link_to orders_path do%><i  class="fa fa-user" aria-hidden="true" %> Account </i> <% end %></li>
                 <!-- <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li> -->
                 <%#if current_user.wishlists.present?%>
                   <li><%= link_to wishlists_path do%><i  class="fa fa-star" aria-hidden="true" %> Wishlist </i> <% end %></li>
