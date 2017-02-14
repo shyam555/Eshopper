@@ -1,0 +1,1 @@
+$("#wishlist-<%=@products.id%>").html("<%= escape_javascript (render partial: 'home/wish_list_tag', :locals =>{product: @products})%>");

@@ -1,0 +1,25 @@
+<h4 align="right">
+  <% if current_user.present? %>
+    <% if current_user.present? && current_user.wishlists.pluck(:product_id).include?(product.id)%>
+      <%= link_to wishlist_path(product),method: :delete,title: 'Remove from wishlist', remote: true do %>
+        <i class="fa fa-heart wish_list_button" aria-hidden="true"></i>
+      <%end%>
+    <%else%>
+      <%= link_to wishlists_path(product_id: product.id),method: :post,title: 'Add to wishlist', remote: true do %>
+        <i class="fa fa-heart-o" aria-hidden="true"></i>
+      <%end%>
+    <%end%>
+  <%else%>
+    <% if current_user.present? && current_user.wishlists.pluck(:product_id).include?(product.id)%>
+      <%= link_to wishlist_path(product),method: :delete,title: 'Remove from wishlist' do %>
+        <i class="fa fa-heart wish_list_button" aria-hidden="true"></i>
+      <%end%>
+    <%else%>
+      <%= link_to wishlists_path(product_id: product.id),method: :post,title: 'Add to wishlist' do %>
+        <i class="fa fa-heart-o" aria-hidden="true"></i>
+      <%end%>
+    <%end%>
+
+  <%end%>
+
+</h4>

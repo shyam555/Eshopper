@@ -9,6 +9,9 @@
           <div class="product-details"><!--product-details-->
             <div class="col-sm-5">
               <div class="view-product">
+                <div id="wishlist-<%=@product.id%>">
+                  <%= render partial: "home/wish_list_tag",locals: {product: @product} %>
+                </div>
                 <% if @product.pictures.find_by(imageable_id: @product.id).present? %>
                   <%= image_tag @product.pictures.find_by(imageable_id: @product.id).image %>
                 <%end%>
@@ -52,7 +55,6 @@
                 <!-- <img src="images/product-details/new.jpg" class="newarrival" alt="" /> -->
                 <%= image_tag "product-details/new.jpg",class: "newarrival", alt: "" %>
                 <h2><%=@product.name%></h2>
-                <p>Web ID: 1089772</p>
                 <!-- <img src="images/product-details/rating.png" alt="" /> -->
                 <%= image_tag "product-details/rating.png" %><br>
                 <span>

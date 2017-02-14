@@ -1,0 +1,3 @@
+$("#wishlist-<%=@product.id%>").html("<%= escape_javascript (render partial: 'home/wish_list_tag', :locals =>{product: @product})%>");
+$("#wishlistIndex-<%=@product.id%>").remove();
+$("#wishlistIndex-<%=@product.id%>").html("<%= escape_javascript (render partial: 'wishlists/index', :locals =>{wishlist: @wishlist})%>");

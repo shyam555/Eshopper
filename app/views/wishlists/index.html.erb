@@ -1,29 +1,25 @@
-<p id="notice"><%= notice %></p>
 
-<h1>Listing Wishlists</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>User</th>
-      <th>Product</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @wishlists.each do |wishlist| %>
-      <tr>
-        <td><%= wishlist.user %></td>
-        <td><%= wishlist.product %></td>
-        <td><%= link_to 'Show', wishlist %></td>
-        <td><%= link_to 'Edit', edit_wishlist_path(wishlist) %></td>
-        <td><%= link_to 'Destroy', wishlist, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Wishlist', new_wishlist_path %>
+<section id="cart_items">
+  <div class="container">
+    <div class="breadcrumbs">
+      <ol class="breadcrumb">
+        <li><a href="#">Home</a></li>
+        <li class="active">Check out</li>
+      </ol>
+    </div><!--/breadcrums-->
+    <div class="panel panel-info">
+      <!-- <div class="panel-heading">
+        <h4 class="name"></h4>
+        <div style="float:right; font-size: 80%; position: relative; top:-10px"></div>
+      </div> -->
+      <div class="panel-body"> 
+        <% @wishlists.each do |wishlist|%>
+          <div id="wishlistIndex-<%=wishlist.product.id%>">
+            <%= render partial: 'wishlists/index', locals:{wishlist: wishlist}%>
+          </div>
+        <%end%>      
+      </div>
+    </div>
+    
+  </div>
+</section> <!--/#cart_items-->
