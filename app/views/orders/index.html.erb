@@ -12,43 +12,45 @@
     <div class="panel-group">
     <% @orders.each do |order|%>
       <% unless order.order_status == "pending"%>
-        <div class="panel panel-info">
-          <div class="panel-heading order-panel">
-            <table class="table order-table">
-              <tr>
-                <td>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+             <div class="row">
+                <div class="col-sm-2">
                   <p>Order Id <%= order.id%></p>
                   <%= link_to "Order details", payment_charges_path(order_id: order.id)%>
-                </td>
-                <td>
-                  <p>Total Amount</p>
+                </div> 
+               <div class="col-sm-3">
+                <p>Total Amount</p>
                   &#8377; <%= order.grand_total%>
                   (incl. Tax + Shipping charges)
-                </td>
-                <td>
-                  <p>Address</p>
+              </div> 
+              <div class="col-sm-2">
+                <p>Ship To</p>
                   <% if order.address.present?%>
                     <%= order.address.name%>
                   <% end %>
-                </td>
-                <td>
-                  <p>Order Placed</p> 
-                  <%= order.created_at.strftime("%d / %m / %Y") %>
-                </td>
-                <td>
-                  <p>Order Status</p> 
-                  <%if order.order_status == "sucessfull"%>
+              </div>
+              <div class="col-sm-3">
+                  <% if order.order_status == "successfull"%>
+                    <p>Order Placed</p> 
+                    <%= order.created_at.strftime("%d / %m / %Y") %>
+                  <%elsif order.order_status == "cancel"%>
+                    <p>Order Cancelled</p> 
+                    <%= order.created_at.strftime("%d / %m / %Y") %>
+                  <%end%>
+              </div>
+              <div class="col-sm-2">
+                <p>Order Status</p> 
+                  <%if order.order_status == "successfull"%>
                     <p>Order sucessfully placed</p>
                   <%elsif order.order_status == "pending"%>
                     <p>Pending Order</p>
                   <%elsif order.order_status == "cancel"%>
-                    <p>Order cancelled.</p>
+                    <p>Order cancelled</p>
                   <%end%>
-                </td>
-              </tr>
-            </table>
+              </div>
+            </div>
           </div>
-
           <table class="table table-condensed">
             <col width="10%">
             <col width="80%">

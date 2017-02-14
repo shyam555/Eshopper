@@ -80,10 +80,13 @@ class OrdersController < ApplicationController
   def cancel_order
     @order= Order.find(params['order_id'])
     @order.order_status = 'cancel'
-    #binding.pry
     @order.save
+    @transaction = Transaction.find_by(order_id: @order.id)
+    @charge_id = @transaction.charge_id
+
+    charge = Stripe::Charge.retrieve(@charge_id)
+    charge.refund
     @address = Address.find(@order.address_id)
-    #binding.pry
     CancelMailer.cancel_order(@order,@address).deliver
 
   end

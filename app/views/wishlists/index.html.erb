@@ -1,4 +1,3 @@
-
 <section id="cart_items">
   <div class="container">
     <div class="breadcrumbs">
@@ -13,11 +12,15 @@
         <div style="float:right; font-size: 80%; position: relative; top:-10px"></div>
       </div> -->
       <div class="panel-body"> 
-        <% @wishlists.each do |wishlist|%>
-          <div id="wishlistIndex-<%=wishlist.product.id%>">
-            <%= render partial: 'wishlists/index', locals:{wishlist: wishlist}%>
-          </div>
-        <%end%>      
+        <%if @wishlists.present? %>
+          <% @wishlists.each do |wishlist|%>
+            <div id="wishlistIndex-<%=wishlist.product.id%>">
+              <%= render partial: 'wishlists/index', locals:{wishlist: wishlist}%>
+            </div>
+          <%end%> 
+        <%else%>
+          <h3>Wishlist is empty...!</h3>
+        <%end%>     
       </div>
     </div>
     
