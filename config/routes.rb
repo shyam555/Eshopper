@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :recommended_products
   resources :contacts
   resources :wishlists
   resources :transactions

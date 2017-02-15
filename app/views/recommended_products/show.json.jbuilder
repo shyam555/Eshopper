@@ -1,0 +1,1 @@
+json.partial! "recommended_products/recommended_product", recommended_product: @recommended_product

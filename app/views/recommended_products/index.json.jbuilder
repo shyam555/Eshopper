@@ -1,0 +1,1 @@
+json.array! @recommended_products, partial: 'recommended_products/recommended_product', as: :recommended_product

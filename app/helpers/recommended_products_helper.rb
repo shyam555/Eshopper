@@ -1,0 +1,2 @@
+module RecommendedProductsHelper
+end
