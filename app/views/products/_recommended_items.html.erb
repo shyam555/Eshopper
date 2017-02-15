@@ -1,0 +1,39 @@
+<h2 class="title text-center">recommended items</h2>
+<div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner">
+    <% if @recommended_products.present? %>
+      <% @recommended_products.each_slice(3).with_index do |products,index|%>
+        <div class="item <%= index == 0 ? 'active' : '' %>">
+          <%products.each do |product|%>
+            <div class="col-sm-4">
+              <div class="product-image-wrapper">
+                <div class="single-products">
+                  <div class="productinfo text-center">
+                    <%#= render partial: "home/wish_list_tag",locals: {product: product} %>
+                    <%= link_to product_path(product)do%>
+                      <%if product.pictures.find_by(imageable_id: product.id).present? %>
+                        <%= image_tag product.pictures.first.image %>
+                      <%end%>
+                      <h2>&#8377; <%=product.price%></h2>
+                      <p><%= truncate(product.name, length: 22, omission: '...') %></p>
+                    <%end%>
+                      <%= link_to "Add to Cart",cart_items_path(product_id: product.id),method: :post, class: "fa fa-shopping-cart btn btn-default add-to-cart"%>
+                      
+                  </div>
+                </div>
+              </div>
+            </div>
+          <%end%>
+        </div>
+      <%end%>
+    <%else%>
+      <h3 >Recommended products not available</h3>
+    <%end%>
+  </div>
+   <a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
+    <i class="fa fa-angle-left"></i>
+    </a>
+    <a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">
+    <i class="fa fa-angle-right"></i>
+    </a>      
+</div>
