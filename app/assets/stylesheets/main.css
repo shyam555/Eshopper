@@ -215,7 +215,7 @@ a#scrollUp i{
 
 .shop-menu ul li a:hover {
 	color:#fe980f;
-	background:#fff;
+	background:none;
 }
 
 
@@ -293,7 +293,7 @@ ul.sub-menu {
 	list-style: none;
 	padding: 0;
 	margin: 0;
-	width: 220px;
+	width: 130px;
 	-webkit-box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
 	box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
 	display: none;
