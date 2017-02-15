@@ -5,7 +5,10 @@
 	var RGBChange = function() {
 	  $('#RGB').css('background', 'rgb('+r.getValue()+','+g.getValue()+','+b.getValue()+')')
 	};
-		
+function showImage(image_path){
+  $("#show").attr("src",image_path)
+
+}	
 /*scroll to top*/
 function updateQuantity(cart_item_id,cart_item_product_id) {
 
