@@ -83,9 +83,11 @@ class OrdersController < ApplicationController
     @order.save
     @transaction = Transaction.find_by(order_id: @order.id)
     @charge_id = @transaction.charge_id
-
     charge = Stripe::Charge.retrieve(@charge_id)
     charge.refund
+    @transaction.refunded = charge[:refunded]
+    @transaction.save
+    #binding.pry
     @address = Address.find(@order.address_id)
     CancelMailer.cancel_order(@order,@address).deliver
 

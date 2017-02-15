@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170214141207) do
+ActiveRecord::Schema.define(version: 20170215065139) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -153,9 +153,13 @@ ActiveRecord::Schema.define(version: 20170214141207) do
     t.integer  "order_id"
     t.integer  "orderitem_id"
     t.string   "token"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
     t.string   "charge_id"
+    t.decimal  "amount"
+    t.boolean  "paid",         default: false
+    t.boolean  "refunded",     default: false
+    t.string   "status"
   end
 
   add_index "transactions", ["order_id"], name: "index_transactions_on_order_id", using: :btree

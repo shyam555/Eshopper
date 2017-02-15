@@ -35,7 +35,7 @@ class ChargesController < ApplicationController
      @addresses = Address.find(@order.address_id)
      
      @orderitems = @order.orderitems
-     @transaction = Transaction.new(user_id: current_user.id,order_id: @order.id,token: params[:stripeToken], charge_id: charge[:id])
+     @transaction = Transaction.new(user_id: current_user.id,order_id: @order.id,token: params[:stripeToken], charge_id: charge[:id], amount: charge[:amount]/100, paid: charge[:paid], refunded: charge[:refunded], status: charge[:status])
      @transaction.save
      OrderMailer.order_email(@addresses,@orderitems).deliver
     end
