@@ -84,13 +84,18 @@ class OrdersController < ApplicationController
     @transaction = Transaction.find_by(order_id: @order.id)
     @charge_id = @transaction.charge_id
     charge = Stripe::Charge.retrieve(@charge_id)
-    charge.refund
-    @transaction.refunded = charge[:refunded]
-    @transaction.save
-    #binding.pry
-    @address = Address.find(@order.address_id)
-    CancelMailer.cancel_order(@order,@address).deliver
-
+    if charge[:refunded] == false
+      charge.refund
+      @transaction.refunded = charge[:refunded]
+      @transaction.save
+      #binding.pry
+      @address = Address.find(@order.address_id)
+      CancelMailer.cancel_order(@order,@address).deliver
+    else
+      respond_to do |format|
+        format.html { redirect_to orders_path, notice: 'Order already cancalled.' }
+      end
+    end 
   end
 
   private

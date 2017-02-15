@@ -20,7 +20,7 @@
               <div id="similar-product" class="carousel slide" data-ride="carousel">
                 
                   <!-- Wrapper for slides -->
-                    <div class="carousel-inner">
+                  <div class="carousel-inner">
                     <div class="item active">
                       <!-- <a href=""><img src="images/product-details/similar1.jpg" alt=""></a> -->
                       <%= image_tag "product-details/similar1.jpg" %>
@@ -51,11 +51,10 @@
 
             </div>
             <div class="col-sm-7">
-              <div class="product-information"><!--/product-information-->
-                <!-- <img src="images/product-details/new.jpg" class="newarrival" alt="" /> -->
+              <div class="product-information">
                 <%= image_tag "product-details/new.jpg",class: "newarrival", alt: "" %>
                 <h2><%=@product.name%></h2>
-                <!-- <img src="images/product-details/rating.png" alt="" /> -->
+                
                 <%= image_tag "product-details/rating.png" %><br>
                 <span>
                   <span>&#8377; <%=@product.price%></span>
@@ -65,19 +64,13 @@
                         <%= f.number_field :quantity, min: 1,max: 10 %>
                         <%= hidden_field_tag :product_id, @product.id %>
                         <%= hidden_field_tag :boolean, true %>
-                        <%#= f.number_field :%>
                         <%= button_tag "Add to cart", class: "btn btn-fefault cart fa fa-shopping-cart"  %>
                       <%end%>
                     </div>
-                  <!-- <button type="button" class="btn btn-fefault cart">
-                    <i class="fa fa-shopping-cart"></i>
-                    Add to cart
-                  </button> -->
                 </span>
                 <p><b>Availability:</b> In Stock</p>
                 <p><b>Condition:</b> New</p>
                 <p><b>Brand:</b> E-SHOPPER</p>
-                <%#= image_tag "/assets/product-details/share.png",class: "share img-responsive" %>
                 <%= social_share_button_tag(@product.name) %>
               </div><!--/product-information-->
             </div>
@@ -98,7 +91,6 @@
                   <div class="product-image-wrapper">
                     <div class="single-products">
                       <div class="productinfo text-center">
-                        <!-- <img src="images/home/gallery1.jpg" alt="" /> -->
                         <%= image_tag "home/gallery1.jpg" %>
                         <h2>$56</h2>
                         <p>Easy Polo Black Edition</p>
@@ -111,7 +103,6 @@
                   <div class="product-image-wrapper">
                     <div class="single-products">
                       <div class="productinfo text-center">
-                        <!-- <img src="images/home/gallery2.jpg" alt="" /> -->
                         <%= image_tag "home/gallery2.jpg" %>
                         <h2>$56</h2>
                         <p>Easy Polo Black Edition</p>
@@ -124,7 +115,6 @@
                   <div class="product-image-wrapper">
                     <div class="single-products">
                       <div class="productinfo text-center">
-                        <!-- <img src="images/home/gallery3.jpg" alt="" /> -->
                         <%= image_tag "home/gallery3.jpg" %>
                         <h2>$56</h2>
                         <p>Easy Polo Black Edition</p>
@@ -137,7 +127,6 @@
                   <div class="product-image-wrapper">
                     <div class="single-products">
                       <div class="productinfo text-center">
-                        <!-- <img src="images/home/gallery4.jpg" alt="" /> -->
                         <%= image_tag "home/gallery4.jpg" %>
                         <h2>$56</h2>
                         <p>Easy Polo Black Edition</p>
@@ -153,7 +142,6 @@
                   <div class="product-image-wrapper">
                     <div class="single-products">
                       <div class="productinfo text-center">
-                        <!-- <img src="images/home/gallery1.jpg" alt="" /> -->
                         <%= image_tag "home/gallery1.jpg" %>
                         <h2>$56</h2>
                         <p>Easy Polo Black Edition</p>
@@ -166,7 +154,6 @@
                   <div class="product-image-wrapper">
                     <div class="single-products">
                       <div class="productinfo text-center">
-                        <!-- <img src="images/home/gallery3.jpg" alt="" /> -->
                         <%= image_tag "home/gallery3.jpg" %>
                         <h2>$56</h2>
                         <p>Easy Polo Black Edition</p>
@@ -179,7 +166,6 @@
                   <div class="product-image-wrapper">
                     <div class="single-products">
                       <div class="productinfo text-center">
-                        <!-- <img src="images/home/gallery2.jpg" alt="" /> -->
                         <%= image_tag "home/gallery2.jpg" %>
                         <h2>$56</h2>
                         <p>Easy Polo Black Edition</p>
@@ -192,7 +178,6 @@
                   <div class="product-image-wrapper">
                     <div class="single-products">
                       <div class="productinfo text-center">
-                        <!-- <img src="images/home/gallery4.jpg" alt="" /> -->
                         <%= image_tag "home/gallery4.jpg" %>
                         <h2>$56</h2>
                         <p>Easy Polo Black Edition</p>
@@ -208,7 +193,6 @@
                   <div class="product-image-wrapper">
                     <div class="single-products">
                       <div class="productinfo text-center">
-                        <!-- <img src="images/home/gallery1.jpg" alt="" /> -->
                         <%= image_tag "home/gallery1.jpg" %>
                         <h2>$56</h2>
                         <p>Easy Polo Black Edition</p>
@@ -221,7 +205,6 @@
                   <div class="product-image-wrapper">
                     <div class="single-products">
                       <div class="productinfo text-center">
-                        <!-- <img src="images/home/gallery2.jpg" alt="" /> -->
                         <%= image_tag "home/gallery2.jpg" %>s
                         <h2>$56</h2>
                         <p>Easy Polo Black Edition</p>
@@ -234,7 +217,6 @@
                   <div class="product-image-wrapper">
                     <div class="single-products">
                       <div class="productinfo text-center">
-                        <!-- <img src="images/home/gallery3.jpg" alt="" /> -->
                         <%= image_tag "home/gallery3.jpg" %>
                         <h2>$56</h2>
                         <p>Easy Polo Black Edition</p>
@@ -247,7 +229,6 @@
                   <div class="product-image-wrapper">
                     <div class="single-products">
                       <div class="productinfo text-center">
-                        <!-- <img src="images/home/gallery4.jpg" alt="" /> -->
                         <%= image_tag "home/gallery4.jpg" %>
                         <h2>$56</h2>
                         <p>Easy Polo Black Edition</p>
@@ -295,7 +276,6 @@
                     <div class="product-image-wrapper">
                       <div class="single-products">
                         <div class="productinfo text-center">
-                          <!-- <img src="images/home/recommend1.jpg" alt="" /> -->
                           <%= image_tag "home/recommend1.jpg",alt: "" %>
                           <h2>$56</h2>
                           <p>Easy Polo Black Edition</p>

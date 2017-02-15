@@ -1,6 +1,12 @@
 <% if current_user.cart_items.present? %>
  <section id="cart_items">
   <div class="container">
+    <div class="breadcrumbs">
+        <ol class="breadcrumb">
+          <li><%=link_to 'Home', root_url%></li>
+          <li class="active">Cart Items</li>
+        </ol>
+      </div><!--/breadcrums-->
     <div class="cart_info">
       <table class="table table-condensed">
         <thead>

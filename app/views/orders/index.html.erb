@@ -1,78 +1,90 @@
-<section id="myorders">
-  <div class="container">
-    <div class="breadcrumbs">
-      <ol class="breadcrumb">
-        <li><%=link_to 'Home', root_url%></li>
-        <li class="active">Orders</li>
-      </ol>
-    </div>
+<% if @orders.present? %>
+  <section id="myorders">
+    <div class="container">
+      <div class="breadcrumbs">
+        <ol class="breadcrumb">
+          <li><%=link_to 'Home', root_url%></li>
+          <li class="active">My Orders</li>
+        </ol>
+      </div>
 
-    <h2>Orders</h2>
+      <h2>Orders</h2>
 
-    <div class="panel-group">
-    <% @orders.each do |order|%>
-      <% unless order.order_status == "pending"%>
-        <div class="panel panel-default">
-          <div class="panel-heading">
-             <div class="row">
-                <div class="col-sm-2">
-                  <p>Order Id <%= order.id%></p>
-                  <%= link_to "Order details", payment_charges_path(order_id: order.id)%>
+      <div class="panel-group">
+      <% @orders.each do |order|%>
+        <% unless order.order_status == "pending"%>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+               <div class="row">
+                  <div class="col-sm-2">
+                    <p>Order Id <%= order.id%></p>
+                    <%= link_to "Order details", payment_charges_path(order_id: order.id)%>
+                  </div> 
+                 <div class="col-sm-3">
+                  <p>Total Amount</p>
+                    &#8377; <%= order.grand_total%>
+                    (incl. tax + shipping charges)
                 </div> 
-               <div class="col-sm-3">
-                <p>Total Amount</p>
-                  &#8377; <%= order.grand_total%>
-                  (incl. tax + shipping charges)
-              </div> 
-              <div class="col-sm-2">
-                <p>Ship To</p>
-                  <% if order.address.present?%>
-                    <%= order.address.name%>
-                  <% end %>
-              </div>
-              <div class="col-sm-3">
-                  <% if order.order_status == "successfull"%>
-                    <p>Order Placed</p> 
-                    <%= order.created_at.strftime("%d / %m / %Y") %>
-                  <%elsif order.order_status == "cancel"%>
-                    <p>Order Cancelled</p> 
-                    <%= order.created_at.strftime("%d / %m / %Y") %>
-                  <%end%>
-              </div>
-              <div class="col-sm-2">
-                <p>Order Status</p> 
-                  <%if order.order_status == "successfull"%>
-                    <p>Order sucessfully placed</p>
-                  <%elsif order.order_status == "pending"%>
-                    <p>Pending Order</p>
-                  <%elsif order.order_status == "cancel"%>
-                    <p>Order cancelled</p>
-                  <%end%>
+                <div class="col-sm-2">
+                  <p>Ship To</p>
+                    <% if order.address.present?%>
+                      <%= order.address.name%>
+                    <% end %>
+                </div>
+                <div class="col-sm-3">
+                    <% if order.order_status == "successfull"%>
+                      <p>Order Placed</p> 
+                      <%= order.created_at.strftime("%d / %m / %Y") %>
+                    <%elsif order.order_status == "cancel"%>
+                      <p>Order Cancelled</p> 
+                      <%= order.created_at.strftime("%d / %m / %Y") %>
+                    <%end%>
+                </div>
+                <div class="col-sm-2">
+                  <p>Order Status</p> 
+                    <%if order.order_status == "successfull"%>
+                      <p>Order sucessfully placed</p>
+                    <%elsif order.order_status == "pending"%>
+                      <p>Pending Order</p>
+                    <%elsif order.order_status == "cancel"%>
+                      <p>Order cancelled</p>
+                    <%end%>
+                </div>
               </div>
             </div>
+            <table class="table table-condensed">
+              <col width="10%">
+              <col width="80%">
+              <% order.orderitems.each do |order_item| %>
+                <tbody>
+                  <tr>
+                    <td>
+                      <%= link_to product_path(order_item.product.id) do %>
+                        <%= image_tag(order_item.product.pictures.first.image.url,class: 'cart-image', style: "width:100px;height:100px") %>
+                      <%end%>
+                    </td>
+                    <td>
+                      <div><%= link_to order_item.product.name, product_path(order_item.product)%> </div>
+                      <div>&#8377; <%=order_item.product.price%></div>              
+                    </td>
+                  </tr>
+                </tbody>
+              <% end %>
+            </table>
           </div>
-          <table class="table table-condensed">
-            <col width="10%">
-            <col width="80%">
-            <% order.orderitems.each do |order_item| %>
-              <tbody>
-                <tr>
-                  <td>
-                    <%= link_to product_path(order_item.product.id) do %>
-                      <%= image_tag(order_item.product.pictures.first.image.url,class: 'cart-image', style: "width:100px;height:100px") %>
-                    <%end%>
-                  </td>
-                  <td>
-                    <div><%= link_to order_item.product.name, product_path(order_item.product)%> </div>
-                    <div>&#8377; <%=order_item.product.price%></div>              
-                  </td>
-                </tr>
-              </tbody>
-            <% end %>
-          </table>
-        </div>
-      <%end%>
-    <% end %>      
+        <%end%>
+      <% end %>      
+      </div>
     </div>
-  </div>
-</section>
+  </section>
+<%else%>
+  <section id="cart_items">
+      <div class="container">
+        <div class="cart_info">
+          <h2 style="text-align: center;"></h2>
+          <p style="text-align: center;"><b>You don't have any Order.</b></p>
+          <h4 style="text-align: center;"><%= link_to 'Continue Shopping', root_path, class: 'btn btn-width2 btn btn-primary' %></h4>
+        </div>
+      </div>
+  </section>
+<%end%>

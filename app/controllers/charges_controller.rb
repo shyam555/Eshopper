@@ -59,7 +59,7 @@ class ChargesController < ApplicationController
     @shipping_charges = 40.0
     @tax = 0.04 * @subtotal
     @final_total = @subtotal + @shipping_charges + @tax
-    #binding.pry
+    @transaction = Transaction.find_by(order_id: @order.id)
   end
 
   private
