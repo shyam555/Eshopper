@@ -5,8 +5,6 @@ class CancelMailer < ApplicationMailer
 
     @order = order
     @address = address
-    #@orderitems = orderitems
-    #@url  = 'http://example.com/login'
     attachments.inline['logo.png'] = File.read('app/assets/images/home/logo.png')
     mail(to:@address.email , subject: 'Order successfully Cancalled.')
   end
