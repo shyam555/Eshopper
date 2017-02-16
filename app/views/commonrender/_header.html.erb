@@ -64,7 +64,7 @@
                 <li><%= link_to  destroy_user_session_path,method: :delete do%><i class="fa fa-sign-out" %> Logout</i><%end%></li>
 
               <%else%>
-                <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
+                <!-- <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li> -->
                 <% if current_page?(user_session_path) %>
 
                    <li><%= link_to new_user_registration_path do%><i class="fa fa-lock" aria-hidden="true"> Signup</i><%end%></li>
