@@ -10,7 +10,8 @@
             <div class="productinfo text-center">
               <%= link_to product_path(product)do%>
                 <%if product.pictures.find_by(imageable_id: product.id).present? %>
-                  <%= image_tag product.pictures.find_by(imageable_id: product.id).image %>
+                  <%#= image_tag product.pictures.find_by(imageable_id: product.id).image %>
+                  <%= image_tag product.pictures.first.image %>
                 <%end%>
                 <h2>&#8377; <%=product.price%></h2>
                 <p><%= truncate(product.name, length: 22, omission: '...') %></p>
