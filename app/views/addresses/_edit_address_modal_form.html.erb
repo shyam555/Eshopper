@@ -17,11 +17,11 @@
                     <!-- <p>Bill To</p> -->
                     <div class="form-one">
                         <%= f.text_field :name, placeholder: "Name", required: "required"%>
-                        <%= f.text_field :email, placeholder: "Email", required: "required"%>
+                        <%= f.email_field :email, placeholder: "Email", required: "required"%>
                         <%= f.text_field :address_one, placeholder: "Address1", required: "required"%>
                         <%= f.text_field :address_two, placeholder: "Address2"%>
                         <%= f.text_field :zip_code, placeholder: "Zip / Postal Code", required: "required"%>
-                        <%= f.text_field :mobile_number, placeholder: "Mobile Phone", required: "required"%>
+                        <%= f.number_field :mobile_number, placeholder: "Mobile Phone", required: "required"%>
 
                     </div>
                   </div>
