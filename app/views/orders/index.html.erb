@@ -59,9 +59,12 @@
                 <tbody>
                   <tr>
                     <td>
-                      <%= link_to product_path(order_item.product.id) do %>
-                        <%= image_tag(order_item.product.pictures.first.image.url,class: 'cart-image', style: "width:100px;height:100px") %>
+                      <% if order_item.product.pictures.present? %>
+                        <%= link_to product_path(order_item.product.id) do %>
+                          <%= image_tag(order_item.product.pictures.first.image.url,class: 'cart-image', style: "width:100px;height:100px") %>
+                        <%end%>
                       <%end%>
+
                     </td>
                     <td>
                       <div><%= link_to order_item.product.name, product_path(order_item.product)%> </div>
