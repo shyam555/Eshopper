@@ -52,7 +52,7 @@
                     <div class="pull-right">
                       <%= form_for @cart_item do |f|%>
                         <%= f.label :quantity %>
-                        <%= f.number_field :quantity, min: 1,max: 10 %>
+                        <%= f.number_field :quantity, min: 1,value: 1 %>
                         <%= hidden_field_tag :product_id, @product.id %>
                         <%= hidden_field_tag :boolean, true %>
                         <%= button_tag "Add to cart", class: "btn btn-fefault cart fa fa-shopping-cart"  %>
@@ -61,7 +61,7 @@
                 </span>
                 <p><b>Availability:</b> In Stock</p>
                 <p><b>Condition:</b> New</p>
-                <p><b>Brand:</b> E-SHOPPER</p>
+                <p><b>Brand:</b> <%=@product.brand.name%></p>
                 <%= social_share_button_tag(@product.name) %>
               </div><!--/product-information-->
             </div>
