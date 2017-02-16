@@ -5,8 +5,10 @@
   </head>
   <body>
     <p>
-      You have successfully cancalled your order.<br>
-      order id: <%= @order.id %>.<br>
+      <%= image_tag attachments['logo.png'].url %><br>
+      <h3>You have successfully cancalled your order</h3><br>
+      order id: <%= @order.id %><br>
+      <h4>Payment refunded successfully</h4>
     </p>
   </body>
 </html>

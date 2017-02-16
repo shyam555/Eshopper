@@ -7,6 +7,7 @@ class OrderMailer < ApplicationMailer
     #@order = order
     @orderitems = orderitems
     @url  = 'http://example.com/login'
+    attachments.inline['logo.png'] = File.read('app/assets/images/home/logo.png')
     mail(to:@address.email , subject: 'Order successfully placed.')
   end
 end

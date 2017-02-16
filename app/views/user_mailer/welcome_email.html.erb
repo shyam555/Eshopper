@@ -4,6 +4,7 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
+    <%= image_tag attachments['logo.png'].url %><br>
     <h2>Welcome to <%= link_to('https://shyam-eshopper.herokuapp.com/') do  %>
       Eshopper<%end%>,<%=@user.firstname%>
     </h2>
