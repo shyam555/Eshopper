@@ -9,7 +9,9 @@
               <div class="product-image-wrapper">
                 <div class="single-products">
                   <div class="productinfo text-center">
-                    <%#= render partial: "home/wish_list_tag",locals: {product: product} %>
+                    <div id="wishlist-<%=product.id%>">
+                      <%= render partial: "home/wish_list_tag",locals: {product: product} %>
+                    </div>
                     <%= link_to product_path(product)do%>
                       <%if product.pictures.find_by(imageable_id: product.id).present? %>
                         <%= image_tag product.pictures.first.image %>
