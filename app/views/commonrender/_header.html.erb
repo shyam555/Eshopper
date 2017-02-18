@@ -54,9 +54,11 @@
                         <i class="fa fa-heart"> Wishlists</i><%end%>
                       </li>
                       <%if current_user.cart_items.present? %>
-                        <li><%= link_to "Checkout", checkouts_path%></li></br>
+                        <li><%= link_to "Checkout", checkouts_path%></li>
                       <%end%>
-                      <li><%= link_to "Contact Us", contacts_path%></li></br>
+                      <li><%= link_to contacts_path do%>
+                        <i class="fa fa-phone" aria-hidden="true"> Contact Us</i><%end%>
+                      </li></br>
                       <!-- <li><a href="#">Login</a></li>  -->
                     </ul>
                 </li>

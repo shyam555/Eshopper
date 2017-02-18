@@ -7,6 +7,7 @@
           <%else%>
             <h3 class="center">Payment received successfully Rs.<%= @final_total%></h3>
           <%end%>
+          
           <h3 class="pull-right">Order #<%= params[:order_id]%></h3>
         </div>
         <hr>
@@ -110,9 +111,15 @@
                   Cancel Order
                 <%end%>
               <%end%>
+              <% if @order.order_status == "successfull" || @order.order_status == "in-transit" || @order.order_status == "shipped" || @order.order_status == "delivered" %>
+                <%= button_tag "Track Order", class: "btn btn-primary", "data-toggle" => "modal","data-target" => "#myModal"%>
+                <div class="modal fade" id="myModal" role="dialog">
+                    <br><%= render 'charges/track_order' %> 
+                </div>
+              <%end%>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </div>   
 </div>

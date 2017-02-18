@@ -1,0 +1,7 @@
+ <% status_field = ["pending","successfull","in-transit","shipped","delivered","failed","cancel"] %>
+<div class="input-group filtering-select col-sm-2" data-input-for="status" style="float: left;">
+  <%= form.select(:order_status, status_field, {include_blank: "-- Status --"},class: 'form-control ra-filtering-select-input ui-autocomplete-input',autocomplete: "off",style: 'display: inline-block;',placeholder: 'Status') %>
+  <span class="input-group-btn open">
+  <span class="ui-button-text">&nbsp;</span>
+  </span>
+</div>

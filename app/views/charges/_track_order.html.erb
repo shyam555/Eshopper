@@ -1,0 +1,97 @@
+
+<div class="modal-dialog ">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+      <h4 class="modal-title">Track Your Order</h4>
+    </div>
+    <div class="modal-body">
+      <div class="progress" style="height: 25px">
+        <div class="row">
+          <% success = Trackorder.where(order_id: @order.id, status: 'successfull').last.created_at.strftime("%d %B %Y") if Trackorder.where(order_id: @order.id,status: 'successfull').last.present? %>
+          <% in_transit = Trackorder.where(order_id: @order.id, status: 'in-transit').last.created_at.strftime("%d %B %Y") if Trackorder.where(order_id: @order.id,status: 'in-transit').last.present? %>
+          <% shipped = Trackorder.where(order_id: @order.id, status: 'shipped').last.created_at.strftime("%d %B %Y") if Trackorder.where(order_id: @order.id,status: 'shipped').last.present? %>
+          <% delivered = Trackorder.where(order_id: @order.id,status: 'delivered').last.created_at.strftime("%d %B %Y") if Trackorder.where(order_id: @order.id,status: 'delivered').last.present? %>
+          <% if @order.order_status =='successfull'%>
+            <div class="progress-bar progress-bar-info progress_bar_size" role="progressbar" style="width:25%">
+              <p style="color: white">
+                <a title="<%= success %>" style="color:white;"> 
+                  Ordered
+                </a>
+              </p>
+            </div>
+          <% elsif @order.order_status=='in-transit'%>
+            <div class="progress-bar progress-bar-info progress_bar_size" role="progressbar" style="width:25%">
+              <p style="color: black">
+                <a  title="<%= success %>" style="color:white;">
+                  Ordered
+                </a>
+              </p>
+            </div>
+            <div class="progress-bar progress-bar-warning progress_bar_size" role="progressbar" style="width:25%">
+              <p style="color: black">
+                <a href="" title="<%= in_transit %>" style="color:white;">
+                  In Transit
+                </a>
+              </p>
+            </div>
+          <% elsif @order.order_status == 'shipped'%>
+            <div class="progress-bar progress-bar-info progress_bar_size" role="progressbar" style="width:25%">
+              <p style="color: black">
+                <a title="<%= success %>" style="color:white;">
+                  Ordered
+                </a>
+              </p>
+            </div>
+            <div class="progress-bar progress-bar-warning progress_bar_size" role="progressbar" style="width:25%">
+              <p style="color: black">
+                <a href="" title="<%= in_transit %>" style="color:white;">
+                  In Transit
+                </a>
+              </p>
+            </div>
+            <div class="progress-bar progress-bar-danger progress_bar_size" role="progressbar" style="width:25%">
+              <p style="color: white">
+                <a href="" title="<%= shipped %>" style="color:white;">
+                  Shipped
+                </a>
+              </p>
+            </div>
+          <% elsif @order.order_status == 'delivered' %>
+            <div class="progress-bar progress-bar-info progress_bar_size" role="progressbar" style="width:25%">
+              <p style="color: black">
+                <a title="<%= success %>" style="color:white;">
+                  Ordered
+                </a>
+              </p>
+            </div>
+            <div class="progress-bar progress-bar-warning progress_bar_size" role="progressbar" style="width:25%">
+              <p style="color: black">
+                <a href="" title="<%= in_transit %>" style="color:white;">
+                  In Transit
+                </a>
+              </p>
+            </div>
+            <div class="progress-bar progress-bar-danger progress_bar_size" role="progressbar" style="width:25%">
+              <p style="color: black">
+                <a href="" title="<%= shipped %>" style="color:white;">
+                  Shipped
+                </a>
+              </p>
+            </div>
+            <div class="progress-bar progress-bar-success progress_bar_size" role="progressbar" style="width:25%">
+              <p style="color: black">
+                <a href="" title="<%= delivered %>" style="color:white;">
+                  Delivered
+                </a>
+              </p>
+            </div>
+          <%end%>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <%= submit_tag 'Cancel', :type => :reset, :class => "btn btn-default", "data-dismiss" => "modal", "aria-hidden" => "true" %>
+    </div>
+  </div>     
+</div>
