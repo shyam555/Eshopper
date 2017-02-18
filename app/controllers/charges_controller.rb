@@ -20,9 +20,8 @@ class ChargesController < ApplicationController
       :description => 'Rails Stripe customer',
       :currency    => 'inr'
     )
-    #binding.pry
     if params[:stripeToken].present?
-     @order = Order.where(user_id: current_user.id,order_status: 'pending').first
+     @order = Order.where(user_id: current_user.id, order_status: 'pending').first
      @order.order_status = 'successfull'
      @order.save
 
@@ -35,13 +34,12 @@ class ChargesController < ApplicationController
      @addresses = Address.find(@order.address_id)
      
      @orderitems = @order.orderitems
-     @transaction = Transaction.new(user_id: current_user.id,order_id: @order.id,token: params[:stripeToken], charge_id: charge[:id], amount: charge[:amount]/100, paid: charge[:paid], refunded: charge[:refunded], status: charge[:status])
+     @transaction = Transaction.new(user_id: current_user.id, order_id: @order.id,token: params[:stripeToken], charge_id: charge[:id], amount: charge[:amount]/100, paid: charge[:paid], refunded: charge[:refunded], status: charge[:status])
      @transaction.save
      OrderMailer.order_email(@addresses,@orderitems).deliver
     end
 
     redirect_to  payment_charges_path(order_id: @order)
-    #@cart_items.destroy_all
   rescue Stripe::CardError => e
     flash[:error] = e.message
     redirect_to new_charge_path
@@ -51,7 +49,6 @@ class ChargesController < ApplicationController
     @order = Order.find(params[:order_id])
     @addresses = Address.find(@order.address_id)
     @orderitems = @order.orderitems
-    #binding.pry
     @subtotal = 0 
     @orderitems.each do |item|                   
       @subtotal += item.product.price * item.quantity            
@@ -60,6 +57,7 @@ class ChargesController < ApplicationController
     @tax = 0.04 * @subtotal
     @final_total = @subtotal + @shipping_charges + @tax
     @transaction = Transaction.find_by(order_id: @order.id)
+    
   end
 
   private
@@ -82,9 +80,7 @@ class ChargesController < ApplicationController
      def remove_cart_items
       current_user.cart_items.destroy_all
      end
-     #def send_email
       
-     #end  
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
       params.require(:order).permit(:payment_gateway_id, :transection_id, :order_status, :grand_total, :shipping_charges, :user_id, :address_id)

@@ -12,12 +12,10 @@ class CategoriesController < ApplicationController
   def show
     @categories = Category.all
     @brands = Brand.all
-    #binding.pry
     if params[:sub_category].present?
       @subcategory = Category.find(params['sub_category'])
       @products = @subcategory.products
       @active = Category.find(params['sub_category'])
-      #binding.pry
     else
       @products = @category.products
     end

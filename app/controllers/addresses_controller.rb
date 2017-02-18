@@ -83,6 +83,5 @@ class AddressesController < ApplicationController
     def address_params
 
       params.require(:address).permit(:user_id, :name, :email, :address_one, :address_two, :zip_code, :country, :state, :mobile_number, :address_type, :status)
-      #binding.pry
     end
 end

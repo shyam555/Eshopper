@@ -1,9 +1,10 @@
 class ContactsController < ApplicationController
   before_action :set_contact, only: [:show, :edit, :update, :destroy]
-
+  before_action :authenticate_user!
   # GET /contacts
   # GET /contacts.json
   def index
+    @contact = Contact.new
     @contacts = Contact.all
   end
 
@@ -24,15 +25,17 @@ class ContactsController < ApplicationController
   # POST /contacts
   # POST /contacts.json
   def create
-    @contact = Contact.new(contact_params)
-
+    #binding.pry
+    @contact = Contact.new(user_id: current_user.id,name: params["contact"]["name"],email: params["contact"]["email"], subject: params["contact"]["subject"], message: params["contact"]["message"], reply: "")
     respond_to do |format|
       if @contact.save
-        format.html { redirect_to @contact, notice: 'Contact was successfully created.' }
+        format.html { redirect_to :back , notice: 'Contact was successfully created.' }
         format.json { render :show, status: :created, location: @contact }
+        format.js
       else
         format.html { render :new }
         format.json { render json: @contact.errors, status: :unprocessable_entity }
+
       end
     end
   end
@@ -40,9 +43,12 @@ class ContactsController < ApplicationController
   # PATCH/PUT /contacts/1
   # PATCH/PUT /contacts/1.json
   def update
+    #binding.pry
     respond_to do |format|
-      if @contact.update(contact_params)
-        format.html { redirect_to @contact, notice: 'Contact was successfully updated.' }
+      if @contact.update(message: params["contact"]["message"], reply: params["contact"]["reply"])
+         CancelMailer.reply_mailer(@contact).deliver
+         @contact.destroy
+        format.html { redirect_to :back, notice: 'Contact was successfully updated.' }
         format.json { render :show, status: :ok, location: @contact }
       else
         format.html { render :edit }
@@ -69,6 +75,6 @@ class ContactsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def contact_params
-      params.require(:contact).permit(:user_id, :name, :email, :subject, :message)
+      params.require(:contact).permit({:user_id => ["current_user.id"]} , :name, :email, :subject, :message)
     end
 end

@@ -8,7 +8,6 @@ class CheckoutsController < ApplicationController
     @addresses = Address.new
 
     @cart_items = current_user.cart_items.all
-    #@cart_items = current_user.cart_items.all
      @sub_total = 0
      @cart_items.each do |item|
        @sub_total += (item.product.price.to_i * item.quantity.to_i) 
@@ -77,7 +76,6 @@ class CheckoutsController < ApplicationController
     @addresses = Address.new
 
     @cart_items = current_user.cart_items.all
-    #@cart_items = current_user.cart_items.all
      @sub_total = 0
      @cart_items.each do |item|
        @sub_total += (item.product.price.to_i * item.quantity.to_i) 
@@ -86,7 +84,6 @@ class CheckoutsController < ApplicationController
      @shipping_cost = 40
      @final_total = @tax + @sub_total + @shipping_cost
      @address_id = params[:address_id]
-     #binding.pry
   end
   private
     # Use callbacks to share common setup or constraints between actions.

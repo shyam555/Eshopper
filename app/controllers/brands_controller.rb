@@ -13,7 +13,6 @@ class BrandsController < ApplicationController
     @category = Category.first
 
     @brand = Brand.find(params[:id])
-    #binding.pry
   end
 
   # GET /brands/1

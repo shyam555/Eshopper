@@ -5,14 +5,12 @@ class OrdersController < ApplicationController
   # GET /orders.json
   def index
     @orders = current_user.orders
-    #binding.pry
   end
 
   # GET /orders/1
   # GET /orders/1.json
   def show
     @order_id = params[:id]
-    #binding.pry
   end
 
   # GET /orders/new
@@ -27,17 +25,13 @@ class OrdersController < ApplicationController
   # POST /orders
   # POST /orders.json
   def create
-    #@order = Order.new(order_params)
 
     @order = current_user.orders.where(user_id: current_user.id,order_status: 'pending').first
     
     if @order.present?
-      #@order.user_id = current_user.id
       @order.address_id = params[:address_id]
-      #@order.order_status = 'pending'
       @order.grand_total = @final_total
       @order.save
-      #binding.pry
     else  
       @order = Order.new(:user_id => current_user.id, :address_id => params[:address_id], :order_status => 'pending', :grand_total => @final_total)
       @order.save
@@ -88,7 +82,6 @@ class OrdersController < ApplicationController
       charge.refund
       @transaction.refunded = charge[:refunded]
       @transaction.save
-      #binding.pry
       @address = Address.find(@order.address_id)
       CancelMailer.cancel_order(@order,@address).deliver
     else

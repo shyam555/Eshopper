@@ -27,11 +27,15 @@ function updateQuantity(cart_item_id,cart_item_product_id) {
           });
 }
  $(document).ready(function(){
-	
  	$("#cart_item_id").change(function(){
          alert("Input field lost focus."+ quantity);
      });
  });
+ 
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover();   
+});
+
 
 $(document).ready(function(){
 	$(function () {

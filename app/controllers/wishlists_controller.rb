@@ -7,7 +7,6 @@ class WishlistsController < ApplicationController
   # GET /wishlists.json
   def index
     @wishlists = current_user.wishlists
-    #binding.pry
   end
 
   # GET /wishlists/1
@@ -28,9 +27,8 @@ class WishlistsController < ApplicationController
   # POST /wishlists.json
   def create
     @product_id = params[:product_id]
-    @product = Wishlist.find_by(product_id: @product_id)
     @products = Product.find_by(id: params[:product_id])
-    @wishlist = Wishlist.new(user_id: current_user.id,product_id: @product_id)
+    @wishlist = Wishlist.new(user_id: current_user.id, product_id: @product_id)
 
     respond_to do |format|
       if @wishlist.save
@@ -61,9 +59,9 @@ class WishlistsController < ApplicationController
   # DELETE /wishlists/1
   # DELETE /wishlists/1.json
   def destroy
-    @product = Product.find(params[:id])
-    @wishlist = Wishlist.find_by(product_id: @product.id)
     
+    @wishlist = Wishlist.find(params[:id])
+    @product = Product.find_by(id: @wishlist.product_id)
     @wishlist.destroy
     respond_to do |format|
       format.html { redirect_to :back, notice: 'Wishlist was successfully destroyed.' }
