@@ -8,4 +8,9 @@ class CancelMailer < ApplicationMailer
     attachments.inline['logo.png'] = File.read('app/assets/images/home/logo.png')
     mail(to:@address.email , subject: 'Order successfully Cancalled.')
   end
+
+  def reply_mailer(contact)
+    @contact = contact
+    mail(to:@contact.email , subject: 'Response')
+  end
 end
