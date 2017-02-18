@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170215122120) do
+ActiveRecord::Schema.define(version: 20170218074034) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -92,6 +92,7 @@ ActiveRecord::Schema.define(version: 20170215122120) do
     t.text     "message"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text     "reply"
   end
 
   add_index "contacts", ["user_id"], name: "index_contacts_on_user_id", using: :btree
@@ -167,6 +168,15 @@ ActiveRecord::Schema.define(version: 20170215122120) do
     t.datetime "updated_at",             null: false
   end
 
+  create_table "trackorders", force: :cascade do |t|
+    t.string   "status"
+    t.integer  "order_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "trackorders", ["order_id"], name: "index_trackorders_on_order_id", using: :btree
+
   create_table "transactions", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "order_id"
@@ -232,6 +242,7 @@ ActiveRecord::Schema.define(version: 20170215122120) do
   add_foreign_key "product_categories", "categories"
   add_foreign_key "product_categories", "products"
   add_foreign_key "products", "brands"
+  add_foreign_key "trackorders", "orders"
   add_foreign_key "transactions", "orderitems"
   add_foreign_key "transactions", "orders"
   add_foreign_key "transactions", "users"

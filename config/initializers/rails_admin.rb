@@ -1,4 +1,19 @@
 RailsAdmin.config do |config|
+  config.model 'Order' do
+    field :payment_gateway_id
+    field :transection_id
+    #field :order_status
+    field :grand_total
+    field :shipping_charges
+    field :user
+    field :address
+    field :orderitems
+    edit do
+      field :order_status do
+        partial "order_status_partial"
+      end
+    end
+  end
 
   ### Popular gems integration
 
