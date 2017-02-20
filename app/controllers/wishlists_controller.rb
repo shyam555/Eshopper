@@ -61,7 +61,6 @@ class WishlistsController < ApplicationController
   def destroy
     
     @wishlist = Wishlist.find(params[:id])
-    #binding.pry
     @product = Product.find_by(id: @wishlist.product_id)
     @wishlist.destroy
     respond_to do |format|

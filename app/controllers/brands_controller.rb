@@ -11,7 +11,6 @@ class BrandsController < ApplicationController
     @product = Product.find(params[:id])
     @cart_item = CartItem.new
     @category = Category.first
-
     @brand = Brand.find(params[:id])
   end
 
@@ -20,9 +19,7 @@ class BrandsController < ApplicationController
   def show
     @subcategory = @brand.categories
     @categories = Category.all.where(category_id: nil)
-    #binding.pry
     @category = Category.find(params[:sub_category] || params[:category_id])
-    #binding.pry
     @product = @category.products.where(brand_id: @brand.id)
     @brands = Brand.all
     

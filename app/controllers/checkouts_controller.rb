@@ -72,6 +72,7 @@ class CheckoutsController < ApplicationController
   end
 
   def payment_review
+    @coupon = Coupon.new
     @checkouts = Checkout.all
     @addresses = Address.new
 
@@ -84,6 +85,10 @@ class CheckoutsController < ApplicationController
      @shipping_cost = 40
      @final_total = @tax + @sub_total + @shipping_cost
      @address_id = params[:address_id]
+  end
+
+  def check_coupon_code
+
   end
   private
     # Use callbacks to share common setup or constraints between actions.

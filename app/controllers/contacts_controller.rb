@@ -43,7 +43,6 @@ class ContactsController < ApplicationController
   # PATCH/PUT /contacts/1
   # PATCH/PUT /contacts/1.json
   def update
-    #binding.pry
     respond_to do |format|
       if @contact.update(message: params["contact"]["message"], reply: params["contact"]["reply"])
          CancelMailer.reply_mailer(@contact).deliver
