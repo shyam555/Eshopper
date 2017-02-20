@@ -5,4 +5,9 @@ class HomeController < ApplicationController
     @category = Category.first
     @brands = Brand.all
   end
+  
+  def routing_error
+    render partial: "errors/error_404"
+  end
+  
 end

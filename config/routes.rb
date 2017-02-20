@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  
   resources :recommended_products
   resources :contacts
   resources :wishlists
@@ -35,7 +36,7 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
    root 'home#index'
-
+  get '*abc', :to => 'home#routing_error'
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
