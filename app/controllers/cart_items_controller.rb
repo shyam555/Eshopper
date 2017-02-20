@@ -56,7 +56,7 @@ class CartItemsController < ApplicationController
 
     respond_to do |format|
       if @cart_item.save
-        format.html { redirect_to :back, notice: 'Cart item was successfully created.' }
+        format.html { redirect_to :back, notice: 'Product successfully added into your cart.' }
         format.json { render :show, status: :created, location: @cart_item }
         format.js
       else
@@ -127,7 +127,7 @@ class CartItemsController < ApplicationController
     @final_total = @tax + @sub_total + @shipping_cost
     
     respond_to do |format|
-      format.html { redirect_to cart_items_url, notice: 'Cart item was successfully destroyed.' }
+      format.html { redirect_to cart_items_url, notice: 'Product successfully removed from cart.' }
       format.json { head :no_content }
       format.js   { render :layout => false}
     end

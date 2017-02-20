@@ -61,7 +61,9 @@
                 </span>
                 <p><b>Availability:</b> In Stock</p>
                 <p><b>Condition:</b> New</p>
-                <p><b>Brand:</b> <%=@product.brand.name%></p>
+                <%if @product.brand.present? %>
+                  <p><b>Brand:</b><%=@product.brand.name%></p>
+                <%end%>
                 <%= social_share_button_tag(@product.name) %>
               </div><!--/product-information-->
             </div>
