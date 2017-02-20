@@ -28,7 +28,7 @@ class WishlistsController < ApplicationController
   def create
     @product_id = params[:product_id]
     @products = Product.find_by(id: params[:product_id])
-    @wishlist = Wishlist.new(user_id: current_user.id, product_id: @product_id)
+    @wishlist = Wishlist.find_or_initialize_by(user_id: current_user.id, product_id: @product_id)
 
     respond_to do |format|
       if @wishlist.save
@@ -61,6 +61,7 @@ class WishlistsController < ApplicationController
   def destroy
     
     @wishlist = Wishlist.find(params[:id])
+    #binding.pry
     @product = Product.find_by(id: @wishlist.product_id)
     @wishlist.destroy
     respond_to do |format|

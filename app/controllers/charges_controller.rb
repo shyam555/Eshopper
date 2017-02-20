@@ -46,17 +46,23 @@ class ChargesController < ApplicationController
   end
 
   def payment
+
     @order = Order.find(params[:order_id])
-    @addresses = Address.find(@order.address_id)
-    @orderitems = @order.orderitems
-    @subtotal = 0 
-    @orderitems.each do |item|                   
-      @subtotal += item.product.price * item.quantity            
+    
+    if current_user.orders.pluck(:id).include?(@order.id)
+      @addresses = Address.find(@order.address_id)
+      @orderitems = @order.orderitems
+      @subtotal = 0 
+      @orderitems.each do |item|                   
+        @subtotal += item.product.price * item.quantity            
+      end
+      @shipping_charges = 40.0
+      @tax = 0.04 * @subtotal
+      @final_total = @subtotal + @shipping_charges + @tax
+      @transaction = Transaction.find_by(order_id: @order.id)
+    else
+      redirect_to root_path
     end
-    @shipping_charges = 40.0
-    @tax = 0.04 * @subtotal
-    @final_total = @subtotal + @shipping_charges + @tax
-    @transaction = Transaction.find_by(order_id: @order.id)
     
   end
 
