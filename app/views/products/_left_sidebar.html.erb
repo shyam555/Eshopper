@@ -22,8 +22,8 @@
             <div class="panel-body">
               <ul>
               <% category.brands.each do |brand|%>
-                <li class="<%= "brand_underline" if current_page?category_brand_path(brand,category_id: category) %>">
-                  <%= link_to category_brand_path(brand,category_id: category) do %>
+                <li class="<%= "brand_underline" if current_page?category_brand_path(brand, category_id: category) %>">
+                  <%= link_to category_brand_path(brand, category_id: category) do %>
                   <%= brand.name%>
                 <%end%></li>
               <%end%>

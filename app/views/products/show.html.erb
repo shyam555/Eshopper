@@ -4,13 +4,12 @@
         <div class="col-sm-3">
           <%= render 'left_sidebar'%>
         </div>
-        
         <div class="col-sm-9 padding-right">
           <div class="product-details"><!--product-details-->
             <div class="col-sm-5">
               <div class="view-product">
                 <div id="wishlist-<%=@product.id%>">
-                  <%= render partial: "home/wish_list_tag",locals: {product: @product} %>
+                  <%= render partial: "home/wish_list_tag", locals: {product: @product} %>
                 </div>
                 <% if @product.pictures.find_by(imageable_id: @product.id).present? %>
                   <%= image_tag @product.pictures.first.image, id: "show" %>
