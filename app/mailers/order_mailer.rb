@@ -4,7 +4,6 @@ class OrderMailer < ApplicationMailer
   def order_email(address,orderitems)
 
     @address = address
-    #@order = order
     @orderitems = orderitems
     @url  = 'http://example.com/login'
     attachments.inline['logo.png'] = File.read('app/assets/images/home/logo.png')
