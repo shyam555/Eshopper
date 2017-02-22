@@ -27,9 +27,16 @@ class CouponsController < ApplicationController
     #if CouponUsed.find_by(user_id: current_user.id,coupon_id: @coupon.id)
     @coupon = Coupon.find_by(code: params[:code])
     if @coupon.present?
-      session[:coupon_code] = params[:code]
-      respond_to do |format|
-        format.html { redirect_to :back, notice: 'Coupon was successfully applied.' }
+      @already_used_coupon = CouponUsed.find_by(user_id: current_user.id, coupon_id: @coupon.id)
+      unless @already_used_coupon.present? 
+        session[:coupon_code] = params[:code]
+        respond_to do |format|
+          format.html { redirect_to :back, notice: 'Coupon was successfully applied.' }
+        end
+      else
+        respond_to do |format|
+          format.html { redirect_to :back, notice: 'Already used coupon.' }
+        end
       end
     else
       respond_to do |format|
@@ -37,15 +44,6 @@ class CouponsController < ApplicationController
       end
     end
 
-    # respond_to do |format|
-    #   if @coupon.save
-    #     format.html { redirect_to :back, notice: 'Coupon was successfully created.' }
-    #     format.json { render :show, status: :created, location: @coupon }
-    #   else
-    #     format.html { render :new }
-    #     format.json { render json: @coupon.errors, status: :unprocessable_entity }
-    #   end
-    # end
   end
 
   # PATCH/PUT /coupons/1
@@ -76,11 +74,6 @@ class CouponsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    # def set_coupon
-    #   @coupon = Coupon.find(params[:id])
-    # end
-
     # Never trust parameters from the scary internet, only allow the white list through.
     def coupon_params
       params.fetch(:coupon, {})
