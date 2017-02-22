@@ -46,10 +46,10 @@
               <% if current_user.present? %>                
                 <li class="dropdown"><a href="#"><i class="fa fa-user"></i> Account</a>
                   <ul role="menu" class="sub-menu">
-                      <li><%= link_to orders_path,class: "" do %>
+                      <li><%= link_to orders_path, class: "" do %>
                         <i class="fa fa-reorder"> My orders</i><%end%>
                       </li>
-                      <li><%= link_to wishlists_path,class: "" do%>
+                      <li><%= link_to wishlists_path, class: "" do%>
                         <i class="fa fa-heart"> Wishlists</i><%end%>
                       </li>
                       <%if current_user.cart_items.present? %>
@@ -63,8 +63,7 @@
                   <%if current_user.cart_items.present? %>
                     <li><%= link_to cart_items_path do%><i class="fa fa-shopping-cart"aria-hidden="true" id="cart"%> Cart (<%= current_user.cart_items.count%>)</i> <% end %></li>
                   <%end%>
-
-                <li><%= link_to  destroy_user_session_path,method: :delete do%><i class="fa fa-sign-out" %> Logout</i><%end%></li>
+                <li><%= link_to  destroy_user_session_path, method: :delete do%><i class="fa fa-sign-out" %> Logout</i><%end%></li>
 
               <%else%>
                 <% if current_page?(user_session_path) %>

@@ -1,4 +1,3 @@
-
 <div class="modal-dialog ">
   <div class="modal-content">
     <div class="modal-header">
@@ -8,10 +7,10 @@
     <div class="modal-body">
       <div class="progress" style="height: 25px">
         <div class="row">
-          <% success = Trackorder.where(order_id: @order.id, status: 'successfull').last.created_at.strftime("%d %B %Y") if Trackorder.where(order_id: @order.id,status: 'successfull').last.present? %>
-          <% in_transit = Trackorder.where(order_id: @order.id, status: 'in-transit').last.created_at.strftime("%d %B %Y") if Trackorder.where(order_id: @order.id,status: 'in-transit').last.present? %>
-          <% shipped = Trackorder.where(order_id: @order.id, status: 'shipped').last.created_at.strftime("%d %B %Y") if Trackorder.where(order_id: @order.id,status: 'shipped').last.present? %>
-          <% delivered = Trackorder.where(order_id: @order.id,status: 'delivered').last.created_at.strftime("%d %B %Y") if Trackorder.where(order_id: @order.id,status: 'delivered').last.present? %>
+          <% success = Trackorder.where(order_id: @order.id, status: 'successfull').last.created_at.strftime("%d %B %Y") if Trackorder.where(order_id: @order.id, status: 'successfull').last.present? %>
+          <% in_transit = Trackorder.where(order_id: @order.id, status: 'in-transit').last.created_at.strftime("%d %B %Y") if Trackorder.where(order_id: @order.id, status: 'in-transit').last.present? %>
+          <% shipped = Trackorder.where(order_id: @order.id, status: 'shipped').last.created_at.strftime("%d %B %Y") if Trackorder.where(order_id: @order.id, status: 'shipped').last.present? %>
+          <% delivered = Trackorder.where(order_id: @order.id,status: 'delivered').last.created_at.strftime("%d %B %Y") if Trackorder.where(order_id: @order.id, status: 'delivered').last.present? %>
           <% if @order.order_status =='successfull'%>
             <div class="progress-bar progress-bar-info progress_bar_size" role="progressbar" style="width:25%">
               <p style="color: white">

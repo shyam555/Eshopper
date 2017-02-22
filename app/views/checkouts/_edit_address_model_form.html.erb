@@ -1,8 +1,4 @@
 <div class="container">
-  
-  <%#= button_tag "Add new address", class: "btn btn-primary", "data-toggle" => "modal","data-target" => "#myModal"%>
-
-  <!-- Modal -->
   <div class="modal fade" id="myModal1" role="dialog">
     <div class="modal-dialog">
     
@@ -19,7 +15,6 @@
                 <div class="col-sm-12 clearfix">
                   
                   <div class="bill-to">
-                    <!-- <p>Bill To</p> -->
                     <div class="form-one">
                         <%= f.text_field :name, placeholder: "Name"%>
                         <%= f.text_field :email, placeholder: "Email"%>
@@ -60,7 +55,6 @@
           <%= submit_tag 'Cancel', :type => :reset, :class => "btn btn-danger", "data-dismiss" => "modal", "aria-hidden" => "true" %>
         </div>
       </div>
-      
     </div>
   </div>
 </div>

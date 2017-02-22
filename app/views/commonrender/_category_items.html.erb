@@ -5,9 +5,7 @@
         <%if @category.subcategories.present? %>
           <% @categories.each_with_index do |subcategory, index| %>
             <% if subcategory.category_id == @category.id %>
-                <%#if subcategory.present?%>
                   <li class= <%= 'active' if params[:sub_category].to_s == subcategory.id.to_s%> >
-                    
                     <%= link_to category_path(id: @category.id,sub_category: subcategory.id) do %>
                       <%=subcategory.name%>
                     <%end%>

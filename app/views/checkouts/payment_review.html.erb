@@ -28,9 +28,10 @@
         <tbody>
           <% current_user.cart_items.each do |cart_item| %>
             <tr>
+              
               <td class="cart_product">
                 <% if cart_item.product.pictures.first.present? %>
-                  <%= image_tag(cart_item.product.pictures.first.image.url,class: 'cart-image', style: "width:100px;height:100px") %>
+                  <%= image_tag(cart_item.product.pictures.first.image.url, class: 'cart-image', style: "width:100px;height:100px") %>
                 <%end%>
               </td>
 
@@ -47,10 +48,12 @@
                  <p><%= cart_item.quantity %></p>
                 </div>
               </td>
+
               <td class="cart_total" >
                 <% @total = cart_item.product.price * cart_item.quantity %>
                 <p id="sub_total_<%= cart_item.id %>" class="cart_total_price">&#8377; <%= @total %></p>
               </td>
+
             </tr>
           <% end %>
           <tr>
@@ -77,18 +80,14 @@
                   <td>Total</td>
                   <td><span id="sub_sub_total_">&#8377; <%= @final_total %></td>
                 </tr>
-
               </table>
-              <%#= submit_tag "continue to payment", class: "btn btn-primary"%>
             </td>
           </tr>
         </tbody>
       </table>
-
       <%= link_to(orders_path(address_id: @address_id), method: :post, class: "btn btn-primary continue_to_payment") do  %>
       Continue to payment
       <%end%>
-      
     </div>
   </div>
 </section> <!--/#cart_items-->

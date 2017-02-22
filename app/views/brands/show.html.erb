@@ -1,13 +1,11 @@
-
 <section>
       <div class="container">
         <div class="row">
           <div class="col-sm-3">
-            <%= render '/commonrender/left_sidebar',locals: {category: @category} %>
+            <%= render '/commonrender/left_sidebar', locals: {category: @category} %>
           </div>
           <div class="col-sm-9 padding-right">
             <%= render 'sub_category' %>
-            <%#= render '/commonrender/recommended_items' %>
           </div>
         </div>
       </div>

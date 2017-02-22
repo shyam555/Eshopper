@@ -1,10 +1,3 @@
-
-  <!-- Trigger the modal with a button -->
-  <!-- <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">Add new Address</button> -->
-  
-
-  <!-- Modal -->
-  
 <div class="modal-dialog model_dialog_one">
 
   <!-- Modal content-->
@@ -19,7 +12,7 @@
           <%=form_for @addresses, :html => { :id=>'submit-form'} do |f|%>
             <div class="col-sm-12 clearfix">                 
               <div class="bill-to">
-                <!-- <p>Bill To</p> -->
+                
                 <div class="form-one">
                     <%= f.text_field :name, placeholder: "Name", required: "required"%>
                     <%= f.email_field :email, placeholder: "Email", required: "required"%>

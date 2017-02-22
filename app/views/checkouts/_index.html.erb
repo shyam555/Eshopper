@@ -43,16 +43,12 @@
           <%end%>
             <div class="modal fade" id="myModal" role="dialog">
               <br><%= render 'checkouts/address_model_form' %> 
-            </div>
-            
-
-          
+            </div>  
         </div>
       </div>
       <div class="review-payment">
         <h2>Review & Payment</h2>
       </div>
-
       <div class="cart_info">
         <table class="table table-condensed">
           <thead>
@@ -88,10 +84,6 @@
                     <%= link_to "+", cart_item_path(id: cart_item,qty: "plus"), method: :put ,class: "cart_quantity_up", :remote => true %>
 
                     <%= number_field_tag :quantity, nil, min: 1, max: 20, onfocusout:"updateQuantity(#{cart_item.id},#{cart_item.product.id})", id: "#{cart_item.id}" ,class: "cart_quantity_input" , :remote => true, :value => cart_item.quantity %>
-
-                    <%#binding.pry%>
-                    <!-- <input id="cart_item_count_<%= cart_item.id %>" class="cart_quantity_input" type="number" min="1" max="10" name="quantity" value="<%= cart_item.quantity %>" autocomplete="off" size="2"> -->
-                   
 
                     <%= link_to "-", cart_item_path(cart_item,qty: "minus"), method: :put ,class: "cart_quantity_down", :remote => true %>
                   </div>
@@ -129,7 +121,6 @@
                   </tr>
 
                 </table>
-                <%#= submit_tag "continue", class: "btn btn-primary", onClick: "$('#submit-form').submit()"%>
               </td>
 
             </tr>

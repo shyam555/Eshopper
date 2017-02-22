@@ -1,142 +1,142 @@
 <div class="container">
-    <div class="row">
-        <div class="col-xs-12">
-        <div class="invoice-title">
-          <%if @transaction.refunded == true %>
-            <h3 class="center">Payment successfully refunded.</h3>
-          <%else%>
-            <h3 class="center">Payment received successfully Rs.<%= @final_total%></h3>
-          <%end%>
+  <div class="row">
+      <div class="col-xs-12">
+      <div class="invoice-title">
+        <%if @transaction.refunded == true %>
+          <h3 class="center">Payment successfully refunded.</h3>
+        <%else%>
+          <h3 class="center">Payment received successfully Rs.<%= @final_total%></h3>
+        <%end%>
+        
+        <h3 class="pull-right">Order #<%= params[:order_id]%></h3>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-xs-6">
+          <address>
+          <strong>Billed To:</strong><br>
+            <%= @addresses.name%><br>
+            <%= @addresses.address_one%> <%= @addresses.address_two%><br>
+            <%= @addresses.email%><br>
+            <%= @addresses.mobile_number%><br>
+          </address>
+        </div>
+        <div class="col-xs-6 text-right">
           
-          <h3 class="pull-right">Order #<%= params[:order_id]%></h3>
         </div>
-        <hr>
-        <div class="row">
-          <div class="col-xs-6">
-            <address>
-            <strong>Billed To:</strong><br>
-              <%= @addresses.name%><br>
-              <%= @addresses.address_one%> <%= @addresses.address_two%><br>
-              <%= @addresses.email%><br>
-              <%= @addresses.mobile_number%><br>
-            </address>
-          </div>
-          <div class="col-xs-6 text-right">
-            
-          </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-6">
+          <address>
+            <strong>Payment Method:</strong><br>
+            Visa ending **** 4242<br>
+            <%= @addresses.email%>
+          </address>
         </div>
-        <div class="row">
-          <div class="col-xs-6">
-            <address>
-              <strong>Payment Method:</strong><br>
-              Visa ending **** 4242<br>
-              <%= @addresses.email%>
-            </address>
-          </div>
-          <div class="col-xs-6 text-right">
-            <address>
-              <strong>Order Date:</strong><br>
-                    <br><%= @order.created_at.strftime("%d / %m / %Y") %><br>
-            </address>
+        <div class="col-xs-6 text-right">
+          <address>
+            <strong>Order Date:</strong><br>
+            <br><%= @order.created_at.strftime("%d / %m / %Y") %><br>
+          </address>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title"><strong>Order summary</strong></h3>
+        </div>
+        <div class="panel-body">
+          <div class="table-responsive">
+            <table class="table table-condensed">
+              <thead>
+                <tr>
+                    <td><strong>Item</strong></td>
+                    <td class="text-center"><strong>Price</strong></td>
+                    <td class="text-center"><strong>Quantity</strong></td>
+                    <td class="text-right"><strong>Totals</strong></td>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- foreach ($order->lineItems as $line) or some such thing here -->
+                <% @subtotal = 0 %>
+                <% @orderitems.each do |item| %>
+                <tr>
+                    
+                    <td><%=item.product.name%></td>
+                    <td class="text-center"><%=item.product.price%></td>
+                    <td class="text-center"><%=item.quantity%></td>
+                    <td class="text-right"><%= item.product.price * item.quantity%></td>
+                    <% @subtotal += item.product.price * item.quantity %>
+                    
+                </tr>
+                <%end%>
+
+                    <%if session[:coupon_code].present?%>
+                      <% @coupon = Coupon.find_by(code: session[:coupon_code])%>
+                      <% @percent_off = @coupon.percent_off %>
+                      <% @discount = ((@percent_off * @subtotal) / 100) %>
+                      <% @tax = 0.04 * @subtotal%>
+                      <% @shipping_charges = 40 %>
+                      <% @final_total = @tax + @subtotal + @shipping_charges - @discount %>
+                    <%else%>
+                      <%@tax = 0.04 * @subtotal%>
+                      <%@shipping_charges = 40%>
+                      <%@final_total = @tax + @subtotal + @shipping_charges%>
+                    <%end%>
+                <tr>
+                  <td class="thick-line"></td>
+                  <td class="thick-line"></td>
+                  <td class="thick-line text-center"><strong>Subtotal</strong></td>
+                  <td class="thick-line text-right"><%= @subtotal %></td>
+                </tr>
+                <tr>
+                  <td class="no-line"></td>
+                  <td class="no-line"></td>
+                  <td class="no-line text-center"><strong>Discount</strong></td>
+                  <td class="no-line text-right"><%= @discount %></td>
+                </tr>
+                <tr>
+                  <td class="no-line"></td>
+                  <td class="no-line"></td>
+                  <td class="no-line text-center"><strong>Shipping</strong></td>
+                  <td class="no-line text-right"><%= @shipping_charges %></td>
+                </tr>
+                <tr>
+                  <td class="no-line"></td>
+                  <td class="no-line"></td>
+                  <td class="no-line text-center"><strong>Tax</strong></td>
+                  <td class="no-line text-right"><%= @tax %></td>
+                </tr>
+                <tr>
+                  <td class="no-line"></td>
+                  <td class="no-line"></td>
+                  <td class="no-line text-center"><strong>Total</strong></td>
+                  <td class="no-line text-right"><%= @final_total %></td>
+                </tr>
+              </tbody>
+
+            </table>
+            <%= link_to(root_path, class: "btn btn-primary") do  %>
+              Continue shopping
+            <%end%>
+            <%if @transaction.refunded == false %>
+              <%= link_to(cancel_order_orders_path(order_id: @order), class: "btn btn-primary") do  %>
+                Cancel Order
+              <%end%>
+            <%end%>
+            <% if @order.order_status == "successfull" || @order.order_status == "in-transit" || @order.order_status == "shipped" || @order.order_status == "delivered" %>
+              <%= button_tag "Track Order", class: "btn btn-primary", "data-toggle" => "modal","data-target" => "#myModal"%>
+              <div class="modal fade" id="myModal" role="dialog">
+                  <br><%= render 'charges/track_order' %> 
+              </div>
+            <%end%>
           </div>
         </div>
       </div>
     </div>
-    
-    <div class="row">
-      <div class="col-md-12">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title"><strong>Order summary</strong></h3>
-          </div>
-          <div class="panel-body">
-            <div class="table-responsive">
-              <table class="table table-condensed">
-                <thead>
-                  <tr>
-                      <td><strong>Item</strong></td>
-                      <td class="text-center"><strong>Price</strong></td>
-                      <td class="text-center"><strong>Quantity</strong></td>
-                      <td class="text-right"><strong>Totals</strong></td>
-                  </tr>
-                </thead>
-                <tbody>
-                  <!-- foreach ($order->lineItems as $line) or some such thing here -->
-                  <% @subtotal = 0 %>
-                  <% @orderitems.each do |item| %>
-                  <tr>
-                      
-                      <td><%=item.product.name%></td>
-                      <td class="text-center"><%=item.product.price%></td>
-                      <td class="text-center"><%=item.quantity%></td>
-                      <td class="text-right"><%= item.product.price * item.quantity%></td>
-                      <% @subtotal += item.product.price * item.quantity %>
-                      
-                  </tr>
-                  <%end%>
-
-                      <%if session[:coupon_code].present?%>
-                        <% @coupon = Coupon.find_by(code: session[:coupon_code])%>
-                        <% @percent_off = @coupon.percent_off %>
-                        <% @discount = ((@percent_off * @subtotal) / 100) %>
-                        <% @tax = 0.04 * @subtotal%>
-                        <% @shipping_charges = 40 %>
-                        <% @final_total = @tax + @subtotal + @shipping_charges - @discount %>
-                      <%else%>
-                        <%@tax = 0.04 * @subtotal%>
-                        <%@shipping_charges = 40%>
-                        <%@final_total = @tax + @subtotal + @shipping_charges%>
-                      <%end%>
-                  <tr>
-                    <td class="thick-line"></td>
-                    <td class="thick-line"></td>
-                    <td class="thick-line text-center"><strong>Subtotal</strong></td>
-                    <td class="thick-line text-right"><%= @subtotal %></td>
-                  </tr>
-                  <tr>
-                    <td class="no-line"></td>
-                    <td class="no-line"></td>
-                    <td class="no-line text-center"><strong>Discount</strong></td>
-                    <td class="no-line text-right"><%= @discount %></td>
-                  </tr>
-                  <tr>
-                    <td class="no-line"></td>
-                    <td class="no-line"></td>
-                    <td class="no-line text-center"><strong>Shipping</strong></td>
-                    <td class="no-line text-right"><%= @shipping_charges %></td>
-                  </tr>
-                  <tr>
-                    <td class="no-line"></td>
-                    <td class="no-line"></td>
-                    <td class="no-line text-center"><strong>Tax</strong></td>
-                    <td class="no-line text-right"><%= @tax %></td>
-                  </tr>
-                  <tr>
-                    <td class="no-line"></td>
-                    <td class="no-line"></td>
-                    <td class="no-line text-center"><strong>Total</strong></td>
-                    <td class="no-line text-right"><%= @final_total %></td>
-                  </tr>
-                </tbody>
-
-              </table>
-              <%= link_to(root_path, class: "btn btn-primary") do  %>
-                Continue shopping
-              <%end%>
-              <%if @transaction.refunded == false %>
-                <%= link_to(cancel_order_orders_path(order_id: @order), class: "btn btn-primary") do  %>
-                  Cancel Order
-                <%end%>
-              <%end%>
-              <% if @order.order_status == "successfull" || @order.order_status == "in-transit" || @order.order_status == "shipped" || @order.order_status == "delivered" %>
-                <%= button_tag "Track Order", class: "btn btn-primary", "data-toggle" => "modal","data-target" => "#myModal"%>
-                <div class="modal fade" id="myModal" role="dialog">
-                    <br><%= render 'charges/track_order' %> 
-                </div>
-              <%end%>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>   
+  </div>   
 </div>

@@ -1,152 +1,121 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>Contact | E-Shopper</title>
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/font-awesome.min.css" rel="stylesheet">
-    <link href="css/prettyPhoto.css" rel="stylesheet">
-    <link href="css/price-range.css" rel="stylesheet">
-    <link href="css/animate.css" rel="stylesheet">
-  <link href="css/main.css" rel="stylesheet">
-  <link href="css/responsive.css" rel="stylesheet">
-    <!--[if lt IE 9]>
-    <script src="js/html5shiv.js"></script>
-    <script src="js/respond.min.js"></script>
-    <![endif]-->       
-    <link rel="shortcut icon" href="images/ico/favicon.ico">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
-</head><!--/head-->
-<body>
-   <div id="contact-page" class="container">
-      <div class="bg">
-        <div class="row">       
-          <div class="col-sm-12">                 
-          <h2 class="title text-center">Contact <strong>Us</strong></h2>
+<div id="contact-page" class="container">
+  <div class="bg">
+    <div class="row">       
+      <div class="col-sm-12">                 
+      <h2 class="title text-center">Contact <strong>Us</strong></h2>
+    </div>          
+  </div>
+    <% if current_user.admin == false %>      
+      <div class="row">   
+        <div class="col-sm-8">
+          <div class="contact-form">
+            <h2 class="title text-center">Get In Touch</h2>
+            <div class="status alert alert-success" style="display: none"></div>
+              <%= form_for(@contact) do |f| %>
+                <% if @contact.errors.any? %>
+                  <div id="error_explanation">
+                    <h2><%= pluralize(@contact.errors.count, "error") %> prohibited this contact from being saved:</h2>
+
+                    <ul>
+                    <% @contact.errors.full_messages.each do |message| %>
+                      <li><%= message %></li>
+                    <% end %>
+                    </ul>
+                  </div>
+                <% end %>
+
+                <div class="form-group col-md-6">
+                  <%= f.text_field :name,class: "form-control", required: "required", placeholder: "Name" %>
+                </div>
+                <div class="form-group col-md-6">
+                  <%= f.email_field :email,class: "form-control", required: "required",:value => current_user.email %>
+                </div>
+                <div class="form-group col-md-12">
+                  <%= f.text_field :subject,class: "form-control", required: "required", placeholder: "Subject" %>
+                </div>
+                <div class="form-group col-md-12">
+                  <%= f.text_field :message,class: "form-control", required: "required", placeholder: "Your Message Here" %>
+                </div>
+                <div class="form-group col-md-12">
+                  <%= f.submit "SUBMIT",class: "btn btn-primary pull-right", remote: true %>
+                </div>
+              <% end %>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="contact-info">
+            <h2 class="title text-center">Contact Info</h2>
+            <address>
+              <p>E-Shopper Inc.</p>
+            <p>935 W. Webster Ave New Streets Chicago, IL 60614, NY</p>
+            <p>Newyork USA</p>
+            <p>Mobile: +2346 17 38 93</p>
+            <p>Fax: 1-714-252-0026</p>
+            <p>Email: info@e-shopper.com</p>
+            </address>
+            <div class="social-networks">
+              <h2 class="title text-center">Social Networking</h2>
+            <ul>
+              <li>
+                <a href="#"><i class="fa fa-facebook"></i></a>
+              </li>
+              <li>
+                <a href="#"><i class="fa fa-twitter"></i></a>
+              </li>
+              <li>
+                <a href="#"><i class="fa fa-google-plus"></i></a>
+              </li>
+              <li>
+                <a href="#"><i class="fa fa-youtube"></i></a>
+              </li>
+            </ul>
+            </div>
+          </div>
         </div>          
       </div>
-        <% if current_user.admin == false %>      
-          <div class="row">   
-            <div class="col-sm-8">
-              <div class="contact-form">
-                <h2 class="title text-center">Get In Touch</h2>
-                <div class="status alert alert-success" style="display: none"></div>
-                  <%= form_for(@contact) do |f| %>
-                    <% if @contact.errors.any? %>
-                      <div id="error_explanation">
-                        <h2><%= pluralize(@contact.errors.count, "error") %> prohibited this contact from being saved:</h2>
-
-                        <ul>
-                        <% @contact.errors.full_messages.each do |message| %>
-                          <li><%= message %></li>
-                        <% end %>
-                        </ul>
-                      </div>
-                    <% end %>
-
-                    <div class="form-group col-md-6">
-                      <%= f.text_field :name,class: "form-control", required: "required", placeholder: "Name" %>
+    <%else%>
+      <div>
+        <%if @contacts.present? %>
+          <% @contacts.each do |contact|%>
+            <div class="panel panel-success">
+              <div class="panel-heading">
+                <div class="row">
+                  <div class="col-sm-2">
+                    <p ><Strong>NAME</strong></p>
+                    <p ><%= contact.name %></p>
+                  </div> 
+                  <div class="col-sm-2">
+                  </div>
+                  <div class="col-sm-2">
+                    <p><Strong>SUBJECT</strong></p>
+                    <p><%= contact.subject %></p>
+                  </div>
+                  <div class="col-sm-3 col-sm-offset-3">
+                    <p align="right"><strong></strong></p>
+                    <p align="right"></p>
+                  </div>
+                </div>
+              </div>
+              <div class="panel-body">
+                <div class="col-sm-6">
+                  <h4> MESSAGE </h4>
+                  <div class="panel panel-default">
+                    <div class="panel-body">
+                      <%= contact.message %>
                     </div>
-                    <div class="form-group col-md-6">
-                      <%= f.email_field :email,class: "form-control", required: "required",:value => current_user.email %>
-                    </div>
-                    <div class="form-group col-md-12">
-                      <%= f.text_field :subject,class: "form-control", required: "required", placeholder: "Subject" %>
-                    </div>
-                    <div class="form-group col-md-12">
-                      <%= f.text_field :message,class: "form-control", required: "required", placeholder: "Your Message Here" %>
-                    </div>
-                    <div class="form-group col-md-12">
-                      <%= f.submit "SUBMIT",class: "btn btn-primary pull-right", remote: true %>
-                    </div>
-                  <% end %>
+                  </div>
+                  <%=link_to(edit_contact_path(contact), remote: true, class: "btn btn-primary") do %>Reply<% end %>
+                  <%= link_to(contact_path(contact), class: "btn btn-primary", method: :delete, data: { confirm: 'Are you sure?'}) do %>Delete<% end %>
+                </div>
               </div>
             </div>
-            <div class="col-sm-4">
-              <div class="contact-info">
-                <h2 class="title text-center">Contact Info</h2>
-                <address>
-                  <p>E-Shopper Inc.</p>
-                <p>935 W. Webster Ave New Streets Chicago, IL 60614, NY</p>
-                <p>Newyork USA</p>
-                <p>Mobile: +2346 17 38 93</p>
-                <p>Fax: 1-714-252-0026</p>
-                <p>Email: info@e-shopper.com</p>
-                </address>
-                <div class="social-networks">
-                  <h2 class="title text-center">Social Networking</h2>
-                <ul>
-                  <li>
-                    <a href="#"><i class="fa fa-facebook"></i></a>
-                  </li>
-                  <li>
-                    <a href="#"><i class="fa fa-twitter"></i></a>
-                  </li>
-                  <li>
-                    <a href="#"><i class="fa fa-google-plus"></i></a>
-                  </li>
-                  <li>
-                    <a href="#"><i class="fa fa-youtube"></i></a>
-                  </li>
-                </ul>
-                </div>
-              </div>
-            </div>          
-          </div>
+          <%end%>
         <%else%>
-          <div>
-            <%if @contacts.present? %>
-              <% @contacts.each do |contact|%>
-                <div class="panel panel-success">
-                  <div class="panel-heading">
-                    <div class="row">
-                      <div class="col-sm-2">
-                        <p ><Strong>NAME</strong></p>
-                        <p ><%= contact.name %></p>
-                      </div> 
-                      <div class="col-sm-2">
-                      </div>
-                      <div class="col-sm-2">
-                        <p><Strong>SUBJECT</strong></p>
-                        <p><%= contact.subject %></p>
-                      </div>
-                      <div class="col-sm-3 col-sm-offset-3">
-                        <p align="right"><strong></strong></p>
-                        <p align="right"></p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="panel-body">
-                    <div class="col-sm-6">
-                      <h4> MESSAGE </h4>
-                      <div class="panel panel-default">
-                        <div class="panel-body">
-                          <%= contact.message %>
-                        </div>
-                      </div>
-                      <%=link_to(edit_contact_path(contact), remote: true, class: "btn btn-primary") do %>Reply<% end %>
-                      <%= link_to(contact_path(contact), class: "btn btn-primary", method: :delete, data: { confirm: 'Are you sure?'}) do %>Delete<% end %>
-
-                    </div>
-                  </div>
-                </div>
-              <%end%>
-            <%else%>
-              <h3>No messages form users</h3>
-            <%end%>
-          </div>
+          <h3>No messages form users</h3>
         <%end%>
-      </div>  
-    </div><!--/#contact-page-->
-</body>
-</html>
+      </div>
+    <%end%>
+  </div>  
+</div><!--/#contact-page-->
 <div class="modal fade" id="reply" role="dialog">
 </div>
-
-<%#= link_to 'New Contact', new_contact_path %>
