@@ -44,37 +44,37 @@
 
 }
 .invoice-title h2, .invoice-title h3 {
-    display: inline-block;
+  display: inline-block;
 }
 
 .table > tbody > tr > .no-line {
-    border-top: none;
+  border-top: none;
 }
 
 .table > thead > tr > .no-line {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 .table > tbody > tr > .thick-line {
-    border-top: 2px solid;
+  border-top: 2px solid;
 }
 .model_dialog_one{
-    width: 430px;
-    margin: 30px auto;
+  width: 430px;
+  margin: 30px auto;
 }
 .wrapper {
-    text-align: center;
-    padding-top: 50px;
+  text-align: center;
+  padding-top: 50px;
 }
 .wish_list_button{
   color: #fe0f0f;
 }
 .coupon {
-    width: 20%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
+  width: 20%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
 }
