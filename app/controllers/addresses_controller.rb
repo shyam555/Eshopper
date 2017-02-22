@@ -20,15 +20,12 @@ class AddressesController < ApplicationController
   # GET /addresses/1/edit
   def edit
     @address = Address.find(params[:id])
-    #binding.pry
   end
 
   # POST /addresses
   # POST /addresses.json
   def create
-    #binding.pry
     @address_bill = current_user.addresses.new(address_params)
-    #@address_ship = current_user.addresses.new(address_params[:shipping_address])
 
     respond_to do |format|
       if @address_bill.save

@@ -27,7 +27,7 @@ class WishlistsController < ApplicationController
   # POST /wishlists.json
   def create
     @product_id = params[:product_id]
-    @products = Product.find_by(id: params[:product_id])
+    @product = Product.find_by(id: params[:product_id])
     @wishlist = Wishlist.find_or_initialize_by(user_id: current_user.id, product_id: @product_id)
 
     respond_to do |format|

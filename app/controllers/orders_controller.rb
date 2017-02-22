@@ -26,7 +26,7 @@ class OrdersController < ApplicationController
   # POST /orders.json
   def create
 
-    @order = current_user.orders.where(user_id: current_user.id,order_status: 'pending').first
+    @order = current_user.orders.where(user_id: current_user.id, order_status: 'pending').first
     
     if @order.present?
       @order.address_id = params[:address_id]
@@ -83,7 +83,7 @@ class OrdersController < ApplicationController
       @transaction.refunded = charge[:refunded]
       @transaction.save
       @address = Address.find(@order.address_id)
-      CancelMailer.cancel_order(@order,@address).deliver
+      CancelMailer.cancel_order(@order, @address).deliver
     else
       respond_to do |format|
         format.html { redirect_to orders_path, notice: 'Order already cancalled.' }
@@ -108,7 +108,6 @@ class OrdersController < ApplicationController
         @coupon = Coupon.find_by(code: session[:coupon_code])
         @percent_off = @coupon.percent_off
         @discount = ((@percent_off * @sub_total) / 100)
-        #binding.pry
         @tax = 0.04 * @sub_total
         @shipping_cost = 40
         @final_total = @tax + @sub_total + @shipping_cost - @discount

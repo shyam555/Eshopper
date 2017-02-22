@@ -6,7 +6,6 @@ class BrandsController < ApplicationController
   def index
     @categories = Category.all
     @brands = Brand.all
-    @categories = Category.all
     @products = Product.all
     @product = Product.find(params[:id])
     @cart_item = CartItem.new
@@ -22,7 +21,6 @@ class BrandsController < ApplicationController
     @category = Category.find(params[:sub_category] || params[:category_id])
     @product = @category.products.where(brand_id: @brand.id)
     @brands = Brand.all
-    
   end
 
   # GET /brands/new
@@ -32,6 +30,7 @@ class BrandsController < ApplicationController
 
   # GET /brands/1/edit
   def edit
+    
   end
 
   # POST /brands

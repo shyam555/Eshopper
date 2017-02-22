@@ -68,7 +68,6 @@ class ChargesController < ApplicationController
         @coupon = Coupon.find_by(code: session[:coupon_code])
         @percent_off = @coupon.percent_off
         @discount = ((@percent_off * @subtotal) / 100)
-        #binding.pry
         @tax = 0.04 * @subtotal
         @shipping_charges = 40
         @final_total = @tax + @subtotal + @shipping_charges - @discount
@@ -103,7 +102,6 @@ class ChargesController < ApplicationController
         @coupon = Coupon.find_by(code: session[:coupon_code])
         @percent_off = @coupon.percent_off
         @discount = ((@percent_off * @sub_total) / 100)
-        #binding.pry
         @tax = 0.04 * @sub_total
         @shipping_cost = 40
         @final_total = @tax + @sub_total + @shipping_cost - @discount

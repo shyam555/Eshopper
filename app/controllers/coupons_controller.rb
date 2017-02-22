@@ -24,7 +24,6 @@ class CouponsController < ApplicationController
   # POST /coupons
   # POST /coupons.json
   def create
-    #if CouponUsed.find_by(user_id: current_user.id,coupon_id: @coupon.id)
     @coupon = Coupon.find_by(code: params[:code])
     if @coupon.present?
       @already_used_coupon = CouponUsed.find_by(user_id: current_user.id, coupon_id: @coupon.id)
@@ -66,7 +65,6 @@ class CouponsController < ApplicationController
     if session[:coupon_code].present?
       session[:coupon_code] = nil
     end
-    #@coupon.destroy
     respond_to do |format|
     format.html { redirect_to :back }
       format.json { head :no_content }

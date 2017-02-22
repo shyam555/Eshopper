@@ -1,7 +1,6 @@
 class CartItemsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_cart_item, only: [:show, :edit, :update, :destroy]
-  #before_action :set_sub_total, only: [:index,:update]
   # GET /cart_items
   # GET /cart_items.json
   def index
@@ -18,7 +17,6 @@ class CartItemsController < ApplicationController
       @coupon = Coupon.find_by(code: session[:coupon_code])
       @percent_off = @coupon.percent_off
       @discount = ((@percent_off * @sub_total) / 100)
-      #binding.pry
       @tax = 0.04 * @sub_total
       @shipping_cost = 40
       @final_total = @tax + @sub_total + @shipping_cost - @discount
@@ -115,22 +113,15 @@ class CartItemsController < ApplicationController
           @coupon = Coupon.find_by(code: session[:coupon_code])
           @percent_off = @coupon.percent_off
           @discount = ((@percent_off * @sub_total1) / 100)
-          #binding.pry
           @tax = 0.04 * @sub_total1
           @shipping_cost = 40
           @final_total = @tax + @sub_total1 + @shipping_cost - @discount
         else
-          #binding.pry
-
           @tax = 0.04 * @sub_total1
           @shipping_cost = 40
           @final_total = @tax + @sub_total1 + @shipping_cost
-          #binding.pry
         end
-        # @tax = 0.04 * @sub_total1
-        # @shipping_cost = 40
-        # @final_total = @tax + @shipping_cost + @sub_total1
-
+        
         format.html { redirect_to :back, notice: 'Cart item was successfully updated.' }
         format.json { render :show, status: :ok, location: @cart_item }
         format.js
@@ -158,7 +149,6 @@ class CartItemsController < ApplicationController
       @coupon = Coupon.find_by(code: session[:coupon_code])
       @percent_off = @coupon.percent_off
       @discount = ((@percent_off * @sub_total) / 100)
-      #binding.pry
       @tax = 0.04 * @sub_total
       @shipping_cost = 40
       @final_total = @tax + @sub_total + @shipping_cost - @discount

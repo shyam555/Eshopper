@@ -16,7 +16,6 @@ class ProductsController < ApplicationController
     @product = Product.find(params[:id])
     @cart_item = CartItem.new
     @category = Category.first
-
     @recommended_products = @product.products 
   end
 
