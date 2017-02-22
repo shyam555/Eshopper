@@ -26,10 +26,31 @@ function updateQuantity(cart_item_id,cart_item_product_id) {
              
           });
 }
+
+function useCoupon(){
+  var coupon_code = $("#coupon").val();
+  $.ajax({
+    type: 'POST',
+    url: '/coupons/',
+    data: {"code" :coupon_code},
+    dataType : 'script' 
+  });
+}
+
+function removeCoupon(){
+  var coupon_code = $("#coupon").val();
+  $.ajax({
+    type: 'DELETE',
+    url: '/coupons/delete',
+    data: {"code" :coupon_code},
+    dataType : 'script' 
+  });
+}
+
  $(document).ready(function(){
  	$("#cart_item_id").change(function(){
-         alert("Input field lost focus."+ quantity);
-     });
+    alert("Input field lost focus."+ quantity);
+    });
  });
  
 $(document).ready(function(){

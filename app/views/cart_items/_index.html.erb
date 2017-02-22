@@ -38,13 +38,11 @@
 
             <td class="cart_quantity">
               <div class="cart_quantity_button">
-                <!-- <a class="cart_quantity_up" href=""> + </a> -->
                 <%= link_to "+", cart_item_path(id: cart_item,qty: "plus"), method: :put ,class: "cart_quantity_up", :remote => true %>
 
                 <%= number_field_tag :quantity, nil, min: 1, max: 20, onfocusout:"updateQuantity(#{cart_item.id},#{cart_item.product.id})", id: "#{cart_item.id}" ,class: "cart_quantity_input" , :remote => true, :value => cart_item.quantity %>
 
-                <%#binding.pry%>
-                <!-- <input id="cart_item_count_<%= cart_item.id %>" class="cart_quantity_input" type="number" min="1" max="10" name="quantity" value="<%= cart_item.quantity %>" autocomplete="off" size="2"> -->
+                
                
 
                 <%= link_to "-", cart_item_path(cart_item,qty: "minus"), method: :put ,class: "cart_quantity_down", :remote => true %>
@@ -74,56 +72,30 @@
     <div class="row">
       <div class="col-sm-6">
         <div class="chose_area">
-          <ul class="user_option">
-            <li>
-              <input type="checkbox">
-              <label>Use Coupon Code</label>
-            </li>
-            <li>
-              <input type="checkbox">
-              <label>Use Gift Voucher</label>
-            </li>
-            <li>
-              <input type="checkbox">
-              <label>Estimate Shipping & Taxes</label>
-            </li>
-          </ul>
-          <ul class="user_info">
-            <li class="single_field">
-              <label>Country:</label>
-              <select>
-                <option>United States</option>
-                <option>Bangladesh</option>
-                <option>UK</option>
-                <option>India</option>
-                <option>Pakistan</option>
-                <option>Ucrane</option>
-                <option>Canada</option>
-                <option>Dubai</option>
-              </select>
-              
-            </li>
-            <li class="single_field">
-              <label>Region / State:</label>
-              <select>
-                <option>Select</option>
-                <option>Dhaka</option>
-                <option>London</option>
-                <option>Dillih</option>
-                <option>Lahore</option>
-                <option>Alaska</option>
-                <option>Canada</option>
-                <option>Dubai</option>
-              </select>
-            
-            </li>
-            <li class="single_field zip-field">
-              <label>Zip Code:</label>
-              <input type="text">
-            </li>
-          </ul>
-          <a class="btn btn-default update" href="">Get Quotes</a>
-          <a class="btn btn-default check_out" href="">Continue</a>
+          <!-- Apply Coupon  -->
+          <!-- <input type="text" id="coupon" onfocusout="useCoupon()"> -->
+          <div class="row">
+            <div class="col-sm-3">
+              Coupon Code:
+            </div>
+            <div class="col-sm-5">
+              <% if session[:coupon_code].present? %>
+                <% coupon = session[:coupon_code]%>
+                <%= text_field_tag "", "#{coupon}", id: "coupon", class: ""%>
+                
+              <%else%>
+                <%= text_field_tag "", "", id: "coupon", class: ""%>
+                
+              <%end%>
+            </div>
+            <div class="col-sm-3">
+              <% if session[:coupon_code].present? %>
+                <%= button_tag "Remove", onclick: "removeCoupon()", class: "btn btn-default"%>
+              <%else%>
+                <%= button_tag "Apply", onclick: "useCoupon()",class: "btn btn-default"%>
+              <%end%>
+            </div>
+          </div>
         </div>
       </div>
       <div class="col-sm-6" id="total_cost_shipping">

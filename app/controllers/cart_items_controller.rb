@@ -8,12 +8,25 @@ class CartItemsController < ApplicationController
 
     @cart_items = current_user.cart_items.all
     @sub_total = 0
+    @discount = 0
     @cart_items.each do |item|
+
       @sub_total += (item.product.price.to_i * item.quantity.to_i) 
     end
-    @tax = 0.04 * @sub_total
-    @shipping_cost = 40
-    @final_total = @tax + @sub_total + @shipping_cost
+
+    if session[:coupon_code].present?
+      @coupon = Coupon.find_by(code: session[:coupon_code])
+      @percent_off = @coupon.percent_off
+      @discount = ((@percent_off * @sub_total) / 100)
+      #binding.pry
+      @tax = 0.04 * @sub_total
+      @shipping_cost = 40
+      @final_total = @tax + @sub_total + @shipping_cost - @discount
+    else
+      @tax = 0.04 * @sub_total
+      @shipping_cost = 40
+      @final_total = @tax + @sub_total + @shipping_cost
+    end
   end
 
   # GET /cart_items/1
@@ -94,12 +107,29 @@ class CartItemsController < ApplicationController
       if @cart_item.save
         @cart_items = current_user.cart_items.all
         @sub_total1 = 0
+        @discount = 0
         @cart_items.each do |item|
           @sub_total1 += (item.product.price.to_i * item.quantity.to_i) 
         end
-        @tax = 0.04 * @sub_total1
-        @shipping_cost = 40
-        @final_total = @tax + @shipping_cost + @sub_total1
+        if session[:coupon_code].present?
+          @coupon = Coupon.find_by(code: session[:coupon_code])
+          @percent_off = @coupon.percent_off
+          @discount = ((@percent_off * @sub_total1) / 100)
+          #binding.pry
+          @tax = 0.04 * @sub_total1
+          @shipping_cost = 40
+          @final_total = @tax + @sub_total1 + @shipping_cost - @discount
+        else
+          #binding.pry
+
+          @tax = 0.04 * @sub_total1
+          @shipping_cost = 40
+          @final_total = @tax + @sub_total1 + @shipping_cost
+          #binding.pry
+        end
+        # @tax = 0.04 * @sub_total1
+        # @shipping_cost = 40
+        # @final_total = @tax + @shipping_cost + @sub_total1
 
         format.html { redirect_to :back, notice: 'Cart item was successfully updated.' }
         format.json { render :show, status: :ok, location: @cart_item }
@@ -119,12 +149,24 @@ class CartItemsController < ApplicationController
     @cart_item.destroy
     @cart_items = current_user.cart_items.all
     @sub_total = 0
+    @discount = 0
     @cart_items.each do |item|
       @sub_total += (item.product.price.to_i * item.quantity.to_i) 
     end
-    @tax = 0.04 * @sub_total
-    @shipping_cost = 40
-    @final_total = @tax + @sub_total + @shipping_cost
+
+    if session[:coupon_code].present?
+      @coupon = Coupon.find_by(code: session[:coupon_code])
+      @percent_off = @coupon.percent_off
+      @discount = ((@percent_off * @sub_total) / 100)
+      #binding.pry
+      @tax = 0.04 * @sub_total
+      @shipping_cost = 40
+      @final_total = @tax + @sub_total + @shipping_cost - @discount
+    else
+      @tax = 0.04 * @sub_total
+      @shipping_cost = 40
+      @final_total = @tax + @sub_total + @shipping_cost
+    end
     
     respond_to do |format|
       format.html { redirect_to cart_items_url, notice: 'Product successfully removed from cart.' }

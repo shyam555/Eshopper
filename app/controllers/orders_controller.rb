@@ -99,12 +99,24 @@ class OrdersController < ApplicationController
     def set_total_amount
       @cart_items = current_user.cart_items
       @sub_total = 0
+      @discount = 0
       @cart_items.each do |item|
         @sub_total += (item.product.price.to_i * item.quantity.to_i) 
       end
-      @tax = 0.04 * @sub_total
-      @shipping_cost = 40
-      @final_total = @tax + @sub_total + @shipping_cost
+
+      if session[:coupon_code].present?
+        @coupon = Coupon.find_by(code: session[:coupon_code])
+        @percent_off = @coupon.percent_off
+        @discount = ((@percent_off * @sub_total) / 100)
+        #binding.pry
+        @tax = 0.04 * @sub_total
+        @shipping_cost = 40
+        @final_total = @tax + @sub_total + @shipping_cost - @discount
+      else
+        @tax = 0.04 * @sub_total
+        @shipping_cost = 40
+        @final_total = @tax + @sub_total + @shipping_cost
+      end
     end
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params

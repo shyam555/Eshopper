@@ -37,6 +37,12 @@ class ChargesController < ApplicationController
      @transaction = Transaction.new(user_id: current_user.id, order_id: @order.id,token: params[:stripeToken], charge_id: charge[:id], amount: charge[:amount]/100, paid: charge[:paid], refunded: charge[:refunded], status: charge[:status])
      @transaction.save
      OrderMailer.order_email(@addresses,@orderitems).deliver
+     if session[:coupon_code].present?
+      @coupon_code = session[:coupon_code]
+      @coupon = Coupon.find_by(code: @coupon_code)
+      @coupon_used = CouponUsed.new(user_id: current_user.id, order_id: @order.id, coupon_id: @coupon.id )
+      @coupon_used.save
+     end 
     end
 
     redirect_to  payment_charges_path(order_id: @order)
@@ -52,13 +58,26 @@ class ChargesController < ApplicationController
     if current_user.orders.pluck(:id).include?(@order.id)
       @addresses = Address.find(@order.address_id)
       @orderitems = @order.orderitems
-      @subtotal = 0 
+      @subtotal = 0
+      @discount = 0 
       @orderitems.each do |item|                   
         @subtotal += item.product.price * item.quantity            
       end
-      @shipping_charges = 40.0
-      @tax = 0.04 * @subtotal
-      @final_total = @subtotal + @shipping_charges + @tax
+
+      if session[:coupon_code].present?
+        @coupon = Coupon.find_by(code: session[:coupon_code])
+        @percent_off = @coupon.percent_off
+        @discount = ((@percent_off * @subtotal) / 100)
+        #binding.pry
+        @tax = 0.04 * @subtotal
+        @shipping_charges = 40
+        @final_total = @tax + @subtotal + @shipping_charges - @discount
+      else
+        @tax = 0.04 * @subtotal
+        @shipping_charges = 40
+        @final_total = @tax + @subtotal + @shipping_charges
+      end
+
       @transaction = Transaction.find_by(order_id: @order.id)
     else
       redirect_to root_path
@@ -75,12 +94,24 @@ class ChargesController < ApplicationController
      def set_total_amount
       @cart_items = current_user.cart_items
       @sub_total = 0
+      @discount = 0
       @cart_items.each do |item|
         @sub_total += (item.product.price.to_i * item.quantity.to_i) 
       end
-      @tax = 0.04 * @sub_total
-      @shipping_cost = 40
-      @final_total = @tax + @sub_total + @shipping_cost
+
+      if session[:coupon_code].present?
+        @coupon = Coupon.find_by(code: session[:coupon_code])
+        @percent_off = @coupon.percent_off
+        @discount = ((@percent_off * @sub_total) / 100)
+        #binding.pry
+        @tax = 0.04 * @sub_total
+        @shipping_cost = 40
+        @final_total = @tax + @sub_total + @shipping_cost - @discount
+      else
+        @tax = 0.04 * @sub_total
+        @shipping_cost = 40
+        @final_total = @tax + @sub_total + @shipping_cost
+      end
      end
 
      def remove_cart_items

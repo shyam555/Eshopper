@@ -9,9 +9,11 @@ Rails.application.routes.draw do
     get 'cancel_order'
     end
   end
+  resources :coupons
   resources :addresses
   resources :checkouts  
   get :payment_review, to: 'checkouts#payment_review'
+  get :check_coupon_code, to: 'checkouts#check_coupon_code'
   resources :cart_items
   resources :product_categories
   resources :products

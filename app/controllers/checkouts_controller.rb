@@ -8,13 +8,25 @@ class CheckoutsController < ApplicationController
     @addresses = Address.new
 
     @cart_items = current_user.cart_items.all
-     @sub_total = 0
-     @cart_items.each do |item|
-       @sub_total += (item.product.price.to_i * item.quantity.to_i) 
-     end
-     @tax = 0.04 * @sub_total
-     @shipping_cost = 40
-     @final_total = @tax + @sub_total + @shipping_cost
+    @sub_total = 0
+    @discount = 0
+    @cart_items.each do |item|
+      @sub_total += (item.product.price.to_i * item.quantity.to_i) 
+    end
+
+    if session[:coupon_code].present?
+      @coupon = Coupon.find_by(code: session[:coupon_code])
+      @percent_off = @coupon.percent_off
+      @discount = ((@percent_off * @sub_total) / 100)
+      #binding.pry
+      @tax = 0.04 * @sub_total
+      @shipping_cost = 40
+      @final_total = @tax + @sub_total + @shipping_cost - @discount
+    else
+      @tax = 0.04 * @sub_total
+      @shipping_cost = 40
+      @final_total = @tax + @sub_total + @shipping_cost
+    end
   end
 
   # GET /checkouts/1
@@ -76,14 +88,26 @@ class CheckoutsController < ApplicationController
     @checkouts = Checkout.all
     @addresses = Address.new
 
-    @cart_items = current_user.cart_items.all
+     @cart_items = current_user.cart_items.all
      @sub_total = 0
+     @discount = 0
      @cart_items.each do |item|
        @sub_total += (item.product.price.to_i * item.quantity.to_i) 
      end
-     @tax = 0.04 * @sub_total
-     @shipping_cost = 40
-     @final_total = @tax + @sub_total + @shipping_cost
+
+    if session[:coupon_code].present?
+      @coupon = Coupon.find_by(code: session[:coupon_code])
+      @percent_off = @coupon.percent_off
+      @discount = ((@percent_off * @sub_total) / 100)
+      #binding.pry
+      @tax = 0.04 * @sub_total
+      @shipping_cost = 40
+      @final_total = @tax + @sub_total + @shipping_cost - @discount
+    else
+      @tax = 0.04 * @sub_total
+      @shipping_cost = 40
+      @final_total = @tax + @sub_total + @shipping_cost
+    end
      @address_id = params[:address_id]
   end
 
