@@ -7,7 +7,7 @@ class HomeController < ApplicationController
   end
   
   def routing_error
-    render partial: "errors/error_404"
+    render partial: "/errors/error_404"
   end
   
 end
