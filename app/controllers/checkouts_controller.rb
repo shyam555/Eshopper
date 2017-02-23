@@ -106,6 +106,7 @@ class CheckoutsController < ApplicationController
 
   def check_coupon_code
   end
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_checkout

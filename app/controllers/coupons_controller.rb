@@ -76,7 +76,6 @@ class CouponsController < ApplicationController
       @final_total = @tax + @sub_total1 + @shipping_cost
       @message ='Invalid Coupon code'
     end
-
   end
 
   # PATCH/PUT /coupons/1
