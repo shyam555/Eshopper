@@ -36,7 +36,7 @@ class ChargesController < ApplicationController
      @orderitems = @order.orderitems
      @transaction = Transaction.new(user_id: current_user.id, order_id: @order.id,token: params[:stripeToken], charge_id: charge[:id], amount: charge[:amount]/100, paid: charge[:paid], refunded: charge[:refunded], status: charge[:status])
      @transaction.save
-     OrderMailer.order_email(@addresses,@orderitems).deliver
+     OrderMailer.order_email(@addresses,@orderitems,session[:coupon_code],current_user).deliver
      if session[:coupon_code].present?
       @coupon_code = session[:coupon_code]
       @coupon = Coupon.find_by(code: @coupon_code)
@@ -46,6 +46,7 @@ class ChargesController < ApplicationController
     end
 
     redirect_to  payment_charges_path(order_id: @order)
+
   rescue Stripe::CardError => e
     flash[:error] = e.message
     redirect_to new_charge_path

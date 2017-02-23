@@ -5,16 +5,18 @@
         <div class="login-form"><!--login form-->
           <h2>Login to your account</h2>
            <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-            <%= devise_error_messages! %>
-            <%= f.email_field :email, autofocus: true, placeholder: "Email Address" %>
-            <%= f.password_field :password, autocomplete: "off",placeholder:"Password" %>
-            
-            <span>
-              <%= f.check_box :remember_me, class: "checkbox" %>
-              Keep me signed in
-            </span><%= f.submit "Login", class: "btn btn-primary login_btn" %>
-            
+              <%= devise_error_messages! %>
+              <%= f.email_field :email, autofocus: true, placeholder: "Email Address" %>
+              <%= f.password_field :password, autocomplete: "off",placeholder:"Password" %>
+              
+              <span>
+                <%= f.check_box :remember_me, class: "checkbox" %>
+                Keep me signed in
+              </span><%= f.submit "Login", class: "btn btn-primary login_btn" %>
             <% end %>
+            <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+              <%= link_to "Forgot your password?", new_password_path(resource_name) %><br />
+            <% end -%>
         </div><!--/login form-->
       </div>
       

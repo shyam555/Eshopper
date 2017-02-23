@@ -1,79 +1,121 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-  <head>
-    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
-  </head>
-  <body>
-    <%= image_tag attachments['logo.png'].url %><br>
-    <h1>Order Summary,</h1>
-     <div class="row">
-      <div class="col-md-12">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title"><strong>Payment successfully received.</strong></h3>
-          </div>
-          <div class="panel-body">
-            <div class="table-responsive">
-              <table class="table table-condensed">
-                <thead>
-                  <tr>
-                      <td><strong>Item</strong></td>
-                      <td class="text-center"><strong>Price</strong></td>
-                      <td class="text-center"><strong>Quantity</strong></td>
-                      <td class="text-right"><strong>Totals</strong></td>
-                  </tr>
-                </thead>
-                <tbody>
-                  <!-- foreach ($order->lineItems as $line) or some such thing here -->
-                  <% @subtotal = 0 %>
-                  <% @orderitems.each do |item| %>
-                  <tr>
-                      
-                      <td><%=item.product.name%></td>
-                      <td class="text-center"><%=item.product.price%></td>
-                      <td class="text-center"><%=item.quantity%></td>
-                      <td class="text-right"><%= item.product.price * item.quantity%></td>
-                      <% @subtotal += item.product.price * item.quantity %>
-                      
-                  </tr>
-                  <%end%>
-                      <% @shipping_charges = 40.0 %>
-                      <% @tax = 0.04 * @subtotal %>
-                  <tr>
-                    <td class="thick-line"></td>
-                    <td class="thick-line"></td>
-                    <td class="thick-line text-center"><strong>Subtotal</strong></td>
-                    <td class="thick-line text-right"><%= @subtotal %></td>
-                  </tr>
-                  <tr>
-                    <td class="no-line"></td>
-                    <td class="no-line"></td>
-                    <td class="no-line text-center"><strong>Shipping</strong></td>
-                    <td class="no-line text-right"><%= @shipping_charges %></td>
-                  </tr>
-                  <tr>
-                    <td class="no-line"></td>
-                    <td class="no-line"></td>
-                    <td class="no-line text-center"><strong>Tax</strong></td>
-                    <td class="no-line text-right"><%= @tax %></td>
-                  </tr>
-                  <tr>
-                    <td class="no-line"></td>
-                    <td class="no-line"></td>
-                    <td class="no-line text-center"><strong>Total</strong></td>
-                    <td class="no-line text-right"><%= @subtotal + @tax + @shipping_charges %></td>
-                  </tr>
-                </tbody>
+<head>
+  <title>Eshopper</title>
+  <style type="text/css">
+    *{margin:0px; padding:0; font-family:arial; color:#232323; font-size:14px;}
+  </style>
+</head>
+<body>
+  <table style="border:1px solid #f1f1f1; margin:auto; text-align:center;" width="800" align="center" bgcolor="#ffffff" border="0" cellspacing="0" cellpadding="0">
+    <thead>
+      <tr>
+        <td style="border-bottom: 5px solid #052b48; padding: 15px 0; text-align: center;">
+          <table width="800" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td width="100%" valign="top" align="center"><a href="#" style="border:none; padding-left:15px;">
+                <%= image_tag attachments['logo.png'].url %>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="padding:15px;" align="left">
+          <p style="margin:15px;">Hello,</p>
 
-              </table>
-              <%= link_to('https://shyam-eshopper.herokuapp.com/') do  %>
-                Continue shopping
-              <%end%>
+          <p style="margin:15px;">Payment successfully received.</p>
+          <p style="margin:15px;"><h1>Order Summary,</h1></p>
+          <p style="margin:15px;">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h3 class="panel-title"><strong></strong></h3>
+                  </div>
+                  <div class="panel-body">
+                    <div class="table-responsive">
+                      <table class="table table-condensed">
+                        <thead>
+                          <tr>
+                              <td><strong>Item</strong></td>
+                              <td class="text-center"><strong>Price</strong></td>
+                              <td class="text-center"><strong>Quantity</strong></td>
+                              <td class="text-right"><strong>Totals</strong></td>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <!-- foreach ($order->lineItems as $line) or some such thing here -->
+                          <% @subtotal = 0 %>
+                          <% @orderitems.each do |item| %>
+                          <tr>
+                              
+                              <td><%=item.product.name%></td>
+                              <td class="text-center"><%=item.product.price%></td>
+                              <td class="text-center"><%=item.quantity%></td>
+                              <td class="text-right"><%= item.product.price * item.quantity%></td>
+                              <% @subtotal += item.product.price * item.quantity %>
+                              
+                          </tr>
+                          <%end%>
+                              
+
+                              <%# @shipping_charges = 40.0 %>
+                              <%# @tax = 0.04 * @subtotal %>
+                          <tr>
+                            <td class="thick-line"></td>
+                            <td class="thick-line"></td>
+                            <td class="thick-line text-center"><strong>Subtotal</strong></td>
+                            <td class="thick-line text-right"><%= @subtotal %></td>
+                          </tr>
+                           <tr>
+                            <td class="thick-line"></td>
+                            <td class="thick-line"></td>
+                            <td class="thick-line text-center"><strong>Discount</strong></td>
+                            <td class="thick-line text-right"><%= @discount %></td>
+                          </tr>
+                          <tr>
+                            <td class="no-line"></td>
+                            <td class="no-line"></td>
+                            <td class="no-line text-center"><strong>Shipping</strong></td>
+                            <td class="no-line text-right"><%= @shipping_charges %></td>
+                          </tr>
+                          <tr>
+                            <td class="no-line"></td>
+                            <td class="no-line"></td>
+                            <td class="no-line text-center"><strong>Tax</strong></td>
+                            <td class="no-line text-right"><%= @tax %></td>
+                          </tr>
+                          <tr>
+                            <td class="no-line"></td>
+                            <td class="no-line"></td>
+                            <td class="no-line text-center"><strong>Total</strong></td>
+                            <td class="no-line text-right"><%= @final_total %></td>
+                          </tr>
+                        </tbody>
+
+                      </table>
+                      <%= link_to('https://shyam-eshopper.herokuapp.com/') do  %>
+                        Continue shopping
+                      <%end%>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <p>Thanks for shopping and have a great day!</p>
-  </body>
+          </p>
+          <p style="margin:15px;">Thanks for shopping and have a great day!</p>
+        </td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td style="background:#f4f4f4; padding:15px 0; text-align:center; color:#777;">&copy; Eshopper, 2017 · All Rights Reserved.<a href="http://shyam-eshopper.herokuapp.com" style="color:#052B48;" target="_blank">www.shyam-eshopper.herokuapp.com</a></td>
+      </tr>
+    </tfoot>
+  </table>
+</body>
 </html>
+

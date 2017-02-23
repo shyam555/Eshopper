@@ -53,7 +53,7 @@ class CouponsController < ApplicationController
           @tax = 0.04 * @sub_total1
           @shipping_cost = 40
           @final_total = @tax + @sub_total1 + @shipping_cost - @discount
-          @message = "Coupon applied successfully"
+          @message = "Applied successfully."
         else
           @tax = 0.04 * @sub_total1
           @shipping_cost = 40
