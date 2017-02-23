@@ -3,7 +3,7 @@ class Product < ActiveRecord::Base
   belongs_to :brand
 
   has_many :product_category
-  has_many :category, :through => :product_category
+  has_many :categories, :through => :product_category
 
   has_and_belongs_to_many(:products,
     :join_table => "recommended_products",
