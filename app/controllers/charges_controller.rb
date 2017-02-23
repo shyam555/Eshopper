@@ -1,19 +1,16 @@
 class ChargesController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
-  before_action :set_total_amount, only: [:create, :new, :payment_success]
+  before_action :set_total_amount, only: [:create]
   after_filter :remove_cart_items
 
   def new
-
   end
 
   def create
-    
     customer = Stripe::Customer.create(
       :email => params[:stripeEmail],
       :source  => params[:stripeToken]
     )
-
     charge = Stripe::Charge.create(
       :customer    => customer.id,
       :amount      => @final_total.to_i*100,
@@ -24,7 +21,6 @@ class ChargesController < ApplicationController
      @order = Order.where(user_id: current_user.id, order_status: 'pending').first
      @order.order_status = 'successfull'
      @order.save
-
      @cart_items = current_user.cart_items
      @cart_items.each do |cart_item|
       @order_item = Orderitem.new(order_id: @order.id, product_id: cart_item.product_id, quantity: cart_item.quantity,
@@ -32,7 +28,6 @@ class ChargesController < ApplicationController
       @order_item.save
      end
      @addresses = Address.find(@order.address_id)
-     
      @orderitems = @order.orderitems
      @transaction = Transaction.new(user_id: current_user.id, order_id: @order.id, token: params[:stripeToken], charge_id: charge[:id], amount: charge[:amount]/100, paid: charge[:paid], refunded: charge[:refunded], status: charge[:status])
      @transaction.save
@@ -44,18 +39,14 @@ class ChargesController < ApplicationController
       @coupon_used.save
      end 
     end
-
-    redirect_to  payment_charges_path(order_id: @order)
-
+    redirect_to  payment_charge_path(@order)
   rescue Stripe::CardError => e
     flash[:error] = e.message
     redirect_to new_charge_path
   end
 
   def payment
-
-    @order = Order.find(params[:order_id])
-    
+    @order = Order.find(params[:id])
     if current_user.orders.pluck(:id).include?(@order.id)
       @addresses = Address.find(@order.address_id)
       @orderitems = @order.orderitems
@@ -64,7 +55,6 @@ class ChargesController < ApplicationController
       @orderitems.each do |item|                   
         @subtotal += item.product.price * item.quantity            
       end
-
       @coupon_used =CouponUsed.find_by(order_id: @order.id, user_id: current_user.id)
       if @coupon_used.present?
         @coupon = Coupon.find(@coupon_used.coupon_id)
@@ -79,13 +69,10 @@ class ChargesController < ApplicationController
         @shipping_charges = 40
         @final_total = @tax + @subtotal + @shipping_charges
       end
-    
-
       @transaction = Transaction.find_by(order_id: @order.id)
     else
       redirect_to root_path
     end
-    
   end
 
   private
@@ -101,7 +88,6 @@ class ChargesController < ApplicationController
       @cart_items.each do |item|
         @sub_total += (item.product.price.to_i * item.quantity.to_i) 
       end
-
       if session[:coupon_code].present?
         @coupon = Coupon.find_by(code: session[:coupon_code])
         @percent_off = @coupon.percent_off
@@ -119,7 +105,6 @@ class ChargesController < ApplicationController
      def remove_cart_items
       current_user.cart_items.destroy_all
      end
-      
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
       params.require(:order).permit(:payment_gateway_id, :transection_id, :order_status, :grand_total, :shipping_charges, :user_id, :address_id)

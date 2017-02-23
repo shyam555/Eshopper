@@ -59,7 +59,6 @@ class WishlistsController < ApplicationController
   # DELETE /wishlists/1
   # DELETE /wishlists/1.json
   def destroy
-    
     @wishlist = Wishlist.find(params[:id])
     @product = Product.find_by(id: @wishlist.product_id)
     @wishlist.destroy
