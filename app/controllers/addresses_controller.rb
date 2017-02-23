@@ -49,7 +49,7 @@ class AddressesController < ApplicationController
     else
       respond_to do |format|
         if @address.update(address_params)
-          format.html { redirect_to :back , notice: 'Address was successfully updated.' }
+          format.html { redirect_to :back, notice: 'Address was successfully updated.' }
           format.json { render :show, status: :ok, location: @address }
         else
           format.html { render :edit }

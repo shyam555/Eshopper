@@ -1,6 +1,6 @@
 class ChargesController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
-  before_action :set_total_amount, only: [:create,:new,:payment_success]
+  before_action :set_total_amount, only: [:create, :new, :payment_success]
   after_filter :remove_cart_items
 
   def new
@@ -34,9 +34,9 @@ class ChargesController < ApplicationController
      @addresses = Address.find(@order.address_id)
      
      @orderitems = @order.orderitems
-     @transaction = Transaction.new(user_id: current_user.id, order_id: @order.id,token: params[:stripeToken], charge_id: charge[:id], amount: charge[:amount]/100, paid: charge[:paid], refunded: charge[:refunded], status: charge[:status])
+     @transaction = Transaction.new(user_id: current_user.id, order_id: @order.id, token: params[:stripeToken], charge_id: charge[:id], amount: charge[:amount]/100, paid: charge[:paid], refunded: charge[:refunded], status: charge[:status])
      @transaction.save
-     OrderMailer.order_email(@addresses,@orderitems,session[:coupon_code],current_user).deliver
+     OrderMailer.order_email(@addresses, @orderitems, session[:coupon_code], current_user).deliver
      if session[:coupon_code].present?
       @coupon_code = session[:coupon_code]
       @coupon = Coupon.find_by(code: @coupon_code)
@@ -65,10 +65,12 @@ class ChargesController < ApplicationController
         @subtotal += item.product.price * item.quantity            
       end
 
-      if session[:coupon_code].present?
-        @coupon = Coupon.find_by(code: session[:coupon_code])
-        @percent_off = @coupon.percent_off
-        @discount = ((@percent_off * @subtotal) / 100)
+      @coupon_used =CouponUsed.find_by(order_id: @order.id, user_id: current_user.id)
+      if @coupon_used.present?
+        @coupon = Coupon.find(@coupon_used.coupon_id)
+      end
+      if @coupon.present?
+        @discount =  (@subtotal * @coupon.percent_off )/100
         @tax = 0.04 * @subtotal
         @shipping_charges = 40
         @final_total = @tax + @subtotal + @shipping_charges - @discount
@@ -77,6 +79,7 @@ class ChargesController < ApplicationController
         @shipping_charges = 40
         @final_total = @tax + @subtotal + @shipping_charges
       end
+    
 
       @transaction = Transaction.find_by(order_id: @order.id)
     else

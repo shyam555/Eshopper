@@ -75,18 +75,6 @@
                 </tr>
                 <%end%>
 
-                    <%if session[:coupon_code].present?%>
-                      <% @coupon = Coupon.find_by(code: session[:coupon_code])%>
-                      <% @percent_off = @coupon.percent_off %>
-                      <% @discount = ((@percent_off * @subtotal) / 100) %>
-                      <% @tax = 0.04 * @subtotal%>
-                      <% @shipping_charges = 40 %>
-                      <% @final_total = @tax + @subtotal + @shipping_charges - @discount %>
-                    <%else%>
-                      <%@tax = 0.04 * @subtotal%>
-                      <%@shipping_charges = 40%>
-                      <%@final_total = @tax + @subtotal + @shipping_charges%>
-                    <%end%>
                 <tr>
                   <td class="thick-line"></td>
                   <td class="thick-line"></td>
@@ -129,7 +117,7 @@
               <%end%>
             <%end%>
             <% if @order.order_status == "successfull" || @order.order_status == "in-transit" || @order.order_status == "shipped" || @order.order_status == "delivered" %>
-              <%= button_tag "Track Order", class: "btn btn-primary", "data-toggle" => "modal","data-target" => "#myModal"%>
+              <%= button_tag "Track Order", class: "btn btn-primary", "data-toggle" => "modal", "data-target" => "#myModal"%>
               <div class="modal fade" id="myModal" role="dialog">
                   <br><%= render 'charges/track_order' %> 
               </div>
