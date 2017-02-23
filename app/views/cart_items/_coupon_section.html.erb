@@ -1,0 +1,27 @@
+<div class="row">
+  <div class="col-sm-3">
+    Coupon Code:
+  </div>
+  <div class="col-sm-4">
+    <% if session[:coupon_code].present? %>
+      <% coupon = session[:coupon_code]%>
+      <%= text_field_tag "", "#{coupon}", id: "coupon",disabled: true %>
+
+    <%else%>
+      <%= text_field_tag "", "", id: "coupon"%>
+      
+    <%end%>
+    <h5>
+      <div id="message">
+
+      </div>
+    </h5>
+  </div>
+  <div class="col-sm-1">
+    <% if session[:coupon_code].present? %>
+      <%= button_tag "Remove", onclick: "removeCoupon()", class: "btn btn-primary coupon_button"%>
+    <%else%>
+      <%= button_tag "Apply", onclick: "useCoupon()",class: "btn btn-primary coupon_button"%>
+    <%end%>
+  </div>
+</div>

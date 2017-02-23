@@ -26,21 +26,55 @@ class CouponsController < ApplicationController
   def create
     @coupon = Coupon.find_by(code: params[:code])
     if @coupon.present?
-      @already_used_coupon = CouponUsed.find_by(user_id: current_user.id, coupon_id: @coupon.id)
-      unless @already_used_coupon.present? 
+      @coupon_used = CouponUsed.find_by(user_id: current_user.id, coupon_id: @coupon.id )
+      if @coupon_used.present?
+        @cart_items = current_user.cart_items.all
+        @sub_total1 = 0
+        @discount = 0
+        @cart_items.each do |item|
+          @sub_total1 += (item.product.price.to_i * item.quantity.to_i) 
+        end
+          @tax = 0.04 * @sub_total1
+          @shipping_cost = 40
+          @final_total = @tax + @sub_total1 + @shipping_cost
+        @message = "Coupon already used."
+      else 
         session[:coupon_code] = params[:code]
-        respond_to do |format|
-          format.html { redirect_to :back, notice: 'Coupon was successfully applied.' }
+        @cart_items = current_user.cart_items.all
+        @sub_total1 = 0
+        @discount = 0
+        @cart_items.each do |item|
+          @sub_total1 += (item.product.price.to_i * item.quantity.to_i) 
         end
-      else
-        respond_to do |format|
-          format.html { redirect_to :back, notice: 'Already used coupon.' }
+        if session[:coupon_code].present?
+          @coupon = Coupon.find_by(code: session[:coupon_code])
+          @percent_off = @coupon.percent_off
+          @discount = ((@percent_off * @sub_total1) / 100)
+          @tax = 0.04 * @sub_total1
+          @shipping_cost = 40
+          @final_total = @tax + @sub_total1 + @shipping_cost - @discount
+          @message = "Coupon applied successfully"
+        else
+          @tax = 0.04 * @sub_total1
+          @shipping_cost = 40
+          @final_total = @tax + @sub_total1 + @shipping_cost
         end
+      end
+      respond_to do |format|
+        format.html { redirect_to :back, notice: 'Coupon was successfully applied.' }
+        format.js
       end
     else
-      respond_to do |format|
-        format.html { redirect_to :back, notice: 'Invalid Coupon code' }
+      @cart_items = current_user.cart_items.all
+      @sub_total1 = 0
+      @discount = 0
+      @cart_items.each do |item|
+        @sub_total1 += (item.product.price.to_i * item.quantity.to_i) 
       end
+      @tax = 0.04 * @sub_total1
+      @shipping_cost = 40
+      @final_total = @tax + @sub_total1 + @shipping_cost
+      @message ='Invalid Coupon code'
     end
 
   end
@@ -64,10 +98,30 @@ class CouponsController < ApplicationController
   def destroy
     if session[:coupon_code].present?
       session[:coupon_code] = nil
+      @message = "Coupon Removed"
+    end
+    @cart_items = current_user.cart_items.all
+    @sub_total1 = 0
+    @discount = 0
+    @cart_items.each do |item|
+      @sub_total1 += (item.product.price.to_i * item.quantity.to_i) 
+    end
+    if session[:coupon_code].present?
+      @coupon = Coupon.find_by(code: session[:coupon_code])
+      @percent_off = @coupon.percent_off
+      @discount = ((@percent_off * @sub_total1) / 100)
+      @tax = 0.04 * @sub_total1
+      @shipping_cost = 40
+      @final_total = @tax + @sub_total1 + @shipping_cost - @discount
+    else
+      @tax = 0.04 * @sub_total1
+      @shipping_cost = 40
+      @final_total = @tax + @sub_total1 + @shipping_cost
     end
     respond_to do |format|
     format.html { redirect_to :back }
       format.json { head :no_content }
+      format.js
     end
   end
 

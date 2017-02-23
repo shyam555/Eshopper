@@ -78,3 +78,7 @@
   border-radius: 4px;
   box-sizing: border-box;
 }
+.coupon_button{
+  margin-top: -1px !important;
+    margin-left: 12px !important;
+}

@@ -11,6 +11,7 @@ class CancelMailer < ApplicationMailer
 
   def reply_mailer(contact)
     @contact = contact
+    attachments.inline['logo.png'] = File.read('app/assets/images/home/logo.png')
     mail(to:@contact.email , subject: 'Response')
   end
 end
