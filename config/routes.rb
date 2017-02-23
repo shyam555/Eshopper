@@ -5,8 +5,8 @@ Rails.application.routes.draw do
   resources :wishlists
   resources :transactions
   resources :orders do
-    collection do
-    get 'cancel_order'
+    member do
+      get 'cancel_order'
     end
   end
   resources :coupons
@@ -19,8 +19,8 @@ Rails.application.routes.draw do
   resources :products
   resources :brand_categories
   resources :charges do
-    collection do
-    get 'payment'
+    member do
+      get 'payment'
     end
   end
   resources :products
@@ -37,7 +37,7 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-   root 'home#index'
+  root 'home#index'
   get '*abc', :to => 'home#routing_error'
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
