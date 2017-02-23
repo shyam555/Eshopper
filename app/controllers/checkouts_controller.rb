@@ -6,14 +6,12 @@ class CheckoutsController < ApplicationController
   def index
     @checkouts = Checkout.all
     @addresses = Address.new
-
     @cart_items = current_user.cart_items.all
     @sub_total = 0
     @discount = 0
     @cart_items.each do |item|
       @sub_total += (item.product.price.to_i * item.quantity.to_i) 
     end
-
     if session[:coupon_code].present?
       @coupon = Coupon.find_by(code: session[:coupon_code])
       @percent_off = @coupon.percent_off
@@ -46,7 +44,6 @@ class CheckoutsController < ApplicationController
   # POST /checkouts.json
   def create
     @checkout = Checkout.new(checkout_params)
-
     respond_to do |format|
       if @checkout.save
         format.html { redirect_to @checkout, notice: 'Checkout was successfully created.' }
@@ -86,14 +83,12 @@ class CheckoutsController < ApplicationController
     @coupon = Coupon.new
     @checkouts = Checkout.all
     @addresses = Address.new
-
-     @cart_items = current_user.cart_items.all
-     @sub_total = 0
-     @discount = 0
-     @cart_items.each do |item|
-       @sub_total += (item.product.price.to_i * item.quantity.to_i) 
-     end
-
+    @cart_items = current_user.cart_items.all
+    @sub_total = 0
+    @discount = 0
+    @cart_items.each do |item|
+      @sub_total += (item.product.price.to_i * item.quantity.to_i) 
+    end
     if session[:coupon_code].present?
       @coupon = Coupon.find_by(code: session[:coupon_code])
       @percent_off = @coupon.percent_off
@@ -106,11 +101,10 @@ class CheckoutsController < ApplicationController
       @shipping_cost = 40
       @final_total = @tax + @sub_total + @shipping_cost
     end
-     @address_id = params[:address_id]
+      @address_id = params[:address_id]
   end
 
   def check_coupon_code
-
   end
   private
     # Use callbacks to share common setup or constraints between actions.

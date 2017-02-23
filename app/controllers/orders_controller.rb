@@ -25,9 +25,7 @@ class OrdersController < ApplicationController
   # POST /orders
   # POST /orders.json
   def create
-
     @order = current_user.orders.where(user_id: current_user.id, order_status: 'pending').first
-    
     if @order.present?
       @order.address_id = params[:address_id]
       @order.grand_total = @final_total
@@ -36,7 +34,6 @@ class OrdersController < ApplicationController
       @order = Order.new(:user_id => current_user.id, :address_id => params[:address_id], :order_status => 'pending', :grand_total => @final_total)
       @order.save
     end
-
     respond_to do |format|
       if @order.save
         format.html { redirect_to @order, notice: 'Order was successfully created.' }
@@ -71,6 +68,7 @@ class OrdersController < ApplicationController
       format.json { head :no_content }
     end
   end
+
   def cancel_order
     @order= Order.find(params['order_id'])
     @order.order_status = 'cancel'
@@ -96,6 +94,7 @@ class OrdersController < ApplicationController
     def set_order
       @order = Order.find(params[:id])
     end
+
     def set_total_amount
       @cart_items = current_user.cart_items
       @sub_total = 0

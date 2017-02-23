@@ -25,7 +25,6 @@ class RecommendedProductsController < ApplicationController
   # POST /recommended_products.json
   def create
     @recommended_product = RecommendedProduct.new(recommended_product_params)
-
     respond_to do |format|
       if @recommended_product.save
         format.html { redirect_to @recommended_product, notice: 'Recommended product was successfully created.' }

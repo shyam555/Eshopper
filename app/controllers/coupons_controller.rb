@@ -34,9 +34,9 @@ class CouponsController < ApplicationController
         @cart_items.each do |item|
           @sub_total1 += (item.product.price.to_i * item.quantity.to_i) 
         end
-          @tax = 0.04 * @sub_total1
-          @shipping_cost = 40
-          @final_total = @tax + @sub_total1 + @shipping_cost
+        @tax = 0.04 * @sub_total1
+        @shipping_cost = 40
+        @final_total = @tax + @sub_total1 + @shipping_cost
         @message = "Coupon already used."
       else 
         session[:coupon_code] = params[:code]

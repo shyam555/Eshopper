@@ -25,7 +25,6 @@ class ContactsController < ApplicationController
   # POST /contacts
   # POST /contacts.json
   def create
-    #binding.pry
     @contact = Contact.new(user_id: current_user.id, name: params["contact"]["name"], email: params["contact"]["email"], subject: params["contact"]["subject"], message: params["contact"]["message"], reply: "")
     respond_to do |format|
       if @contact.save
@@ -45,8 +44,8 @@ class ContactsController < ApplicationController
   def update
     respond_to do |format|
       if @contact.update(message: params["contact"]["message"], reply: params["contact"]["reply"])
-         CancelMailer.reply_mailer(@contact).deliver
-         @contact.destroy
+        CancelMailer.reply_mailer(@contact).deliver
+        @contact.destroy
         format.html { redirect_to :back, notice: 'Contact was successfully updated.' }
         format.json { render :show, status: :ok, location: @contact }
       else

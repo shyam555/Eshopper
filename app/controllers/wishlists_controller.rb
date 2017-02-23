@@ -29,7 +29,6 @@ class WishlistsController < ApplicationController
     @product_id = params[:product_id]
     @product = Product.find_by(id: params[:product_id])
     @wishlist = Wishlist.find_or_initialize_by(user_id: current_user.id, product_id: @product_id)
-
     respond_to do |format|
       if @wishlist.save
         format.html { redirect_to :back, notice: 'Wishlist was successfully created.' }

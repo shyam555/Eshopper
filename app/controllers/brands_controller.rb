@@ -30,14 +30,12 @@ class BrandsController < ApplicationController
 
   # GET /brands/1/edit
   def edit
-    
   end
 
   # POST /brands
   # POST /brands.json
   def create
     @brand = Brand.new(brand_params)
-
     respond_to do |format|
       if @brand.save
         format.html { redirect_to @brand, notice: 'Brand was successfully created.' }

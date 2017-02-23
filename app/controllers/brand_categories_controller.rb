@@ -1,6 +1,5 @@
 class BrandCategoriesController < ApplicationController
   before_action :set_brand_category, only: [:show, :edit, :update, :destroy]
-
   # GET /brand_categories
   # GET /brand_categories.json
   def index
@@ -10,7 +9,6 @@ class BrandCategoriesController < ApplicationController
   # GET /brand_categories/1
   # GET /brand_categories/1.json
   def show
-    
   end
 
   # GET /brand_categories/new
@@ -26,7 +24,6 @@ class BrandCategoriesController < ApplicationController
   # POST /brand_categories.json
   def create
     @brand_category = BrandCategory.new(brand_category_params)
-
     respond_to do |format|
       if @brand_category.save
         format.html { redirect_to @brand_category, notice: 'Brand category was successfully created.' }
