@@ -7,7 +7,6 @@
         <%else%>
           <h3 class="center">Payment received successfully Rs.<%= @final_total%></h3>
         <%end%>
-        
         <h3 class="pull-right">Order #<%= params[:order_id]%></h3>
       </div>
       <hr>
@@ -22,7 +21,6 @@
           </address>
         </div>
         <div class="col-xs-6 text-right">
-          
         </div>
       </div>
       <div class="row">
@@ -42,7 +40,6 @@
       </div>
     </div>
   </div>
-  
   <div class="row">
     <div class="col-md-12">
       <div class="panel panel-default">
@@ -61,20 +58,16 @@
                 </tr>
               </thead>
               <tbody>
-                <!-- foreach ($order->lineItems as $line) or some such thing here -->
                 <% @subtotal = 0 %>
                 <% @orderitems.each do |item| %>
-                <tr>
-                    
+                  <tr>
                     <td><%=item.product.name%></td>
                     <td class="text-center"><%=item.product.price%></td>
                     <td class="text-center"><%=item.quantity%></td>
                     <td class="text-right"><%= item.product.price * item.quantity%></td>
                     <% @subtotal += item.product.price * item.quantity %>
-                    
-                </tr>
+                  </tr>
                 <%end%>
-
                 <tr>
                   <td class="thick-line"></td>
                   <td class="thick-line"></td>
@@ -106,7 +99,6 @@
                   <td class="no-line text-right"><%= @final_total %></td>
                 </tr>
               </tbody>
-
             </table>
             <%= link_to(root_path, class: "btn btn-primary") do  %>
               Continue shopping
@@ -119,7 +111,7 @@
             <% if @order.order_status == "successfull" || @order.order_status == "in-transit" || @order.order_status == "shipped" || @order.order_status == "delivered" %>
               <%= button_tag "Track Order", class: "btn btn-primary", "data-toggle" => "modal", "data-target" => "#myModal"%>
               <div class="modal fade" id="myModal" role="dialog">
-                  <br><%= render 'charges/track_order' %> 
+                <br><%= render 'charges/track_order' %> 
               </div>
             <%end%>
           </div>

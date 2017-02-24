@@ -7,7 +7,6 @@
           <li class="active">Check out</li>
         </ol>
       </div><!--/breadcrums-->
-
       <div class="step-one">
         <h2 class="heading">Step1</h2>
       </div>
@@ -16,34 +15,33 @@
         <div class="row">
           <% if current_user.addresses.present? %>
             <div class="container">
-                <%if current_user.addresses.where(status: 'active').present? %>
-                  <div class="panel panel-info">
-                    <div class="panel-body">
-                      <% current_user.addresses.where(status: 'active').each do |address| %>
-                          <div class="col-lg-4 well", style: "margin-left: 15px" >
-                              <span><h4>Name: <%= address.name%></h4></span><br>
-                              <span>Email: <%= address.email%></span><br>
-                              <span>Mobile number: <%= address.mobile_number%></span><br>
-                              <span>Address: <%= address.address_one%> <%=address.address_two%></span><br>
-                              <span>PIN: <%= address.zip_code%></span><br><br> 
-                              <i class="fa fa-trash-o"></i> 
-                              <%= link_to "Delete", address_path(address, status: 'delete'), method: :put, data: { confirm: 'you want to delete?'}%>
-                              &nbsp;&nbsp;&nbsp;&nbsp;
-                              <i class="fa fa-pencil-square-o"></i></span>
-                              <%= link_to "Edit", edit_address_path(address), remote: true %>
-                              <br><br>
-
-                              <%= link_to "Deliver on this address",  payment_review_path(address_id: address.id),class: "btn btn-default check_out"%>
-                          </div>  
-                      <% end %>
-                    </div>
+              <%if current_user.addresses.where(status: 'active').present? %>
+                <div class="panel panel-info">
+                  <div class="panel-body">
+                    <% current_user.addresses.where(status: 'active').each do |address| %>
+                        <div class="col-lg-4 well", style: "margin-left: 15px" >
+                          <span><h4>Name: <%= address.name%></h4></span><br>
+                          <span>Email: <%= address.email%></span><br>
+                          <span>Mobile number: <%= address.mobile_number%></span><br>
+                          <span>Address: <%= address.address_one%> <%=address.address_two%></span><br>
+                          <span>PIN: <%= address.zip_code%></span><br><br> 
+                          <i class="fa fa-trash-o"></i> 
+                          <%= link_to "Delete", address_path(address, status: 'delete'), method: :put, data: { confirm: 'you want to delete?'}%>
+                          &nbsp;&nbsp;&nbsp;&nbsp;
+                          <i class="fa fa-pencil-square-o"></i></span>
+                          <%= link_to "Edit", edit_address_path(address), remote: true %>
+                          <br><br>
+                          <%= link_to "Deliver on this address",  payment_review_path(address_id: address.id), class: "btn btn-default check_out"%>
+                        </div>  
+                    <% end %>
                   </div>
-                <%end%>
+                </div>
+              <%end%>
             </div>
           <%end%>
-            <div class="modal fade" id="myModal" role="dialog">
-              <br><%= render 'checkouts/address_model_form' %> 
-            </div>  
+          <div class="modal fade" id="myModal" role="dialog">
+            <br><%= render 'checkouts/address_model_form' %> 
+          </div>
         </div>
       </div>
       <div class="review-payment">
@@ -69,30 +67,23 @@
                     <%= image_tag(cart_item.product.pictures.first.image.url,class: 'cart-image', style: "width:100px;height:100px") %>
                   <%end%>
                 </td>
-
                 <td class="cart_description">
                   <h4 class="product_desc_align"><%= cart_item.product.name %></h4>
                 </td>
-
                 <td class="cart_price">
                   <p>&#8377; <%= cart_item.product.price %></p>
                 </td>
-
                 <td class="cart_quantity">
                   <div class="cart_quantity_button">
-                    <!-- <a class="cart_quantity_up" href=""> + </a> -->
-                    <%= link_to "+", cart_item_path(id: cart_item,qty: "plus"), method: :put ,class: "cart_quantity_up", :remote => true %>
-
-                    <%= number_field_tag :quantity, nil, min: 1, max: 20, onfocusout:"updateQuantity(#{cart_item.id},#{cart_item.product.id})", id: "#{cart_item.id}" ,class: "cart_quantity_input" , :remote => true, :value => cart_item.quantity %>
-
-                    <%= link_to "-", cart_item_path(cart_item,qty: "minus"), method: :put ,class: "cart_quantity_down", :remote => true %>
+                    <%= link_to "+", cart_item_path(id: cart_item, qty: "plus"), method: :put , class: "cart_quantity_up", :remote => true %>
+                    <%= number_field_tag :quantity, nil, min: 1, max: 20, onfocusout:"updateQuantity(#{cart_item.id},#{cart_item.product.id})", id: "#{cart_item.id}", class: "cart_quantity_input" , :remote => true, :value => cart_item.quantity %>
+                    <%= link_to "-", cart_item_path(cart_item, qty: "minus"), method: :put, class: "cart_quantity_down", :remote => true %>
                   </div>
                 </td>
                 <td class="cart_total" >
                   <% @total = cart_item.product.price * cart_item.quantity %>
                   <p id="sub_total_<%= cart_item.id %>" class="cart_total_price">&#8377; <%= @total %></p>
                 </td>
-
               </tr>
             <% end %>
             <tr>
@@ -119,10 +110,8 @@
                     <td>Total</td>
                     <td><span id="sub_sub_total_">&#8377; <%= @final_total %></td>
                   </tr>
-
                 </table>
               </td>
-
             </tr>
           </tbody>
         </table>
@@ -137,10 +126,8 @@
       </div>
     </div>
   </section>
-
 <%end%>
 <div>
   <div class="modal fade" id="edit-modal" role="dialog">
-                    
   </div>
 </div>

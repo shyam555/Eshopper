@@ -2,7 +2,6 @@
   <% if @recommended_product.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@recommended_product.errors.count, "error") %> prohibited this recommended_product from being saved:</h2>
-
       <ul>
       <% @recommended_product.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -10,7 +9,6 @@
       </ul>
     </div>
   <% end %>
-
   <div class="actions">
     <%= f.submit %>
   </div>

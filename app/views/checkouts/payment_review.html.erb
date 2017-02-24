@@ -7,12 +7,10 @@
       </ol>
     </div>
     <div class="shopper-informations">
-
     </div>
     <div class="review-payment">
       <h2>Review & Payment</h2>
     </div>
-
     <div class="cart_info">
       <table class="table table-condensed">
         <thead>
@@ -28,32 +26,26 @@
         <tbody>
           <% current_user.cart_items.each do |cart_item| %>
             <tr>
-              
               <td class="cart_product">
                 <% if cart_item.product.pictures.first.present? %>
                   <%= image_tag(cart_item.product.pictures.first.image.url, class: 'cart-image', style: "width:100px;height:100px") %>
                 <%end%>
               </td>
-
               <td class="cart_description">
                 <h4 class="product_desc_align"><%= cart_item.product.name %></h4>
               </td>
-
               <td class="cart_price">
                 <p>&#8377; <%= cart_item.product.price %></p>
               </td>
-
               <td class="cart_quantity">
                 <div class="cart_quantity_button">
                  <p><%= cart_item.quantity %></p>
                 </div>
               </td>
-
               <td class="cart_total" >
                 <% @total = cart_item.product.price * cart_item.quantity %>
                 <p id="sub_total_<%= cart_item.id %>" class="cart_total_price">&#8377; <%= @total %></p>
               </td>
-
             </tr>
           <% end %>
           <tr>
@@ -90,7 +82,7 @@
       <%end%>
     </div>
   </div>
-</section> <!--/#cart_items-->
+</section>
 
 
 

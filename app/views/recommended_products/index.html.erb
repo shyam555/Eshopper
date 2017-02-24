@@ -1,14 +1,11 @@
 <p id="notice"><%= notice %></p>
-
 <h1>Listing Recommended Products</h1>
-
 <table>
   <thead>
     <tr>
       <th colspan="3"></th>
     </tr>
   </thead>
-
   <tbody>
     <% @recommended_products.each do |recommended_product| %>
       <tr>
@@ -19,7 +16,5 @@
     <% end %>
   </tbody>
 </table>
-
 <br>
-
 <%= link_to 'New Recommended product', new_recommended_product_path %>

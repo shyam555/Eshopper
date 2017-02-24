@@ -5,7 +5,7 @@
         <div id="slider-carousel" class="carousel slide" data-ride="carousel">
           <ol class="carousel-indicators">
             <% @banners.each_with_index do |banner, index| %>
-                <li data-target="#slider-carousel" data-slide-to="<%= index %>" class="<%= index == 0 ? 'active' : '' %>"></li>
+              <li data-target="#slider-carousel" data-slide-to="<%= index %>" class="<%= index == 0 ? 'active' : '' %>"></li>
             <% end %>
           </ol>
           <div class="carousel-inner" role="listbox">

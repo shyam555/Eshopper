@@ -1,8 +1,6 @@
 <div class="container">
   <div class="modal fade" id="myModal1" role="dialog">
     <div class="modal-dialog">
-    
-      <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -13,37 +11,14 @@
             <div class="row">
               <%=form_for @addresses, :html => { :id=>'submit-form'} do |f|%>
                 <div class="col-sm-12 clearfix">
-                  
                   <div class="bill-to">
                     <div class="form-one">
-                        <%= f.text_field :name, placeholder: "Name"%>
-                        <%= f.text_field :email, placeholder: "Email"%>
-                        <select>
-                          <option>-- Country --</option>
-                          <option>United States</option>
-                          <option>Bangladesh</option>
-                          <option>UK</option>
-                          <option>India</option>
-                          <option>Pakistan</option>
-                          <option>Ucrane</option>
-                          <option>Canada</option>
-                          <option>Dubai</option>
-                        </select>
-                        <select>
-                          <option>-- State / Province / Region --</option>
-                          <option>United States</option>
-                          <option>Bangladesh</option>
-                          <option>UK</option>
-                          <option>India</option>
-                          <option>Pakistan</option>
-                          <option>Ucrane</option>
-                          <option>Canada</option>
-                          <option>Dubai</option>
-                        </select>
-                        <%= f.text_field :address_one, placeholder: "Address1"%>
-                        <%= f.text_field :address_two, placeholder: "Address2"%>
-                        <%= f.text_field :zip_code, placeholder: "Zip / Postal Code"%>
-                        <%= f.text_field :mobile_number, placeholder: "Mobile Phone"%>
+                      <%= f.text_field :name, placeholder: "Name"%>
+                      <%= f.text_field :email, placeholder: "Email"%>
+                      <%= f.text_field :address_one, placeholder: "Address1"%>
+                      <%= f.text_field :address_two, placeholder: "Address2"%>
+                      <%= f.text_field :zip_code, placeholder: "Zip / Postal Code"%>
+                      <%= f.text_field :mobile_number, placeholder: "Mobile Phone"%>
                     </div>
                   </div>
                 </div>

@@ -9,7 +9,6 @@
             <%= f.text_field :firstname, autofocus: true, placeholder: "First Name" %>
             <%= f.text_field :lastname, autofocus: true, placeholder: "Last Name" %>
             <%= f.email_field :email, autofocus: true, placeholder: "Email Address" %>
-           
             <%= f.password_field :password, autocomplete: "off",placeholder:"Password" %>
             <%= f.password_field :password_confirmation, autocomplete: "off",placeholder:"Confirm-Password" %>
             <span>
@@ -19,27 +18,26 @@
           <% end %>
         </div><!--/signup form-->
       </div>
-      
       <div class="col-sm-4">
-      <div class="signup">
-        <span class="or signup-seperator">OR</span>
-        <div class="col-sm-12 signin-other">
-          <div class='signup-g'>
-            <%= link_to user_google_oauth2_omniauth_authorize_path do %>
-              <span class="link_text_color">Sign in with google</span>
-            <% end %>
-          </div>
-          <div class='signin-f'>
-            <%= link_to user_facebook_omniauth_authorize_path do %>
-              <span class="link_text_color">Sign in with facebook</span>
-            <% end %>
-          </div>
-          <div class='signin-t'>
+        <div class="signup">
+          <span class="or signup-seperator">OR</span>
+          <div class="col-sm-12 signin-other">
+            <div class='signup-g'>
+              <%= link_to user_google_oauth2_omniauth_authorize_path do %>
+                <span class="link_text_color">Sign in with google</span>
+              <% end %>
+            </div>
+            <div class='signin-f'>
+              <%= link_to user_facebook_omniauth_authorize_path do %>
+                <span class="link_text_color">Sign in with facebook</span>
+              <% end %>
+            </div>
+            <div class='signin-t'>
               <span class="link_text_color">Sign in with twitter</span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
     </div>
   </div>
 </section><!--/form-->

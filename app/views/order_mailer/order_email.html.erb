@@ -25,7 +25,6 @@
       <tr>
         <td style="padding:15px;" align="left">
           <p style="margin:15px;">Hello,</p>
-
           <p style="margin:15px;">Payment successfully received.</p>
           <p style="margin:15px;"><h1>Order Summary,</h1></p>
           <p style="margin:15px;">
@@ -47,23 +46,16 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <!-- foreach ($order->lineItems as $line) or some such thing here -->
                           <% @subtotal = 0 %>
                           <% @orderitems.each do |item| %>
                           <tr>
-                              
                               <td><%=item.product.name%></td>
                               <td class="text-center"><%=item.product.price%></td>
                               <td class="text-center"><%=item.quantity%></td>
                               <td class="text-right"><%= item.product.price * item.quantity%></td>
                               <% @subtotal += item.product.price * item.quantity %>
-                              
                           </tr>
                           <%end%>
-                              
-
-                              <%# @shipping_charges = 40.0 %>
-                              <%# @tax = 0.04 * @subtotal %>
                           <tr>
                             <td class="thick-line"></td>
                             <td class="thick-line"></td>
@@ -95,7 +87,6 @@
                             <td class="no-line text-right"><%= @final_total %></td>
                           </tr>
                         </tbody>
-
                       </table>
                       <%= link_to('https://shyam-eshopper.herokuapp.com/') do  %>
                         Continue shopping

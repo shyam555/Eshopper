@@ -17,6 +17,7 @@ class User < ActiveRecord::Base
       user.password = Devise.friendly_token[0,20]
     end
   end
+  
   def send_email
     UserMailer.welcome_email(self).deliver
   end       

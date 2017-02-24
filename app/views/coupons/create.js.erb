@@ -1,13 +1,6 @@
-
 $('#cart_sub_total').html('&#8377 '+<%= @sub_total1 %>)
-
 $('#discount').html('&#8377 '+<%= @discount %>)
-
 $('#tax').html('&#8377 '+<%= @tax %>)
-
 $('#sub_sub_total_').html('&#8377 '+<%= @final_total %>)
-
 $('#couponSection').html("<%= escape_javascript (render partial: 'cart_items/coupon_section')%>");
-
-
 $('#message').html('<%=@message%>')
