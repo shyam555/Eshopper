@@ -10,6 +10,7 @@
               <%if current_user.present? %>
                 <% if current_user.admin == true %>
                   <li><%= link_to "Admin Section", rails_admin_path %></li>
+                  <li><%= link_to "Report", report_index_path %></li>
                 <%end%>
               <%end%>
             </ul>

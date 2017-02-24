@@ -15,4 +15,7 @@
 //= require social-share-button
 //= require cart_item
 //= price_range
+//= require highcharts
+//= require data
+//= require drilldown
 //= require_tree .

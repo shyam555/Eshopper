@@ -1,14 +1,11 @@
 <p id="notice"><%= notice %></p>
-
 <p>
   <strong>User:</strong>
   <%= @wishlist.user %>
 </p>
-
 <p>
   <strong>Product:</strong>
   <%= @wishlist.product %>
 </p>
-
 <%= link_to 'Edit', edit_wishlist_path(@wishlist) %> |
 <%= link_to 'Back', wishlists_path %>
