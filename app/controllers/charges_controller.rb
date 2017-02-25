@@ -38,7 +38,6 @@ class ChargesController < ApplicationController
       @coupon = Coupon.find_by(code: @coupon_code)
       @coupon_used = CouponUsed.new(user_id: current_user.id, order_id: @order.id, coupon_id: @coupon.id )
       @coupon_used.save
-      reset_session
      end 
     end
     redirect_to  payment_charge_path(@order)
@@ -52,7 +51,25 @@ class ChargesController < ApplicationController
     if current_user.orders.pluck(:id).include?(@order.id)
       @addresses = Address.find(@order.address_id)
       @orderitems = @order.orderitems
-      @subtotal, @discount, @tax, @shipping_charges, @final_total= payment_page(@orderitems)
+      @subtotal = 0
+      @discount = 0 
+      @orderitems.each do |item|                   
+        @subtotal += item.product.price * item.quantity            
+      end
+      @coupon_used =CouponUsed.find_by(order_id: @order.id, user_id: current_user.id)
+      if @coupon_used.present?
+        @coupon = Coupon.find(@coupon_used.coupon_id)
+      end
+      if @coupon.present?
+        @discount =  (@subtotal * @coupon.percent_off )/100
+        @tax = 0.04 * @subtotal
+        @shipping_charges = 40
+        @final_total = @tax + @subtotal + @shipping_charges - @discount
+      else
+        @tax = 0.04 * @subtotal
+        @shipping_charges = 40
+        @final_total = @tax + @subtotal + @shipping_charges
+      end
       @transaction = Transaction.find_by(order_id: @order.id)
     else
       redirect_to root_path
@@ -66,6 +83,7 @@ class ChargesController < ApplicationController
      end
 
      def set_total_amount
+      @cart_items = current_user.cart_items
       @sub_total, @discount, @tax, @shipping_cost, @final_total = set_total(current_user)
      end
 
