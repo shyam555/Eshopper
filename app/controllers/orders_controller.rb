@@ -96,13 +96,7 @@ class OrdersController < ApplicationController
     end
 
     def set_total_amount
-      @cart_items = current_user.cart_items
-      @sub_total = 0
-      @discount = 0
-      @cart_items.each do |item|
-        @sub_total += (item.product.price.to_i * item.quantity.to_i) 
-      end
-
+      @sub_total = Order.set_sub_total(current_user)
       if session[:coupon_code].present?
         @coupon = Coupon.find_by(code: session[:coupon_code])
         @percent_off = @coupon.percent_off

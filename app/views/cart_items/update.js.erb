@@ -1,6 +1,6 @@
 $('#<%= @cart_item.id %>').val(<%= @cart_item.quantity%>)
 $('#sub_total_'+<%= @cart_item.id %>).html('&#8377 '+<%= @cart_item.quantity * @cart_item.product.price%>.toFixed(1))
-$('#cart_sub_total').html('&#8377 '+<%= @sub_total1 %>)
+$('#cart_sub_total').html('&#8377 '+<%= @sub_total %>)
 $('#discount').html('&#8377 '+<%= @discount %>)
 $('#tax').html('&#8377 '+<%= @tax %>)
 $('#sub_sub_total_').html('&#8377 '+<%= @final_total %>)

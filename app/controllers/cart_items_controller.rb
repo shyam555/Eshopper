@@ -1,27 +1,13 @@
 class CartItemsController < ApplicationController
+
   before_action :authenticate_user!
   before_action :set_cart_item, only: [:show, :edit, :update, :destroy]
+
   # GET /cart_items
   # GET /cart_items.json
   def index
-    @cart_items = current_user.cart_items.all
-    @sub_total = 0
-    @discount = 0
-    @cart_items.each do |item|
-      @sub_total += (item.product.price.to_i * item.quantity.to_i) 
-    end
-    if session[:coupon_code].present?
-      @coupon = Coupon.find_by(code: session[:coupon_code])
-      @percent_off = @coupon.percent_off
-      @discount = ((@percent_off * @sub_total) / 100)
-      @tax = 0.04 * @sub_total
-      @shipping_cost = 40
-      @final_total = @tax + @sub_total + @shipping_cost - @discount
-    else
-      @tax = 0.04 * @sub_total
-      @shipping_cost = 40
-      @final_total = @tax + @sub_total + @shipping_cost
-    end
+    @cart_items = current_user.cart_items
+    @sub_total, @discount, @tax, @shipping_cost, @final_total = CartItem.cart_total(@cart_items,session[:coupon_code])
   end
 
   # GET /cart_items/1
@@ -41,20 +27,20 @@ class CartItemsController < ApplicationController
   # POST /cart_items
   # POST /cart_items.json
   def create
-    @cart_item = CartItem.where(product_id: params[:product_id], user_id: current_user.id).first
+    @cart_item = current_user.cart_items.where(product_id: params[:product_id]).first
     if @cart_item.present?
       if params[:boolean].present?
-        a = params["cart_item"]["quantity"]
-        @cart_item.quantity += a.to_i
+        quantity_one = params["cart_item"]["quantity"]
+        @cart_item.quantity += quantity_one.to_i
       else
         @cart_item.quantity += 1
       end
     else
       if params[:boolean].present?
         @cart_item = CartItem.new(product_id: params[:product_id], user_id: current_user.id)
-        b = params["cart_item"]["quantity"]
+        quantity_two = params["cart_item"]["quantity"]
         puts @cart_item.quantity
-        @cart_item.quantity += b.to_i
+        @cart_item.quantity += quantity_two.to_i
       else
         @cart_item = CartItem.new(product_id: params[:product_id], user_id: current_user.id)
         @cart_item.quantity += 1
@@ -96,24 +82,8 @@ class CartItemsController < ApplicationController
     end
     respond_to do |format|
       if @cart_item.save
-        @cart_items = current_user.cart_items.all
-        @sub_total1 = 0
-        @discount = 0
-        @cart_items.each do |item|
-          @sub_total1 += (item.product.price.to_i * item.quantity.to_i) 
-        end
-        if session[:coupon_code].present?
-          @coupon = Coupon.find_by(code: session[:coupon_code])
-          @percent_off = @coupon.percent_off
-          @discount = ((@percent_off * @sub_total1) / 100)
-          @tax = 0.04 * @sub_total1
-          @shipping_cost = 40
-          @final_total = @tax + @sub_total1 + @shipping_cost - @discount
-        else
-          @tax = 0.04 * @sub_total1
-          @shipping_cost = 40
-          @final_total = @tax + @sub_total1 + @shipping_cost
-        end
+        @cart_items = current_user.cart_items
+        @sub_total, @discount, @tax, @shipping_cost, @final_total = CartItem.cart_total(@cart_items,session[:coupon_code])
         format.html { redirect_to :back, notice: 'Cart item was successfully updated.' }
         format.json { render :show, status: :ok, location: @cart_item }
         format.js
@@ -129,24 +99,8 @@ class CartItemsController < ApplicationController
   def destroy
     @cart_item = CartItem.find(params[:id])
     @cart_item.destroy
-    @cart_items = current_user.cart_items.all
-    @sub_total = 0
-    @discount = 0
-    @cart_items.each do |item|
-      @sub_total += (item.product.price.to_i * item.quantity.to_i) 
-    end
-    if session[:coupon_code].present?
-      @coupon = Coupon.find_by(code: session[:coupon_code])
-      @percent_off = @coupon.percent_off
-      @discount = ((@percent_off * @sub_total) / 100)
-      @tax = 0.04 * @sub_total
-      @shipping_cost = 40
-      @final_total = @tax + @sub_total + @shipping_cost - @discount
-    else
-      @tax = 0.04 * @sub_total
-      @shipping_cost = 40
-      @final_total = @tax + @sub_total + @shipping_cost
-    end
+    @cart_items = current_user.cart_items
+    @sub_total, @discount, @tax, @shipping_cost, @final_total = CartItem.cart_total(@cart_items, session[:coupon_code])
     respond_to do |format|
       format.html { redirect_to cart_items_url, notice: 'Product successfully removed from cart.' }
       format.json { head :no_content }

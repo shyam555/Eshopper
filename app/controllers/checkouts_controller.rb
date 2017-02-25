@@ -6,24 +6,8 @@ class CheckoutsController < ApplicationController
   def index
     @checkouts = Checkout.all
     @addresses = Address.new
-    @cart_items = current_user.cart_items.all
-    @sub_total = 0
-    @discount = 0
-    @cart_items.each do |item|
-      @sub_total += (item.product.price.to_i * item.quantity.to_i) 
-    end
-    if session[:coupon_code].present?
-      @coupon = Coupon.find_by(code: session[:coupon_code])
-      @percent_off = @coupon.percent_off
-      @discount = ((@percent_off * @sub_total) / 100)
-      @tax = 0.04 * @sub_total
-      @shipping_cost = 40
-      @final_total = @tax + @sub_total + @shipping_cost - @discount
-    else
-      @tax = 0.04 * @sub_total
-      @shipping_cost = 40
-      @final_total = @tax + @sub_total + @shipping_cost
-    end
+    @cart_items = current_user.cart_items
+    @sub_total, @discount, @tax, @shipping_cost, @final_total = CartItem.cart_total(@cart_items,session[:coupon_code])
   end
 
   # GET /checkouts/1
@@ -83,25 +67,9 @@ class CheckoutsController < ApplicationController
     @coupon = Coupon.new
     @checkouts = Checkout.all
     @addresses = Address.new
-    @cart_items = current_user.cart_items.all
-    @sub_total = 0
-    @discount = 0
-    @cart_items.each do |item|
-      @sub_total += (item.product.price.to_i * item.quantity.to_i) 
-    end
-    if session[:coupon_code].present?
-      @coupon = Coupon.find_by(code: session[:coupon_code])
-      @percent_off = @coupon.percent_off
-      @discount = ((@percent_off * @sub_total) / 100)
-      @tax = 0.04 * @sub_total
-      @shipping_cost = 40
-      @final_total = @tax + @sub_total + @shipping_cost - @discount
-    else
-      @tax = 0.04 * @sub_total
-      @shipping_cost = 40
-      @final_total = @tax + @sub_total + @shipping_cost
-    end
-      @address_id = params[:address_id]
+    @cart_items = current_user.cart_items
+    @sub_total, @discount, @tax, @shipping_cost, @final_total = CartItem.cart_total(@cart_items,session[:coupon_code])
+    @address_id = params[:address_id]
   end
 
   def check_coupon_code
