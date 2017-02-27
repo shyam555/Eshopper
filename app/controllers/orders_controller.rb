@@ -31,8 +31,7 @@ class OrdersController < ApplicationController
       @order.grand_total = @final_total
       @order.save
     else  
-      @order = Order.new(:user_id => current_user.id, :address_id => params[:address_id], :order_status => 'pending', :grand_total => @final_total)
-      @order.save
+      @order = current_user.orders.create(:address_id => params[:address_id], :order_status => 'pending', :grand_total => @final_total)
     end
     respond_to do |format|
       if @order.save

@@ -28,7 +28,7 @@ class WishlistsController < ApplicationController
   def create
     @product_id = params[:product_id]
     @product = Product.find_by(id: params[:product_id])
-    @wishlist = Wishlist.find_or_initialize_by(user_id: current_user.id, product_id: @product_id)
+    @wishlist = current_user.wishlists.find_or_initialize_by(user_id: current_user.id, product_id: @product_id)
     respond_to do |format|
       if @wishlist.save
         format.html { redirect_to :back, notice: 'Wishlist was successfully created.' }
@@ -58,7 +58,7 @@ class WishlistsController < ApplicationController
   # DELETE /wishlists/1
   # DELETE /wishlists/1.json
   def destroy
-    @wishlist = Wishlist.find(params[:id])
+    @wishlist = current_user.wishlists.find(params[:id])
     @product = Product.find_by(id: @wishlist.product_id)
     @wishlist.destroy
     respond_to do |format|

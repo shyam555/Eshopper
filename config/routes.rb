@@ -1,11 +1,8 @@
 Rails.application.routes.draw do
   
   get 'report/index'
-
   get 'report/sales_report'
-
   get 'report/customer_registered'
-
   get 'report/coupon_used'
 
   resources :recommended_products

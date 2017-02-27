@@ -25,7 +25,7 @@ class ContactsController < ApplicationController
   # POST /contacts
   # POST /contacts.json
   def create
-    @contact = Contact.new(user_id: current_user.id, name: params["contact"]["name"], email: params["contact"]["email"], subject: params["contact"]["subject"], message: params["contact"]["message"], reply: "")
+    @contact = current_user.contacts.create(name: params["contact"]["name"], email: params["contact"]["email"], subject: params["contact"]["subject"], message: params["contact"]["message"], reply: "")
     respond_to do |format|
       if @contact.save
         format.html { redirect_to :back , notice: 'Contact was successfully created.' }
