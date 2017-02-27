@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   after_create :send_email
   has_many :wishlists, dependent: :destroy
   has_many :orders
+  has_many :orderitems
   has_many :addresses
   devise :omniauthable, :omniauth_providers => [:facebook,:google_oauth2,:twitter]
   has_many :cart_items

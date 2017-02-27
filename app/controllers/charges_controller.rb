@@ -19,13 +19,12 @@ class ChargesController < ApplicationController
       :currency    => 'inr'
     )
     if params[:stripeToken].present?
-     @order = Order.where(user_id: current_user.id, order_status: 'pending').first
+     @order = current_user.orders.where( order_status: 'pending').first
      @order.order_status = 'successfull'
      @order.save
      @cart_items = current_user.cart_items
      @cart_items.each do |cart_item|
-      @order_item = Orderitem.new(order_id: @order.id, product_id: cart_item.product_id, quantity: cart_item.quantity,
-      user_id: current_user.id, amount: @final_total)
+      @order_item = current_user.orderitems.new(order_id: @order.id, product_id: cart_item.product_id, quantity: cart_item.quantity, amount: @final_total)
       @order_item.save
      end
      @addresses = Address.find(@order.address_id)
