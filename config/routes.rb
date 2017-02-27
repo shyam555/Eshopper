@@ -4,7 +4,6 @@ Rails.application.routes.draw do
   get 'report/sales_report'
   get 'report/customer_registered'
   get 'report/coupon_used'
-
   resources :recommended_products
   resources :contacts
   resources :wishlists
@@ -34,9 +33,7 @@ Rails.application.routes.draw do
   end
   resources :brands
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
-  #devise_for :users
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
-  #get 'home/index'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

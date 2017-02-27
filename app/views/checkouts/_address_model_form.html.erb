@@ -10,7 +10,6 @@
           <%=form_for @addresses, :html => { :id=>'submit-form'} do |f|%>
             <div class="col-sm-12 clearfix">                 
               <div class="bill-to">
-                
                 <div class="form-one">
                     <%= f.text_field :name, placeholder: "Name", required: "required"%>
                     <%= f.email_field :email, placeholder: "Email", required: "required"%>

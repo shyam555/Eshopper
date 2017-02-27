@@ -58,8 +58,8 @@
                 </tr>
               </thead>
               <tbody>
-                <% @subtotal = 0 %>
-                <% @orderitems.each do |item| %>
+                <% @sub_total = 0 %>
+                <% @order_items.each do |item| %>
                   <tr>
                     <td><%=item.product.name%></td>
                     <td class="text-center"><%=item.product.price%></td>
