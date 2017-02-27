@@ -22,26 +22,26 @@ module ChargesHelper
   end
 
   def payment_page(order_items)
-    subtotal = 0
+    sub_total = 0
     discount = 0 
     order_items.each do |item|                   
-      subtotal += item.product.price * item.quantity            
+      sub_total += item.product.price * item.quantity            
     end
     coupon_used =CouponUsed.find_by(order_id: @order.id, user_id: current_user.id)
     if coupon_used.present?
       coupon = Coupon.find(coupon_used.coupon_id)
     end
     if coupon.present?
-      discount =  (subtotal * coupon.percent_off )/100
-      tax = 0.04 * subtotal
+      discount =  (sub_total * coupon.percent_off )/100
+      tax = 0.04 * sub_total
       shipping_charges = 40
-      final_total = tax + subtotal + shipping_charges - discount
+      final_total = tax + sub_total + shipping_charges - discount
     else
-      tax = 0.04 * subtotal
+      tax = 0.04 * sub_total
       shipping_charges = 40
-      final_total = tax + subtotal + shipping_charges
+      final_total = tax + sub_total + shipping_charges
     end
-    return subtotal, discount, tax ,shipping_charges, final_total
+    return sub_total, discount, tax ,shipping_charges, final_total
   end
 
 end

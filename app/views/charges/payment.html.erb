@@ -65,14 +65,14 @@
                     <td class="text-center"><%=item.product.price%></td>
                     <td class="text-center"><%=item.quantity%></td>
                     <td class="text-right"><%= item.product.price * item.quantity%></td>
-                    <% @subtotal += item.product.price * item.quantity %>
+                    <% @sub_total += item.product.price * item.quantity %>
                   </tr>
                 <%end%>
                 <tr>
                   <td class="thick-line"></td>
                   <td class="thick-line"></td>
                   <td class="thick-line text-center"><strong>Subtotal</strong></td>
-                  <td class="thick-line text-right"><%= @subtotal %></td>
+                  <td class="thick-line text-right"><%= @sub_total %></td>
                 </tr>
                 <tr>
                   <td class="no-line"></td>

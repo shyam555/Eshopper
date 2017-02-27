@@ -50,7 +50,7 @@ class ChargesController < ApplicationController
     if current_user.orders.pluck(:id).include?(@order.id)
       @address = Address.find(@order.address_id)
       @order_items = @order.orderitems
-      @subtotal, @discount, @ax, @shipping_charges, @final_total = payment_page(@order_items)
+      @sub_total, @discount, @ax, @shipping_charges, @final_total = payment_page(@order_items)
       @transaction = Transaction.find_by(order_id: @order.id)
     else
       redirect_to root_path
