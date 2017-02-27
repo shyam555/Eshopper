@@ -10,6 +10,7 @@ class AddressesController < ApplicationController
   # GET /addresses/1
   # GET /addresses/1.json
   def show
+    
   end
 
   # GET /addresses/new
@@ -19,14 +20,13 @@ class AddressesController < ApplicationController
 
   # GET /addresses/1/edit
   def edit
-    @address = Address.find(params[:id])
+
   end
 
   # POST /addresses
   # POST /addresses.json
   def create
     @address_bill = current_user.addresses.new(address_params)
-
     respond_to do |format|
       if @address_bill.save
         format.html { redirect_to :back, notice: 'Address was successfully created.' }
@@ -41,7 +41,6 @@ class AddressesController < ApplicationController
   # PATCH/PUT /addresses/1
   # PATCH/PUT /addresses/1.json
   def update
-    @address= Address.find(params[:id])
     if params[:status] == "delete"
       @address.update(status: 'inactive')
       @address.save

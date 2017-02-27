@@ -1,10 +1,11 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
+  before_action :set_products, only: [:index, :show]
 
   # GET /products
   # GET /products.json
   def index
-    @products = Product.all
+    
   end
 
   # GET /products/1
@@ -12,8 +13,6 @@ class ProductsController < ApplicationController
   def show
     @brands = Brand.all
     @categories = Category.all
-    @products = Product.all
-    @product = Product.find(params[:id])
     @cart_item = CartItem.new
     @category = Category.first
     @recommended_products = @product.products 
@@ -73,6 +72,9 @@ class ProductsController < ApplicationController
       @product = Product.find(params[:id])
     end
 
+    def set_products
+      @products = Product.all
+    end
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
       params.require(:product).permit(:name, :short_description, :long_description, :status, :brand_id)

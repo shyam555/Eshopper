@@ -1,25 +1,27 @@
 class ContactsController < ApplicationController
   before_action :set_contact, only: [:show, :edit, :update, :destroy]
+  before_action :initialize_contact, only: [:index, :new]
   before_action :authenticate_user!
   # GET /contacts
   # GET /contacts.json
   def index
-    @contact = Contact.new
     @contacts = Contact.all
   end
 
   # GET /contacts/1
   # GET /contacts/1.json
   def show
+
   end
 
   # GET /contacts/new
   def new
-    @contact = Contact.new
+
   end
 
   # GET /contacts/1/edit
   def edit
+
   end
 
   # POST /contacts
@@ -43,7 +45,7 @@ class ContactsController < ApplicationController
   # PATCH/PUT /contacts/1.json
   def update
     respond_to do |format|
-      if @contact.update(message: params["contact"]["message"], reply: params["contact"]["reply"])
+      if @contact.update_attributes(message: params["contact"]["message"], reply: params["contact"]["reply"])
         CancelMailer.reply_mailer(@contact).deliver
         @contact.destroy
         format.html { redirect_to :back, notice: 'Contact was successfully updated.' }
@@ -69,6 +71,10 @@ class ContactsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_contact
       @contact = Contact.find(params[:id])
+    end
+
+    def initialize_contact
+      @contact = Contact.new
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

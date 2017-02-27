@@ -1,6 +1,6 @@
 class ChargesController < ApplicationController
   include ChargesHelper
-  before_action :set_order, only: [:show, :edit, :update, :destroy]
+  before_action :set_order, only: [:payment, :show, :edit, :update, :destroy]
   before_action :set_total_amount, only: [:create]
   after_filter :remove_cart_items
 
@@ -24,19 +24,16 @@ class ChargesController < ApplicationController
      @order.save
      @cart_items = current_user.cart_items
      @cart_items.each do |cart_item|
-      @order_item = current_user.orderitems.new(order_id: @order.id, product_id: cart_item.product_id, quantity: cart_item.quantity, amount: @final_total)
-      @order_item.save
+      @order_item = current_user.orderitems.create(order_id: @order.id, product_id: cart_item.product_id, quantity: cart_item.quantity, amount: @final_total)
      end
      @address = Address.find(@order.address_id)
      @orderitems = @order.orderitems
-     @transaction = current_user.transactions.new(order_id: @order.id, token: params[:stripeToken], charge_id: charge[:id], amount: charge[:amount]/100, paid: charge[:paid], refunded: charge[:refunded], status: charge[:status])
-     @transaction.save
+     @transaction = current_user.transactions.create(order_id: @order.id, token: params[:stripeToken], charge_id: charge[:id], amount: charge[:amount]/100, paid: charge[:paid], refunded: charge[:refunded], status: charge[:status])
      OrderMailer.order_email(@address, @orderitems, session[:coupon_code], current_user).deliver
      if session[:coupon_code].present?
       @coupon_code = session[:coupon_code]
       @coupon = Coupon.find_by(code: @coupon_code)
-      @coupon_used = current_user.coupon_useds.new(order_id: @order.id, coupon_id: @coupon.id )
-      @coupon_used.save
+      @coupon_used = current_user.coupon_useds.create(order_id: @order.id, coupon_id: @coupon.id )
      end 
     end
     redirect_to  payment_charge_path(@order)
@@ -46,11 +43,10 @@ class ChargesController < ApplicationController
   end
 
   def payment
-    @order = Order.find(params[:id])
     if current_user.orders.pluck(:id).include?(@order.id)
       @address = Address.find(@order.address_id)
       @order_items = @order.orderitems
-      @sub_total, @discount, @ax, @shipping_charges, @final_total = payment_page(@order_items)
+      @sub_total, @discount, @tax, @shipping_charges, @final_total = payment_page(@order_items)
       @transaction = Transaction.find_by(order_id: @order.id)
     else
       redirect_to root_path

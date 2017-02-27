@@ -1,7 +1,6 @@
 class CartItemsController < ApplicationController
-
   before_action :authenticate_user!
-  before_action :set_cart_item, only: [:show, :edit, :update, :destroy]
+  before_action :set_cart_item, only: [:update, :destroy]
 
   # GET /cart_items
   # GET /cart_items.json
@@ -60,7 +59,6 @@ class CartItemsController < ApplicationController
   # PATCH/PUT /cart_items/1
   # PATCH/PUT /cart_items/1.json
   def update
-    @cart_item = CartItem.find(params[:id])
     if params[:qty] == "minus"
       if @cart_item.quantity == 1
         @cart_item.quantity=1
@@ -96,7 +94,6 @@ class CartItemsController < ApplicationController
   # DELETE /cart_items/1
   # DELETE /cart_items/1.json
   def destroy
-    @cart_item = CartItem.find(params[:id])
     @cart_item.destroy
     @cart_items = current_user.cart_items
     @sub_total, @discount, @tax, @shipping_cost, @final_total = CartItem.cart_total(@cart_items, session[:coupon_code])
@@ -110,7 +107,7 @@ class CartItemsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_cart_item
-      #@cart_item = CartItem.find(params[:id])
+      @cart_item = CartItem.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

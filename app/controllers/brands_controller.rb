@@ -1,8 +1,6 @@
 class BrandsController < ApplicationController
-  before_action :set_brand, only: [:show, :edit, :update, :destroy]
+  before_action :set_brand, only: [:index, :show, :update, :destroy]
 
-  # GET /brands
-  # GET /brands.json
   def index
     @categories = Category.all
     @brands = Brand.all
@@ -10,11 +8,8 @@ class BrandsController < ApplicationController
     @product = Product.find(params[:id])
     @cart_item = CartItem.new
     @category = Category.first
-    @brand = Brand.find(params[:id])
   end
 
-  # GET /brands/1
-  # GET /brands/1.json
   def show
     @subcategory = @brand.categories
     @categories = Category.all.where(category_id: nil)
@@ -23,17 +18,10 @@ class BrandsController < ApplicationController
     @brands = Brand.all
   end
 
-  # GET /brands/new
   def new
     @brand = Brand.new
   end
 
-  # GET /brands/1/edit
-  def edit
-  end
-
-  # POST /brands
-  # POST /brands.json
   def create
     @brand = Brand.new(brand_params)
     respond_to do |format|
@@ -47,8 +35,6 @@ class BrandsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /brands/1
-  # PATCH/PUT /brands/1.json
   def update
     respond_to do |format|
       if @brand.update(brand_params)
@@ -61,8 +47,6 @@ class BrandsController < ApplicationController
     end
   end
 
-  # DELETE /brands/1
-  # DELETE /brands/1.json
   def destroy
     @brand.destroy
     respond_to do |format|

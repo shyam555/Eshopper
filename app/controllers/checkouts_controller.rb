@@ -1,11 +1,11 @@
 class CheckoutsController < ApplicationController
   before_action :set_checkout, only: [:show, :edit, :update, :destroy]
+  before_action :set_checkouts, only: [:index, :payment_review]
+  before_action :set_addresses, only:[:index, :payment_review]
 
   # GET /checkouts
   # GET /checkouts.json
   def index
-    @checkouts = Checkout.all
-    @addresses = Address.new
     @cart_items = current_user.cart_items
     @sub_total, @discount, @tax, @shipping_cost, @final_total = CartItem.cart_total(@cart_items,session[:coupon_code])
   end
@@ -65,8 +65,6 @@ class CheckoutsController < ApplicationController
 
   def payment_review
     @coupon = Coupon.new
-    @checkouts = Checkout.all
-    @addresses = Address.new
     @cart_items = current_user.cart_items
     @sub_total, @discount, @tax, @shipping_cost, @final_total = CartItem.cart_total(@cart_items,session[:coupon_code])
     @address_id = params[:address_id]
@@ -81,6 +79,13 @@ class CheckoutsController < ApplicationController
       @checkout = Checkout.find(params[:id])
     end
 
+    def set_checkouts
+      @checkouts = Checkout.all
+    end
+
+    def set_addresses
+      @addresses = Address.new
+    end
     # Never trust parameters from the scary internet, only allow the white list through.
     def checkout_params
       params.fetch(:checkout, {})

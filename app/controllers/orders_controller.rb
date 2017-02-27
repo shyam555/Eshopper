@@ -25,7 +25,7 @@ class OrdersController < ApplicationController
   # POST /orders
   # POST /orders.json
   def create
-    @order = current_user.orders.where(user_id: current_user.id, order_status: 'pending').first
+    @order = current_user.orders.where(order_status: 'pending').first
     if @order.present?
       @order.address_id = params[:address_id]
       @order.grand_total = @final_total

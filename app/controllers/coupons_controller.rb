@@ -1,6 +1,5 @@
 class CouponsController < ApplicationController
   include CouponsHelper
-  #before_action :set_coupon, only: [:show, :edit, :update, :destroy]
 
   # GET /coupons
   # GET /coupons.json
@@ -78,7 +77,5 @@ class CouponsController < ApplicationController
 
   private
     # Never trust parameters from the scary internet, only allow the white list through.
-    def coupon_params
-      params.fetch(:coupon, {})
-    end
+    
 end
