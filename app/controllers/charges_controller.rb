@@ -29,13 +29,13 @@ class ChargesController < ApplicationController
      end
      @addresses = Address.find(@order.address_id)
      @orderitems = @order.orderitems
-     @transaction = Transaction.new(user_id: current_user.id, order_id: @order.id, token: params[:stripeToken], charge_id: charge[:id], amount: charge[:amount]/100, paid: charge[:paid], refunded: charge[:refunded], status: charge[:status])
+     @transaction = current_user.transactions.new(order_id: @order.id, token: params[:stripeToken], charge_id: charge[:id], amount: charge[:amount]/100, paid: charge[:paid], refunded: charge[:refunded], status: charge[:status])
      @transaction.save
      OrderMailer.order_email(@addresses, @orderitems, session[:coupon_code], current_user).deliver
      if session[:coupon_code].present?
       @coupon_code = session[:coupon_code]
       @coupon = Coupon.find_by(code: @coupon_code)
-      @coupon_used = CouponUsed.new(user_id: current_user.id, order_id: @order.id, coupon_id: @coupon.id )
+      @coupon_used = current_user.coupon_useds.new(order_id: @order.id, coupon_id: @coupon.id )
       @coupon_used.save
      end 
     end

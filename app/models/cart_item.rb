@@ -20,7 +20,6 @@ class CartItem < ActiveRecord::Base
       shipping_cost = 40
       final_total = tax + sub_total + shipping_cost
     end
-
-    return sub_total,discount,tax,shipping_cost,final_total
+    return sub_total, discount, tax, shipping_cost, final_total
   end
 end

@@ -7,6 +7,8 @@ class User < ActiveRecord::Base
   has_many :orders
   has_many :orderitems
   has_many :addresses
+  has_many :coupon_useds
+  has_many :transactions
   has_many :contacts
   devise :omniauthable, :omniauth_providers => [:facebook,:google_oauth2,:twitter]
   has_many :cart_items
