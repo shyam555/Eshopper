@@ -48,6 +48,7 @@ class ChargesController < ApplicationController
       @order_items = @order.orderitems
       @sub_total, @discount, @tax, @shipping_charges, @final_total = payment_page(@order_items)
       @transaction = Transaction.find_by(order_id: @order.id)
+      @success, @in_transit, @shipped, @delivered = order_status(@order.id)
     else
       redirect_to root_path
     end

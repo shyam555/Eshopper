@@ -28,12 +28,7 @@ class CartItemsController < ApplicationController
   def create
     @cart_item = current_user.cart_items.where(product_id: params[:product_id]).first
     if @cart_item.present?
-      if params[:boolean].present?
-        quantity_one = params["cart_item"]["quantity"]
-        @cart_item.quantity += quantity_one.to_i
-      else
-        @cart_item.quantity += 1
-      end
+      CartItem.update_cart_item(@cart_item, params[:boolean], params["cart_item"]["quantity"])
     else
       if params[:boolean].present?
         @cart_item = current_user.cart_items.create(product_id: params[:product_id])
@@ -59,24 +54,7 @@ class CartItemsController < ApplicationController
   # PATCH/PUT /cart_items/1
   # PATCH/PUT /cart_items/1.json
   def update
-    if params[:qty] == "minus"
-      if @cart_item.quantity == 1
-        @cart_item.quantity=1
-      else
-        @cart_item.quantity -= 1
-      end
-    elsif params[:qty] == "plus"
-      @cart_item.quantity += 1
-    else
-      quantity = params["quantity"].to_i
-      if params[:quantity] == ""
-        @cart_item.quantity = @cart_item.quantity
-      elsif params[:quantity].to_i < 1
-        @cart_item.quantity = 1
-      else
-        @cart_item.quantity = quantity
-      end
-    end
+    CartItem.update_cart(params[:qty],params["quantity"], @cart_item)
     respond_to do |format|
       if @cart_item.save
         @cart_items = current_user.cart_items

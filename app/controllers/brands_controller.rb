@@ -1,9 +1,9 @@
 class BrandsController < ApplicationController
   before_action :set_brand, only: [:index, :show, :update, :destroy]
+  before_action :set_brands, only: [:index, :show]
 
   def index
     @categories = Category.all
-    @brands = Brand.all
     @products = Product.all
     @product = Product.find(params[:id])
     @cart_item = CartItem.new
@@ -15,7 +15,6 @@ class BrandsController < ApplicationController
     @categories = Category.all.where(category_id: nil)
     @category = Category.find(params[:sub_category] || params[:category_id])
     @product = @category.products.where(brand_id: @brand.id)
-    @brands = Brand.all
   end
 
   def new
@@ -61,6 +60,9 @@ class BrandsController < ApplicationController
       @brand = Brand.find(params[:id])
     end
 
+    def set_brands
+      @brands = Brand.all
+    end
     # Never trust parameters from the scary internet, only allow the white list through.
     def brand_params
       params.require(:brand).permit(:name, :short_description, :long_description, :status, :category_id)

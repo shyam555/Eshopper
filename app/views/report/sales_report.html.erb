@@ -2,54 +2,54 @@
 <script type="text/javascript">
 Highcharts.chart('charts', {
     chart: {
-        type: 'column'
+      type: 'column'
     },
     title: {
-        text: 'Order details. January, 2017 to Dec, 2017'
+      text: 'Order details. January, 2017 to Dec, 2017'
     },
     subtitle: {
         
     },
     xAxis: {
-        type: 'category'
+      type: 'category'
     },
     yAxis: {
-        title: {
-            text: 'Total percent order placed'
-        }
+      title: {
+        text: 'Total percent order placed'
+      }
 
     },
     legend: {
-        enabled: false
+      enabled: false
     },
     plotOptions: {
-        series: {
-            borderWidth: 0,
-            dataLabels: {
-                enabled: true,
-                format: '{point.y:.1f}%'
-            }
+      series: {
+        borderWidth: 0,
+        dataLabels: {
+          enabled: true,
+          format: '{point.y:.1f}%'
         }
+      }
     },
 
     tooltip: {
-        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+      headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+      pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
     },
 
     series: [{
-        name: 'Orders',
-        colorByPoint: true,
-        data: [
-        <% @months.each_with_index do |month,i|%>
-        {
-            name: '<%=month%>',
-            y: <%=@total_orders[i]%>,
-            drilldown: 'January'
-        },
-        <%end%>
+      name: 'Orders',
+      colorByPoint: true,
+      data: [
+      <% @months.each_with_index do |month,i|%>
+      {
+        name: '<%=month%>',
+        y: <%=@total_orders[i]%>,
+        drilldown: 'January'
+      },
+      <%end%>
 
-        ]
+      ]
     }]
 });
 </script>

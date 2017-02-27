@@ -1,27 +1,20 @@
 class BrandCategoriesController < ApplicationController
   before_action :set_brand_category, only: [:show, :edit, :update, :destroy]
-  # GET /brand_categories
-  # GET /brand_categories.json
+  
   def index
     @brand_categories = BrandCategory.all
   end
 
-  # GET /brand_categories/1
-  # GET /brand_categories/1.json
   def show
   end
 
-  # GET /brand_categories/new
   def new
     @brand_category = BrandCategory.new
   end
 
-  # GET /brand_categories/1/edit
   def edit
   end
 
-  # POST /brand_categories
-  # POST /brand_categories.json
   def create
     @brand_category = BrandCategory.new(brand_category_params)
     respond_to do |format|

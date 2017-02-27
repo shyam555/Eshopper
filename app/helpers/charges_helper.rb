@@ -44,4 +44,12 @@ module ChargesHelper
     return sub_total, discount, tax ,shipping_charges, final_total
   end
 
+  def order_status(order_id)
+    success = Trackorder.where(order_id: order_id, status: 'successfull').last.created_at.strftime("%d %B %Y") if Trackorder.where(order_id: order_id, status: 'successfull').last.present?
+    in_transit = Trackorder.where(order_id: order_id, status: 'in-transit').last.created_at.strftime("%d %B %Y") if Trackorder.where(order_id: order_id, status: 'in-transit').last.present?
+    shipped = Trackorder.where(order_id: order_id, status: 'shipped').last.created_at.strftime("%d %B %Y") if Trackorder.where(order_id: order_id, status: 'shipped').last.present?
+    delivered = Trackorder.where(order_id: order_id,status: 'delivered').last.created_at.strftime("%d %B %Y") if Trackorder.where(order_id: order_id, status: 'delivered').last.present?
+    return success, in_transit, shipped, delivered
+  end
+
 end

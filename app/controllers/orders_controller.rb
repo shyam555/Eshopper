@@ -69,7 +69,7 @@ class OrdersController < ApplicationController
   end
 
   def cancel_order
-    @order= Order.find(params['order_id'])
+    @order= current_user.orders.find(params['order_id'])
     @order.order_status = 'cancel'
     @order.save
     @transaction = Transaction.find_by(order_id: @order.id)
@@ -96,16 +96,14 @@ class OrdersController < ApplicationController
 
     def set_total_amount
       @sub_total = Order.set_sub_total(current_user)
+      @tax = 0.04 * @sub_total
+      @shipping_cost = 40
       if session[:coupon_code].present?
         @coupon = Coupon.find_by(code: session[:coupon_code])
         @percent_off = @coupon.percent_off
         @discount = ((@percent_off * @sub_total) / 100)
-        @tax = 0.04 * @sub_total
-        @shipping_cost = 40
         @final_total = @tax + @sub_total + @shipping_cost - @discount
       else
-        @tax = 0.04 * @sub_total
-        @shipping_cost = 40
         @final_total = @tax + @sub_total + @shipping_cost
       end
     end
