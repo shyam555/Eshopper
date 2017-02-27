@@ -27,11 +27,11 @@ class ChargesController < ApplicationController
       @order_item = current_user.orderitems.new(order_id: @order.id, product_id: cart_item.product_id, quantity: cart_item.quantity, amount: @final_total)
       @order_item.save
      end
-     @addresses = Address.find(@order.address_id)
+     @address = Address.find(@order.address_id)
      @orderitems = @order.orderitems
      @transaction = current_user.transactions.new(order_id: @order.id, token: params[:stripeToken], charge_id: charge[:id], amount: charge[:amount]/100, paid: charge[:paid], refunded: charge[:refunded], status: charge[:status])
      @transaction.save
-     OrderMailer.order_email(@addresses, @orderitems, session[:coupon_code], current_user).deliver
+     OrderMailer.order_email(@address, @orderitems, session[:coupon_code], current_user).deliver
      if session[:coupon_code].present?
       @coupon_code = session[:coupon_code]
       @coupon = Coupon.find_by(code: @coupon_code)
@@ -48,27 +48,9 @@ class ChargesController < ApplicationController
   def payment
     @order = Order.find(params[:id])
     if current_user.orders.pluck(:id).include?(@order.id)
-      @addresses = Address.find(@order.address_id)
-      @orderitems = @order.orderitems
-      @subtotal = 0
-      @discount = 0 
-      @orderitems.each do |item|                   
-        @subtotal += item.product.price * item.quantity            
-      end
-      @coupon_used =CouponUsed.find_by(order_id: @order.id, user_id: current_user.id)
-      if @coupon_used.present?
-        @coupon = Coupon.find(@coupon_used.coupon_id)
-      end
-      if @coupon.present?
-        @discount =  (@subtotal * @coupon.percent_off )/100
-        @tax = 0.04 * @subtotal
-        @shipping_charges = 40
-        @final_total = @tax + @subtotal + @shipping_charges - @discount
-      else
-        @tax = 0.04 * @subtotal
-        @shipping_charges = 40
-        @final_total = @tax + @subtotal + @shipping_charges
-      end
+      @address = Address.find(@order.address_id)
+      @order_items = @order.orderitems
+      @subtotal, @discount, @ax, @shipping_charges, @final_total = payment_page(@order_items)
       @transaction = Transaction.find_by(order_id: @order.id)
     else
       redirect_to root_path
