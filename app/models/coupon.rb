@@ -1,7 +1,6 @@
 class Coupon < ActiveRecord::Base
 
   def self.check_coupon(cart_items, session, current_user)
-    #binding.pry
     coupon=Coupon.find_by(code: session)
     if coupon.present?
       coupon_used = CouponUsed.find_by(user_id: current_user.id, coupon_id: coupon.id )

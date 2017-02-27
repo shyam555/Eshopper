@@ -9,7 +9,6 @@ class Checkout < ActiveRecord::Base
     if session.present?
       coupon = Coupon.find_by(code: session)
       percent_off = coupon.percent_off
-      #binding.pry
       discount = ((percent_off * sub_total) / 100)
       tax = 0.04 * sub_total
       shipping_cost = 40
