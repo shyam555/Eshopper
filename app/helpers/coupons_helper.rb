@@ -1,5 +1,5 @@
 module CouponsHelper
-   def amount(current_user)
+   def calculate_amount(current_user)
     
     sub_total = 0
     discount = 0
@@ -9,7 +9,6 @@ module CouponsHelper
     if session[:coupon_code].present?
       coupon = Coupon.find_by(code: session[:coupon_code])
       percent_off = coupon.percent_off
-      #binding.pry
       discount = ((percent_off * sub_total) / 100)
       tax = 0.04 * sub_total
       shipping_cost = 40

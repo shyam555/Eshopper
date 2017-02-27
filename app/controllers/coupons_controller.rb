@@ -29,15 +29,15 @@ class CouponsController < ApplicationController
       if @coupan.present?
         @used_coupon = CouponUsed.find_by(user_id: current_user.id, coupon_id: @coupan.id )
         if @used_coupon.present?
-          @sub_total, @discount, @tax, @shipping_cost, @final_total = amount(current_user)
+          @sub_total, @discount, @tax, @shipping_cost, @final_total = calculate_amount(current_user)
           @message = "Coupon Alredy Used.."
         else
           session[:coupon_code] = params[:code]
-          @sub_total, @discount, @tax, @shipping_cost, @final_total = amount(current_user)
+          @sub_total, @discount, @tax, @shipping_cost, @final_total = calculate_amount(current_user)
           @message = "Coupon Applied"
         end
       else
-        @sub_total, @discount, @tax, @shipping_cost, @final_total = amount(current_user)
+        @sub_total, @discount, @tax, @shipping_cost, @final_total = calculate_amount(current_user)
         @message = "Invalid Coupon..!!"
       end
     respond_to do |format|
