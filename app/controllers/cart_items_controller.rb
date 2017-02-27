@@ -37,12 +37,12 @@ class CartItemsController < ApplicationController
       end
     else
       if params[:boolean].present?
-        @cart_item = CartItem.new(product_id: params[:product_id], user_id: current_user.id)
+        @cart_item = current_user.cart_items.create(product_id: params[:product_id])
         quantity_two = params["cart_item"]["quantity"]
         puts @cart_item.quantity
         @cart_item.quantity += quantity_two.to_i
       else
-        @cart_item = CartItem.new(product_id: params[:product_id], user_id: current_user.id)
+        @cart_item = current_user.cart_items.create(product_id: params[:product_id])
         @cart_item.quantity += 1
       end
     end

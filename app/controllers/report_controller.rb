@@ -1,5 +1,9 @@
 class ReportController < ApplicationController
   def index
+    
+  end
+
+  def sales_report
     @months = []
     @total_orders = []
     @orders = Order.all.group_by { |t| t.created_at.strftime("%B/%Y") } 
@@ -7,9 +11,6 @@ class ReportController < ApplicationController
       @months << key
       @total_orders << value.size
     end
-  end
-
-  def sales_report
   end
 
   def customer_registered
