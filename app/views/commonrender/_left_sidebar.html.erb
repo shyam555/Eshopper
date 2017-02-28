@@ -11,7 +11,7 @@
                 <span class="badge pull-right"><i class="fa fa-plus"></i></span>
               <%end%>   
               <%= link_to category_path(category) do %>
-                <%= category.name%>
+                <%= category.name %>
               <%end%>
               <%end%>     
             </a>
@@ -21,10 +21,10 @@
           <% if category.brands.present? %>
             <div class="panel-body">
               <ul>
-                <% category.brands.each do |brand|%>
+                <% category.brands.each do |brand| %>
                   <li class="<%= "brand_underline" if current_page?category_brand_path(brand,category_id: category) %>">
                     <%= link_to category_brand_path(brand,category_id: category) do %>
-                    <%= brand.name%><%end%>
+                    <%= brand.name%><% end %>
                   </li>
                 <%end%>
               </ul>
@@ -38,9 +38,9 @@
     <h2>Brands</h2>
     <div class="brands-name">
       <ul class="nav nav-pills nav-stacked">
-        <% @brands.each do |brand|%>
+        <% @brands.each do |brand| %>
           <%if brand.products.present? %>
-            <li><%= link_to brands_path(id: brand.id) do%>
+            <li><%= link_to brands_path(id: brand.id) do %>
               <span class="pull-right">(<%= brand.products.count %>)</span><%= brand.name %>
                <%end%>
             </li>

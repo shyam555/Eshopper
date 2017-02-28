@@ -29,7 +29,7 @@
               <td class="cart_product">
                 <% if cart_item.product.pictures.first.present? %>
                   <%= image_tag(cart_item.product.pictures.first.image.url, class: 'cart-image', style: "width:100px;height:100px") %>
-                <%end%>
+                <% end %>
               </td>
               <td class="cart_description">
                 <h4 class="product_desc_align"><%= cart_item.product.name %></h4>
@@ -54,11 +54,11 @@
               <table class="table table-condensed total-result">
                 <tr>
                   <td>Cart Sub Total</td>
-                  <td><div id="cart_sub_total">&#8377; <%=@sub_total%></div></td>
+                  <td><div id="cart_sub_total">&#8377; <%= @sub_total %></div></td>
                 </tr>
                 <tr>
                   <td>Discount</td>
-                  <td><div id="discount">&#8377; <%=@discount%></div></td>
+                  <td><div id="discount">&#8377; <%= @discount %></div></td>
                 </tr>
                 <tr>
                   <td>Exo Tax</td>
@@ -79,7 +79,7 @@
       </table>
       <%= link_to(orders_path(address_id: @address_id), method: :post, class: "btn btn-primary continue_to_payment") do  %>
       Continue to payment
-      <%end%>
+      <% end %>
     </div>
   </div>
 </section>

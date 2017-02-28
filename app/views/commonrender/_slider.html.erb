@@ -18,8 +18,8 @@
                 </div>
                 <div class="col-sm-6">
                   <% if banner.pictures.find_by(imageable_id: banner.id).present? %>
-                    <%= image_tag banner.pictures.find_by(imageable_id: banner.id).image, class: "girl img-responsive"%>
-                    <%= image_tag "home/pricing.png", class: "pricing"%>
+                    <%= image_tag banner.pictures.find_by(imageable_id: banner.id).image, class: "girl img-responsive" %>
+                    <%= image_tag "home/pricing.png", class: "pricing" %>
                   <%end%>
                 </div>
               </div>

@@ -1,5 +1,5 @@
 class OrderMailer < ApplicationMailer
-  default from: 'shyamshinde555@gmail.com'
+  default from: 'eshopper@admin.com'
  
   def order_email(address,orderitems,session,current_user)
 

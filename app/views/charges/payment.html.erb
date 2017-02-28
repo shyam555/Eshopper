@@ -104,7 +104,7 @@
               Continue shopping
             <% end %>
             <% if @transaction.refunded == false %>
-              <%= link_to(cancel_order_order_path(@order.id), class: "btn btn-primary") do  %>
+              <%= link_to(cancel_order_order_path(@order.id), class: "btn btn-primary", data: { confirm: 'you want to cancel order?'}) do  %>
                 Cancel Order
               <% end %>
             <% end %>

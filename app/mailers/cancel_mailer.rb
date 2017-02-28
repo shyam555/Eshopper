@@ -1,5 +1,5 @@
 class CancelMailer < ApplicationMailer
-  default from: 'shyamshinde555@gmail.com'
+  default from: 'eshopper@admin.com'
  
   def cancel_order(order,address)
 
