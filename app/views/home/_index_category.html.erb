@@ -4,14 +4,14 @@
       <%if @category.present? %>
         <% @categories.each_with_index do |subcategory, index| %>
           <% if subcategory.category_id == @category.id %>
-          <%if @active.present?%>
-            <li data-target="#slider-carousel" data-slide-to="<%= index %>" class="<%= @active.id == subcategory.id ? 'active' : '' %>"></li>
+            <%if @active.present?%>
+              <li data-target="#slider-carousel" data-slide-to="<%= index %>" class="<%= @active.id == subcategory.id ? 'active' : '' %>"></li>
             <%else%>
               <li data-target="#slider-carousel" data-slide-to="<%= index %>" class="<%= index == 0 ? 'active' : '' %>"></li>
             <%end%>
             <li><%= link_to category_path(id: @category.id, sub_category: subcategory.id) do %>
               <%=subcategory.name%>
-            <%end%><li>
+            <%end%></li>
           <%end%>
         <% end %>
       <%else%>

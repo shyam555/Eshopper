@@ -9,24 +9,24 @@
         <div class="modal-body">
           <div class="shopper-informations">
             <div class="row">
-              <%=form_for @addresses, :html => { :id=>'submit-form'} do |f|%>
+              <%= form_for @addresses, :html => { :id=>'submit-form'} do |f| %>
                 <div class="col-sm-12 clearfix">
                   <div class="bill-to">
                     <div class="form-one">
-                      <%= f.text_field :name, placeholder: "Name"%>
-                      <%= f.text_field :email, placeholder: "Email"%>
-                      <%= f.text_field :address_one, placeholder: "Address1"%>
-                      <%= f.text_field :address_two, placeholder: "Address2"%>
-                      <%= f.text_field :zip_code, placeholder: "Zip / Postal Code"%>
-                      <%= f.text_field :mobile_number, placeholder: "Mobile Phone"%>
+                      <%= f.text_field :name, placeholder: "Name" %>
+                      <%= f.text_field :email, placeholder: "Email" %>
+                      <%= f.text_field :address_one, placeholder: "Address1" %>
+                      <%= f.text_field :address_two, placeholder: "Address2" %>
+                      <%= f.text_field :zip_code, placeholder: "Zip / Postal Code" %>
+                      <%= f.text_field :mobile_number, placeholder: "Mobile Phone" %>
                     </div>
                   </div>
                 </div>
-              <%end%>          
+              <% end %>          
             </div>
         </div>
         <div class="modal-footer">
-          <%= submit_tag "Submit", class: "btn btn-sucess", onClick: "$('#submit-form').submit()"%>
+          <%= submit_tag "Submit", class: "btn btn-sucess", onClick: "$('#submit-form').submit()" %>
           <%= submit_tag 'Cancel', :type => :reset, :class => "btn btn-danger", "data-dismiss" => "modal", "aria-hidden" => "true" %>
         </div>
       </div>

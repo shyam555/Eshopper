@@ -9,13 +9,13 @@
               <a data-toggle="collapse" data-parent="#accordian" href="#<%= category.id %>">
                 <% if category.brands.present? %>
                   <span class="badge pull-right"><i class="fa fa-plus"></i></span>
-                <%end%>   
+                <% end %>   
                 <%= link_to category_path(category) do %>
                   <%= category.name%>
-                <%end%>  
+                <% end %>  
               </a>
             </h4>
-          <%end%>
+          <% end %>
         </div>
         <div id="<%= category.id %>" class="panel-collapse collapse <%= 'in' if @category.id == category.id || @category.category_id == category.id %>">
           <% if category.brands.present? %>
@@ -24,13 +24,13 @@
                 <% category.brands.each do |brand|%>
                   <li class="<%= "brand_underline" if current_page?category_brand_path(brand,category_id: category) %>">
                     <%= link_to category_brand_path(brand,category_id: category) do %>
-                      <%= brand.name%>
-                    <%end%>
+                      <%= brand.name %>
+                    <% end %>
                   </li>
-                <%end%>
+                <% end %>
               </ul>
             </div>
-          <%end%>
+          <% end %>
         </div>
       </div>
     <% end %>
@@ -44,8 +44,8 @@
             <li><%= link_to brands_path(id: brand.id) do%>
                <span class="pull-right">(<%= brand.products.count %>)</span><%= brand.name %><%end%>
             </li>
-          <%end%>
-        <%end%>
+          <% end %>
+        <% end %>
       </ul>
     </div>
   </div><!--/brands_products-->

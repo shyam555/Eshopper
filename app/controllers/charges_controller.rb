@@ -20,13 +20,12 @@ class ChargesController < ApplicationController
     )
     if params[:stripeToken].present?
      @order = current_user.orders.where( order_status: 'pending').first
-     @order.order_status = 'successfull'
-     @order.save
+     @order.update_attribute(:order_status, "successfull")
      @cart_items = current_user.cart_items
      @cart_items.each do |cart_item|
       @order_item = current_user.orderitems.create(order_id: @order.id, product_id: cart_item.product_id, quantity: cart_item.quantity, amount: @final_total)
      end
-     @address = Address.find(@order.address_id)
+     @address = current_user.addresses.find(@order.address_id)
      @orderitems = @order.orderitems
      @transaction = current_user.transactions.create(order_id: @order.id, token: params[:stripeToken], charge_id: charge[:id], amount: charge[:amount]/100, paid: charge[:paid], refunded: charge[:refunded], status: charge[:status])
      OrderMailer.order_email(@address, @orderitems, session[:coupon_code], current_user).deliver

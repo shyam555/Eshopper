@@ -1,0 +1,56 @@
+<div class="container">
+  <div id="charts" style="width:80%; height:400px;"></div>
+  <script type="text/javascript">
+  Highcharts.chart('charts', {
+      chart: {
+        type: 'column'
+      },
+      title: {
+        text: 'Coupon details. January, 2017 to Dec, 2017'
+      },
+      subtitle: {
+          
+      },
+      xAxis: {
+        type: 'category'
+      },
+      yAxis: {
+        title: {
+          text: 'Total coupon'
+        }
+
+      },
+      legend: {
+        enabled: false
+      },
+      plotOptions: {
+        series: {
+          borderWidth: 0,
+          dataLabels: {
+            enabled: true,
+            format: '{point.y}'
+          }
+        }
+      },
+
+      tooltip: {
+        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b> of total<br/>'
+      },
+
+      series: [{
+        name: 'Coupons',
+        colorByPoint: true,
+        data: [
+        <% @months.each_with_index do |month,i|%>
+          {
+            name: '<%=month%>',
+            y: <%=@total_coupons[i]%>
+          },
+        <%end%>
+
+        ]
+      }]
+  });
+  </script>
+</div>

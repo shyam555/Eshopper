@@ -54,11 +54,11 @@ class CartItemsController < ApplicationController
   # PATCH/PUT /cart_items/1
   # PATCH/PUT /cart_items/1.json
   def update
-    CartItem.update_cart(params[:qty],params["quantity"], @cart_item)
+    CartItem.update_cart(params[:qty], params["quantity"], @cart_item)
     respond_to do |format|
       if @cart_item.save
         @cart_items = current_user.cart_items
-        @sub_total, @discount, @tax, @shipping_cost, @final_total = CartItem.cart_total(@cart_items,session[:coupon_code])
+        @sub_total, @discount, @tax, @shipping_cost, @final_total = CartItem.cart_total(@cart_items, session[:coupon_code])
         format.html { redirect_to :back, notice: 'Cart item was successfully updated.' }
         format.json { render :show, status: :ok, location: @cart_item }
         format.js

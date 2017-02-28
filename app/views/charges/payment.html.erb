@@ -2,23 +2,22 @@
   <div class="row">
       <div class="col-xs-12">
       <div class="invoice-title">
-        <%if @transaction.refunded == true %>
+        <% if @transaction.refunded == true %>
           <h3 class="center">Payment successfully refunded.</h3>
-        <%else%>
-          <h3 class="center">Payment received successfully Rs.<%= @final_total%></h3>
-        <%end%>
-        <h3 class="pull-right">Order #<%= params[:order_id]%></h3>
-        <%binding.pry%>
+        <% else %>
+          <h3 class="center">Payment received successfully Rs.<%= @final_total %></h3>
+        <% end %>
+        <h3 class="pull-right">Order #<%= @order.id %></h3>
       </div>
       <hr>
       <div class="row">
         <div class="col-xs-6">
           <address>
           <strong>Billed To:</strong><br>
-            <%= @address.name%><br>
-            <%= @address.address_one%> <%= @address.address_two%><br>
-            <%= @address.email%><br>
-            <%= @address.mobile_number%><br>
+            <%= @address.name %><br>
+            <%= @address.address_one %> <%= @address.address_two %><br>
+            <%= @address.email %><br>
+            <%= @address.mobile_number %><br>
           </address>
         </div>
         <div class="col-xs-6 text-right">
@@ -29,7 +28,7 @@
           <address>
             <strong>Payment Method:</strong><br>
             Visa ending **** 4242<br>
-            <%= @address.email%>
+            <%= @address.email %>
           </address>
         </div>
         <div class="col-xs-6 text-right">
@@ -52,10 +51,10 @@
             <table class="table table-condensed">
               <thead>
                 <tr>
-                    <td><strong>Item</strong></td>
-                    <td class="text-center"><strong>Price</strong></td>
-                    <td class="text-center"><strong>Quantity</strong></td>
-                    <td class="text-right"><strong>Totals</strong></td>
+                  <td><strong>Item</strong></td>
+                  <td class="text-center"><strong>Price</strong></td>
+                  <td class="text-center"><strong>Quantity</strong></td>
+                  <td class="text-right"><strong>Totals</strong></td>
                 </tr>
               </thead>
               <tbody>
@@ -63,9 +62,9 @@
                 <% @order_items.each do |item| %>
                   <tr>
                     <td><%=item.product.name%></td>
-                    <td class="text-center"><%=item.product.price%></td>
-                    <td class="text-center"><%=item.quantity%></td>
-                    <td class="text-right"><%= item.product.price * item.quantity%></td>
+                    <td class="text-center"><%= item.product.price %></td>
+                    <td class="text-center"><%= item.quantity %></td>
+                    <td class="text-right"><%= item.product.price * item.quantity %></td>
                     <% @sub_total += item.product.price * item.quantity %>
                   </tr>
                 <%end%>
@@ -103,18 +102,18 @@
             </table>
             <%= link_to(root_path, class: "btn btn-primary") do  %>
               Continue shopping
-            <%end%>
-            <%if @transaction.refunded == false %>
-              <%= link_to(cancel_order_order_path(@order), class: "btn btn-primary") do  %>
+            <% end %>
+            <% if @transaction.refunded == false %>
+              <%= link_to(cancel_order_order_path(@order.id), class: "btn btn-primary") do  %>
                 Cancel Order
-              <%end%>
-            <%end%>
+              <% end %>
+            <% end %>
             <% if @order.order_status == "successfull" || @order.order_status == "in-transit" || @order.order_status == "shipped" || @order.order_status == "delivered" %>
-              <%= button_tag "Track Order", class: "btn btn-primary", "data-toggle" => "modal", "data-target" => "#myModal"%>
+              <%= button_tag "Track Order", class: "btn btn-primary", "data-toggle" => "modal", "data-target" => "#myModal" %>
               <div class="modal fade" id="myModal" role="dialog">
                 <br><%= render 'charges/track_order' %> 
               </div>
-            <%end%>
+            <% end %>
           </div>
         </div>
       </div>

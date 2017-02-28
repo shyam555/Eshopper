@@ -3,7 +3,7 @@
   <div class="container">
     <div class="breadcrumbs">
         <ol class="breadcrumb">
-          <li><%=link_to 'Home', root_url%></li>
+          <li><%= link_to 'Home', root_url %></li>
           <li class="active">Cart Items</li>
         </ol>
       </div><!--/breadcrums-->
@@ -27,9 +27,9 @@
         <% current_user.cart_items.each do |cart_item| %>
           <tr>
             <td class="cart_product">
-              <% if cart_item.product.pictures.first.present?%>
+              <% if cart_item.product.pictures.first.present? %>
                 <%= image_tag(cart_item.product.pictures.first.image.url, class: 'cart-image', style: "width:100px;height:100px") %>
-              <%end%>
+              <% end %>
             </td>
             <td class="cart_description">
               <h4 class="product_desc_align"><%= cart_item.product.name %></h4>
@@ -39,7 +39,7 @@
             </td>
             <td class="cart_quantity">
               <div class="cart_quantity_button">
-                <%= link_to "+", cart_item_path(id: cart_item,qty: "plus"), method: :put, class: "cart_quantity_up", :remote => true %>
+                <%= link_to "+", cart_item_path(id: cart_item, qty: "plus"), method: :put, class: "cart_quantity_up", :remote => true %>
                 <%= number_field_tag :quantity, nil, min: 1, max: 20, onfocusout:"updateQuantity(#{cart_item.id},#{cart_item.product.id})", id: "#{cart_item.id}", class: "cart_quantity_input", :remote => true, :value => cart_item.quantity %>
                 <%= link_to "-", cart_item_path(cart_item, qty: "minus"), method: :put, class: "cart_quantity_down", :remote => true %>
               </div>
@@ -68,17 +68,17 @@
       <div class="col-sm-6">
         <div class="chose_area">
           <div id="couponSection">
-            <%= render 'coupon_section'%>
+            <%= render 'coupon_section' %>
           </div>
         </div>
       </div>
       <div class="col-sm-6" id="total_cost_shipping">
-        <%= render 'cart_items/total_cost'%>
+        <%= render 'cart_items/total_cost' %>
       </div>
     </div>
   </div>
 </section><!--/#do_action-->
-<%else%>
+<% else %>
   <section id="cart_items">
     <div class="container">
       <div class="cart_info">
@@ -86,4 +86,4 @@
       </div>
     </div>
   </section>
-<%end%>
+<% end %>

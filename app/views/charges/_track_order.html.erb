@@ -7,14 +7,14 @@
     <div class="modal-body">
       <div class="progress" style="height: 25px">
         <div class="row">
-          <% if @order.order_status =='successfull'%>
-            <%= render 'success_section'%>
-          <% elsif @order.order_status=='in-transit'%>
-            <%= render 'in-transit_section'%>
-          <% elsif @order.order_status == 'shipped'%>
-            <%= render 'shipped_section'%>
+          <% if @order.order_status =='successfull' %>
+            <%= render 'success_section' %>
+          <% elsif @order.order_status=='in-transit' %>
+            <%= render 'in-transit_section' %>
+          <% elsif @order.order_status == 'shipped' %>
+            <%= render 'shipped_section' %>
           <% elsif @order.order_status == 'delivered' %>
-            <%= render 'delivered_section'%>
+            <%= render 'delivered_section' %>
           <%end%>
         </div>
       </div>

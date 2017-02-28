@@ -7,12 +7,12 @@
             <ul class="nav nav-pills">
               <li><a href="#"><i class="fa fa-phone"></i> +2 95 01 88 821</a></li>
               <li><a href="#"><i class="fa fa-envelope"></i> info@domain.com</a></li>
-              <%if current_user.present? %>
+              <% if current_user.present? %>
                 <% if current_user.admin == true %>
                   <li><%= link_to "Admin Section", rails_admin_path %></li>
-                  <li><%= link_to "Report", report_index_path %></li>
-                <%end%>
-              <%end%>
+                  <li><%= link_to "Report", reports_index_path %></li>
+                <% end %>
+              <% end %>
             </ul>
           </div>
         </div>
@@ -28,7 +28,7 @@
               </ul>
             </div>
           </div>
-        <%end%>
+        <% end %>
       </div>
     </div>
   </div><!--/header_top-->
@@ -37,7 +37,7 @@
       <div class="row">
         <div class="col-sm-4">
           <div class="logo pull-left">
-            <%=link_to image_tag("home/logo.png", border: 0), root_path%>
+            <%= link_to image_tag("home/logo.png", border: 0), root_path %>
           </div>
         </div>
         <div class="col-sm-8">
@@ -50,31 +50,31 @@
                     <li><%= link_to orders_path do %>
                       <i class="fa fa-reorder"> My orders</i><%end%>
                     </li>
-                    <li><%= link_to wishlists_path do%>
+                    <li><%= link_to wishlists_path do %>
                       <i class="fa fa-heart"> Wishlists</i><%end%>
                     </li>
-                    <%if current_user.cart_items.present? %>
+                    <% if current_user.cart_items.present? %>
                       <li><%= link_to "Checkout", checkouts_path%></li>
-                    <%end%>
-                    <li><%= link_to edit_user_registration_path do%>
-                      <i class="fa fa-edit" aria-hidden="true"> Edit Profile</i><%end%>
+                    <% end %>
+                    <li><%= link_to edit_user_registration_path do %>
+                      <i class="fa fa-edit" aria-hidden="true"> Edit Profile</i><% end %>
                     </li>
-                    <li><%= link_to contacts_path do%>
-                      <i class="fa fa-phone" aria-hidden="true"> Contact Us</i><%end%>
+                    <li><%= link_to contacts_path do %>
+                      <i class="fa fa-phone" aria-hidden="true"> Contact Us</i><%end %>
                     </li></br>
                   </ul>
                 </li>
-                  <%if current_user.cart_items.present? %>
-                    <li><%= link_to cart_items_path do%><i class="fa fa-shopping-cart"aria-hidden="true" id="cart"%> Cart (<%= current_user.cart_items.count%>)</i> <% end %></li>
-                  <%end%>
-                <li><%= link_to  destroy_user_session_path, method: :delete do%><i class="fa fa-sign-out" %> Logout</i><%end%></li>
-              <%else%>
+                  <% if current_user.cart_items.present? %>
+                    <li><%= link_to cart_items_path do %><i class="fa fa-shopping-cart"aria-hidden="true" id="cart"%> Cart (<%= current_user.cart_items.count%>)</i> <% end %></li>
+                  <% end %>
+                <li><%= link_to  destroy_user_session_path, method: :delete do %><i class="fa fa-sign-out" %> Logout</i><% end %></li>
+              <% else %>
                 <% if current_page?(user_session_path) %>
-                   <li><%= link_to new_user_registration_path do%><i class="fa fa-lock" aria-hidden="true"> Signup</i><%end%></li>
+                   <li><%= link_to new_user_registration_path do %><i class="fa fa-lock" aria-hidden="true"> Signup</i><% end %></li>
                 <% else %>
-                  <li><%= link_to user_session_path do%><i class="fa fa-lock" aria-hidden="true"></i> Login<%end%></li>
-                <%end%>
-              <%end%>
+                  <li><%= link_to user_session_path do %><i class="fa fa-lock" aria-hidden="true"></i> Login<% end %></li>
+                <% end %>
+              <% end %>
             </ul>
           </div>
         </div>

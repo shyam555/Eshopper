@@ -69,9 +69,8 @@ class OrdersController < ApplicationController
   end
 
   def cancel_order
-    @order= current_user.orders.find(params['order_id'])
-    @order.order_status = 'cancel'
-    @order.save
+    @order= current_user.orders.find(params[:id])
+    @order.update_attribute(:order_status, "cancel")
     @transaction = Transaction.find_by(order_id: @order.id)
     @charge_id = @transaction.charge_id
     charge = Stripe::Charge.retrieve(@charge_id)
@@ -79,7 +78,7 @@ class OrdersController < ApplicationController
       charge.refund
       @transaction.refunded = charge[:refunded]
       @transaction.save
-      @address = Address.find(@order.address_id)
+      @address = current_user.addresses.find(@order.address_id)
       CancelMailer.cancel_order(@order, @address).deliver
     else
       respond_to do |format|

@@ -1,3 +1,3 @@
 $('.delete_item_<%= @cart_item.id%>').remove();
 $('#div_id').html("<%= j (render 'cart_items/index') %>");
-$('#cart').html(' ('+<%= current_user.cart_items.count%>+')')
+$('#cart').html(' ('+<%= current_user.cart_items.count %>+')')

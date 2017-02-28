@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
   
-  get 'report/index'
-  get 'report/sales_report'
-  get 'report/customer_registered'
-  get 'report/coupon_used'
+  get 'reports/index'
+  get 'reports/sales_report'
+  get 'reports/customer_registered'
+  get 'reports/coupon_used'
   resources :recommended_products
   resources :contacts
   resources :wishlists

@@ -26,8 +26,8 @@ class CouponsController < ApplicationController
   def create
      @coupan = Coupon.find_by(code: params[:code])
       if @coupan.present?
-        @used_coupon = CouponUsed.find_by(user_id: current_user.id, coupon_id: @coupan.id )
-        if @used_coupon.present?
+        @coupon_used = current_user.coupon_useds.find_by(coupon_id: @coupan.id )
+        if @coupon_used.present?
           @sub_total, @discount, @tax, @shipping_cost, @final_total = calculate_amount(current_user)
           @message = "Coupon Alredy Used.."
         else
@@ -67,15 +67,12 @@ class CouponsController < ApplicationController
       @message = "Coupon Removed"
     end
     @cart_items = current_user.cart_items
-    @sub_total1, @discount, @tax, @shipping_cost, @final_total = Coupon.destroy_coupon(@cart_items, session[:coupon_code])
+    @sub_total, @discount, @tax, @shipping_cost, @final_total = Coupon.destroy_coupon(@cart_items, session[:coupon_code])
     respond_to do |format|
     format.html { redirect_to :back }
       format.json { head :no_content }
       format.js
     end
   end
-
-  private
-    # Never trust parameters from the scary internet, only allow the white list through.
-    
+   
 end

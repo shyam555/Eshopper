@@ -30,13 +30,13 @@
                         <% end %>
                       </div>
                       <div class="col-sm-2">
-                        <% if order.order_status == "successfull"%>
-                          <p>Order Placed</p> 
-                          <%= order.created_at.strftime("%d / %m / %Y") %>
-                        <%elsif order.order_status == "cancel"%>
-                          <p>Order Cancelled</p> 
-                          <%= order.created_at.strftime("%d / %m / %Y") %>
-                        <%end%>
+                      <% if order.order_status == "successfull"%>
+                        <p>Order Placed</p> 
+                        <%= order.created_at.strftime("%d / %m / %Y") %>
+                      <%elsif order.order_status == "cancel"%>
+                        <p>Order Cancelled</p> 
+                        <%= order.created_at.strftime("%d / %m / %Y") %>
+                      <%end%>
                     </div>
                     <div class="col-sm-2">
                       <p>Order Status</p> 

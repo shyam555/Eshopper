@@ -8,19 +8,19 @@
     <div class="modal-body">
       <div class="shopper-informations">
         <div class="row">
-          <%=form_for @address, :html => { :id=>'submit-form'} do |f|%>
+          <%= form_for @address, :html => { :id=>'submit-form'} do |f| %>
             <div class="col-sm-12 clearfix">
               <div class="bill-to">
                 <div class="form-one">
-                  <%= f.text_field :name, placeholder: "Name", required: "required"%>
-                  <%= f.email_field :email, placeholder: "Email", required: "required"%>
-                  <%= f.text_field :address_one, placeholder: "Address1", required: "required"%>
-                  <%= f.text_field :address_two, placeholder: "Address2"%>
-                  <%= f.text_field :zip_code, placeholder: "Zip / Postal Code", required: "required"%>
-                  <%= f.number_field :mobile_number, placeholder: "Mobile Phone", required: "required"%>
+                  <%= f.text_field :name, placeholder: "Name", required: "required" %>
+                  <%= f.email_field :email, placeholder: "Email", required: "required" %>
+                  <%= f.text_field :address_one, placeholder: "Address1", required: "required" %>
+                  <%= f.text_field :address_two, placeholder: "Address2" %>
+                  <%= f.text_field :zip_code, placeholder: "Zip / Postal Code", required: "required" %>
+                  <%= f.number_field :mobile_number, placeholder: "Mobile Phone", required: "required" %>
                 </div>
               </div>
-              <%= f.button "Submit", class: "btn btn-primary"%>
+              <%= f.button "Submit", class: "btn btn-primary" %>
             </div>
           <%end%>          
         </div>
