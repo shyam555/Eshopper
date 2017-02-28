@@ -31,7 +31,7 @@ class AddressesController < ApplicationController
 
   def update
     if params[:status] == "delete"
-      @address.update_attributes(status:, "inactive")
+      @address.update_attribute(status: "inactive")
       redirect_to checkouts_path
     else
       respond_to do |format|
