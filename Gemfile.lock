@@ -391,6 +391,7 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
+    sqlite3 (1.3.13)
     stripe (1.58.0)
       rest-client (>= 1.4, < 4.0)
     table_print (1.5.6)
@@ -459,6 +460,7 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   social-share-button (= 0.2.1)
+  sqlite3 (~> 1.3, >= 1.3.11)
   stripe
   table_print
   therubyracer
@@ -469,4 +471,4 @@ DEPENDENCIES
   will_paginate (~> 3.1.0)
 
 BUNDLED WITH
-   1.13.7
+   1.15.3
